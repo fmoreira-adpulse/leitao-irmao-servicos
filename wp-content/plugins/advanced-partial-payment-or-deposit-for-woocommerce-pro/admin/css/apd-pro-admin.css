@@ -1,0 +1,197 @@
+/**
+ * APD Deposit Pro - Admin Styles
+ */
+
+/* ============================================
+   Report Stats
+   ============================================ */
+.apd-report-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+.apd-stat-card {
+    background: #fff;
+    border: 1px solid var(--apd-gray-200, #e2e8f0);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    transition: all .2s ease;
+}
+.apd-stat-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    transform: translateY(-2px);
+}
+.apd-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.apd-stat-icon .dashicons {
+    color: #fff;
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+}
+.apd-stat-content {
+    display: flex;
+    flex-direction: column;
+}
+.apd-stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.2;
+}
+.apd-stat-label {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* ============================================
+   Progress Bar
+   ============================================ */
+.apd-progress-bar-container {
+    max-width: 500px;
+}
+.apd-progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #64748b;
+}
+.apd-progress-percent {
+    font-weight: 700;
+    color: #1e293b;
+}
+.apd-progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.apd-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    border-radius: 6px;
+    transition: width .5s ease;
+}
+
+/* ============================================
+   Gateway Grid
+   ============================================ */
+.apd-gateway-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+.apd-gateway-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .2s;
+}
+.apd-gateway-item:hover {
+    border-color: #c7d2fe;
+    background: #f8fafc;
+}
+.apd-gateway-item input[type="checkbox"] {
+    margin: 0;
+}
+.apd-gateway-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #334155;
+}
+
+/* ============================================
+   Installment Row (Plan Builder)
+   ============================================ */
+.apd-installment-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 50px;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background .15s;
+}
+.apd-installment-row:hover {
+    background: #fafbff;
+}
+.apd-installment-row:last-child {
+    border-bottom: none;
+}
+.apd-inst-amount {
+    padding-top: 2px;
+}
+.apd-inst-due {
+    flex: 1;
+}
+.apd-inst-due-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.apd-inst-due-fields .apd-due-extra {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 2px;
+}
+.apd-inst-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4px;
+}
+.apd-inst-actions .apd-btn-danger {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 1024px) {
+    .apd-report-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .apd-gateway-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .apd-installment-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+@media (max-width: 782px) {
+    .apd-report-stats {
+        grid-template-columns: 1fr;
+    }
+    .apd-gateway-grid {
+        grid-template-columns: 1fr;
+    }
+}

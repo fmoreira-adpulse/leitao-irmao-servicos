@@ -1,0 +1,294 @@
+button.bwp-lookbook-add {
+    background: url("../images/btn_gray_bg.gif") repeat-x scroll 0 100% #FFFFFF;
+    border-color: #CCCCCC #AAAAAA #AAAAAA #CCCCCC;
+    color: #555555;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    text-align: center !important;
+    white-space: nowrap;
+    float:left;
+    margin-top: 5px;
+    padding-top:1px;
+    padding-left:4px;
+}
+
+.bwp-lookbook-add span {
+    padding: 5px 0px 5px 35px;
+    background-repeat: no-repeat;
+    line-height: 1.6em;
+    background-image: url("../images/icon_btn_add.png");
+}
+
+.image-annotate-background {
+    border: solid 1px #ccc;
+    background-position: left top;
+    background-repeat: no-repeat;
+    display: block;
+    margin: 0;
+    position: relative;
+}
+.image-annotate-view {
+    display: none;
+    position: relative;
+}
+.bwp-lookbook-area {
+    position: absolute;
+    z-index: 3;
+}
+.bwp-lookbook-area div {
+    display: block;
+}
+.bwp-lookbook-area-hover div {
+    border-color: yellow !important;
+}
+.bwp-lookbook-area-editable {
+    cursor: pointer;
+}
+.bwp-lookbook-area-editable-hover div {
+    border-color: #00AD00 !important;
+}
+.bwp-lookbook-note {
+    background: #E7FFE7 none repeat scroll 0 0;
+    border: solid 1px #397F39;
+    color: #000;
+    display: none;
+    font-size: 12px;
+    max-width: 200px;
+    padding: 3px 7px;
+    position: absolute;
+}
+.bwp-lookbook-note .actions {
+    display: block;
+    font-size: 80%;
+}
+.image-annotate-edit {
+    display: none;
+}
+#image-annotate-edit-form {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.55);
+    padding: 20px 6px;
+    position: absolute;
+    width: 255px;
+    text-align: left;
+    z-index: 2;
+}
+#image-annotate-edit-form form {
+    clear: right;
+    margin: 0 !important;
+    z-index: 999;
+	padding: 0px 10px;
+}
+
+#image-annotate-edit-form form label{
+	margin-top: 4px;
+    margin-bottom: 10px;
+	display: inline-block;
+    min-width: 65px;
+    float: left;
+}
+
+#bwp-lookbook-slug {
+    width: 220px !important;
+}
+.result_search_product .list-product{
+    box-shadow: 0 0 2px #d5d5d5;
+	margin-top : 20px;
+	max-height: 150px;
+    overflow-y: auto;
+    padding-left: 30px;
+}
+.result_search_product .list-product .item-list-product{
+	padding : 10px 2px;
+}
+.result_search_product .list-product .item-list-product:hover{
+	color: #0085ba;
+    cursor: pointer;
+}
+#image-annotate-edit-form .box {
+    margin: 0;
+}
+#image-annotate-edit-form fieldset {
+    background: transparent none repeat scroll 0 0;
+}
+#image-annotate-edit-form .form-item {
+    margin: 0 0 5px;
+}
+#image-annotate-edit-form .form-button, #image-annotate-edit-form .form-submit {
+    margin: 0;
+}
+
+.image-annotate-edit-area {
+    cursor: move;
+    display: block;
+    height: 60px;
+    left: 10px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 10px;
+    width: 60px;
+}
+
+.image-annotate-edit-area:before {
+    position:absolute;
+    display:block;
+    content:'';
+    height:100%;
+    width:100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+#image-annotate-edit-form button {
+    background: #e5e5e5;
+    border-color: #d3d3d3;
+    color: #222222;
+    float:left;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    font: bold 12px arial,helvetica,sans-serif;
+    text-align: center !important;
+    white-space: nowrap;
+    margin-top: 10px;
+    margin-left:10px;
+    margin-right:0px;
+    border-radius: 3px;
+    padding: 7px 9px;
+}
+#image-annotate-edit-form button:first-child {
+    margin-left: 0;
+}
+
+#image-annotate-edit-form button span {
+    padding: 0px 0px 5px 20px;
+    background-repeat: no-repeat;
+    line-height: 1.35em;
+}
+
+.image-annotate-edit-ok span {
+   background: url("../images/ok_btn_icon.png") no-repeat;
+}
+
+#image-annotate-edit-form button.image-annotate-edit-delete span{
+    padding: 1px 0px 5px 20px;
+    background: url("../images/delete_btn_icon.png") no-repeat;
+}
+
+.image-annotate-edit-close span {
+    background: url("../images/cancel_btn_icon.png") no-repeat;
+}
+
+.pins-msg {
+    display:block;
+    position:absolute;
+    width:100%;
+    font-weight: bold;
+    text-align:center;
+    font-size:14px;
+    color: #FFFFFF;
+    text-shadow: #000000 2px 2px 6px;
+}
+
+.products-link{
+    display:block;
+    width:100%;
+    font-weight: bold;
+    text-align:center;
+    font-size:14px;
+    color: #FFFFFF;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.products-link a {
+    float:right;
+    padding-right: 16px;
+    background-image: url("../images/link_external.png");
+    background-repeat: no-repeat;
+    background-position: right center;
+    font-weight: normal;
+    color:#EA7601;
+}
+
+.bwp-lookbook-area, .image-annotate-edit-area {
+    background: rgba(0, 0, 0, 0) url("../images/plus-icon.png") no-repeat scroll center center;
+}
+
+.error {
+    border: 1px solid #ff0000;
+    color: #ff0000;
+}
+
+.operation_error {
+    color: #fff;
+    font-size: 1.5em;
+}
+
+#msg {
+    background: #0074a2 none repeat scroll 0 0;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.dies-column {
+    width: 2.2em;
+    text-align: center;
+}
+
+.column-size {
+    width: 20%;
+}
+.status-column {
+    width: 10%;
+}
+.required {
+    color: #d54e21;
+    margin-left: 5px;
+}
+
+.bwp_textarea {
+    width: 80%;
+    height: 100px;
+}
+
+.label {
+    width: 300px;
+}
+
+.value {
+    width: 90%;
+}
+
+.bottom_button {
+    margin: 10px 10px 0 0;
+    float: right;
+}
+
+.delete form {
+    display: inline;
+}
+
+#upload_progress {
+    display: none;
+    background-image: url(../images/ajax-loader.gif);
+    width: 128px;
+    height: 15px;
+}
+
+#LookbookImageBlock button{
+	width : 89px;
+	height : 35px;
+	margin-top : 2px;
+	margin-bottom : 20px;
+    border-radius: 3px;
+    background: url(../images/pin-icon.png) no-repeat scroll 12px 8px #ececec;
+    text-transform: capitalize;
+    box-shadow: none;
+    outline: none;
+    border: 1px solid #d3d3d3;
+    padding-left: 35px;
+    text-align: left;
+}

@@ -1,0 +1,72 @@
+# Translation of Plugins - NIF (Num. de Contribuinte Português) for WooCommerce - Stable (latest release) in Portuguese (Portugal)
+# This file is distributed under the same license as the Plugins - NIF (Num. de Contribuinte Português) for WooCommerce - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-04-14 08:07:25+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: pt\n"
+"Project-Id-Version: Plugins - NIF (Num. de Contribuinte Português) for WooCommerce - Stable (latest release)\n"
+
+#. Author URI of the plugin
+#: woocommerce_nif.php
+msgid "https://nakedcatplugins.com"
+msgstr "https://nakedcatplugins.com"
+
+#. Author of the plugin
+#: woocommerce_nif.php
+msgid "Naked Cat Plugins (by Webdados)"
+msgstr "Naked Cat Plugins (by Webdados)"
+
+#: build/block.json
+msgctxt "block title"
+msgid "NIF Português"
+msgstr "NIF Português"
+
+#: webdados_invoicexpress_nag/webdados_invoicexpress_nag.php:36
+msgid "https://invoicewoo.com/"
+msgstr "https://invoicewoo.com/"
+
+#. Plugin URI of the plugin
+#: woocommerce_nif.php
+msgid "https://www.webdados.pt/wordpress/plugins/nif-de-contribuinte-portugues-woocommerce-wordpress/"
+msgstr "https://www.webdados.pt/wordpress/plugins/nif-de-contribuinte-portugues-woocommerce-wordpress/"
+
+#: webdados_invoicexpress_nag/webdados_invoicexpress_nag.php:42
+msgid "Use the coupon <strong>webdados</strong> for 10% discount!"
+msgstr "Use o cupão <strong>webdados</strong> para obter 10% de desconto!"
+
+#. translators: %1$s link opening tag, %2$s link cosing tag
+#: webdados_invoicexpress_nag/webdados_invoicexpress_nag.php:33
+msgid "If not, get to know our new plugin: %1$sInvoicing with InvoiceXpress for WooCommerce%2$s"
+msgstr "Se não, conheça o nosso novo plugin: %1$sInvoicing with InvoiceXpress for WooCommerce%2$s"
+
+#: webdados_invoicexpress_nag/webdados_invoicexpress_nag.php:28
+msgid "Are you already issuing automatic invoices on your WooCommerce store?"
+msgstr "Já emite facturas automáticas na sua loja WooCommerce?"
+
+#: woocommerce_nif.php:84 woocommerce_nif.php:174
+msgid "Portuguese VAT identification number"
+msgstr "Nº de Contribuinte Português"
+
+#. Description of the plugin
+#: woocommerce_nif.php
+msgid "This plugin adds the Portuguese VAT identification number (NIF/NIPC) as a new field to WooCommerce checkout and order details, if the billing address is from Portugal."
+msgstr "Este plugin adiciona o NIF/NIPC Português como um novo campo ao checkout do WooCoomerce bem como aos detalhes da encomenda, se a morada de facturação for de Portugal."
+
+#. Plugin Name of the plugin
+#: woocommerce_nif.php
+msgid "NIF (Num. de Contribuinte Português) for WooCommerce"
+msgstr "NIF (Num. de Contribuinte Português) para WooCommerce"
+
+#. translators: %s NIF field name
+#: woocommerce_nif.php:314 woocommerce_nif.php:421
+msgid "You have entered an invalid %s for Portugal."
+msgstr "Inseriu um %s incorrecto para Portugal."
+
+#: ptwoo-nif-extend-store-endpoint.php:55 woocommerce_nif.php:373
+msgid "NIF / NIPC"
+msgstr "NIF / NIPC"

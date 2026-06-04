@@ -1,0 +1,47 @@
+/*------------------- Other layout -----------------*/
+.marginright-auto{
+	>.elementor-container{
+		margin-left:0 !important;
+	}
+}
+.marginleft-auto{
+	>.elementor-container{
+		margin-right: 0 !important;
+	}
+}
+@media (min-width:$screen-sm-max){
+	.marginright-sm-auto{
+		>.elementor-container{
+			margin-left:0 !important;
+		}
+	}
+	.marginleft-sm-auto{
+		>.elementor-container{
+			margin-right: 0 !important;
+		}
+	}
+}
+@media (max-width:$screen-sm-max){
+	.marginright-xs-auto{
+		>.elementor-container{
+			margin-left:0 !important;
+		}
+	}
+	.marginleft-xs-auto{
+		>.elementor-container{
+			margin-right: 0 !important;
+		}
+	}
+}
+.elementor-icon-box-title{
+	margin-top:0;
+}
+/*------------------- End layout -----------------*/
+
+.policy-contact{
+	.elementor-icon-box-icon{
+		.elementor-icon{
+			border-color:#e3e3e3 !important;
+		}
+	}
+}

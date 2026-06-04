@@ -1,0 +1,33 @@
+# Translation of Plugins - Extra product options For WooCommerce | Custom Product Addons and Fields - Stable (latest release) in English (UK)
+# This file is distributed under the same license as the Plugins - Extra product options For WooCommerce | Custom Product Addons and Fields - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-02-12 09:38:58+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: en_GB\n"
+"Project-Id-Version: Plugins - Extra product options For WooCommerce | Custom Product Addons and Fields - Stable (latest release)\n"
+
+#: includes/class-thwepof.php:167
+msgid "Settings"
+msgstr "Settings"
+
+#. Description of the plugin
+msgid "Add extra product options in product page."
+msgstr "Add extra product options in product page."
+
+#: includes/class-thwepof.php:155
+msgid "Extra Product Option"
+msgstr "Extra Product Option"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://www.themehigh.com"
+msgstr "https://www.themehigh.com"
+
+#: includes/class-thwepof.php:154
+msgid "WooCommerce Extra Product Option"
+msgstr "WooCommerce Extra Product Option"

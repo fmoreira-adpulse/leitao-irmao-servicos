@@ -1,0 +1,33 @@
+<wpml-config>
+	<custom-types>
+ 		<custom-type translate="1">shop_bogof_rule</custom-type>
+	</custom-types>
+    <custom-fields>
+		<custom-field action="copy">_enabled</custom-field>
+		<custom-field action="copy">_type</custom-field>
+		<custom-field action="copy">_min_quantity</custom-field>
+		<custom-field action="copy">_action</custom-field>
+		<custom-field action="copy">_individual</custom-field>
+		<custom-field action="copy">_free_quantity</custom-field>
+		<custom-field action="copy">_cart_limit</custom-field>
+		<custom-field action="copy">_usage_limit_per_user</custom-field>
+		<custom-field action="copy">_coupon_ids</custom-field>
+		<custom-field action="copy">_allowed_user_roles</custom-field>
+		<custom-field action="copy">_start_date</custom-field>
+		<custom-field action="copy">_end_date</custom-field>
+		<custom-field action="copy">_minimum_amount</custom-field>
+		<custom-field action="copy">_exclude_coupon_validation</custom-field>
+		<custom-field action="copy">_exclude_other_rules</custom-field>
+		<custom-field action="copy">_discount</custom-field>
+		<custom-field action="ignore">_applies_to</custom-field>
+		<custom-field action="ignore">_free_product_id</custom-field>
+		<custom-field action="ignore">_gift_products</custom-field>
+    </custom-fields>
+	 <admin-texts>
+        <key name="wc_bogof_cyg_notice"/>
+        <key name="wc_bogof_cyg_notice_button_text"/>
+		<key name="wc_bogof_cyg_title"/>
+    </admin-texts>
+</wpml-config>
+
+

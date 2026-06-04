@@ -1,0 +1,188 @@
+#custom_box li {
+    min-height: 5em;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+#custom_box #file_list_header:has( + ul:not(:has( li))) {
+    color: red;
+    display: none;
+}
+
+#custom_box li:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+
+#custom_box li img {
+    max-height: 100px;
+    max-width: 100px;
+    border: 2px solid #e8e8e8;
+    margin-right: 40px;
+}
+
+#custom_box li .remove-order-attachment {
+    margin-left: 10px;
+    background-color: transparent;
+    color: #a00;
+    border: none;
+    cursor: pointer;
+}
+
+.hidden-by-radio, .ad-pulse-hidden {
+    display: none!important;
+}
+
+.form-field [type="checkbox"] {
+    max-width: 1lh;
+}
+
+div.has_priority {
+    width: 100%;
+    font-weight: bold;
+    color: var(--danger);
+    font-size: 1.5em;
+    text-transform:uppercase;
+}
+
+.adpulse-search-filters {
+    display: none;
+    transition: height 1s;
+    margin: 20px auto !important;
+    width: 90%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0 10px;
+    height: 6lh;
+}
+
+.adpulse-search-filters.open {
+    display: flex;
+}
+
+#order_line_items > .item > .name > .view > table.display_meta > tbody tr,
+#order_line_items > .item > .name > .view > table.display_meta > tbody td {
+    display: block;
+}
+
+#order_line_items > .name > .view > table.display_meta > tbody td {
+    padding: 0;
+}
+
+.woocommerce-table__product-name > ul.wc-item-meta > li {
+    display: grid;
+}
+
+.woocommerce-table__product-name > ul.wc-item-meta > li > p {
+    margin: 0;
+}
+
+.inside.hide-fileuploader .fileuploader-input {
+    display: none;
+}
+
+#pdf_custom_box .inside {
+    text-align: end;
+}
+
+#pdf_custom_box .inside button {
+    margin: 20px;
+}
+
+.energyplus-orders--seller {
+    margin-bottom: 0.5em;
+}
+
+button[data-action=generate-order-report] span, button[data-action=confirm-payment] span {
+    display: inline-block;
+    transform: translate(0px, -25%);
+}
+
+.__A__Orders_Container .__A__Item.order-alert[id^="item"] {
+    box-shadow: 0 0 15px 0 var(--primary-buttons) !important;
+}
+
+.tablenav.top:has(~.wp-list-table .type-wcsts_ticket) .bulkactions {
+    display: none;
+}
+
+thead:has(~tbody .type-wcsts_ticket) #cb input, .type-wcsts_ticket input {
+    cursor: auto;
+    opacity: 0;
+}
+
+.generate-payments-container {
+    margin: 20px 0;
+}
+
+.generate-payments-container > * {
+    margin: 0 10px;
+}
+
+.generate-payments-container > button {
+    right: 10px;
+    position: absolute;
+}
+
+/* Loader CSS */
+/* HTML: <div class="loader"></div> */
+.loader {
+    opacity: 0;
+    padding: 5px 0;
+    margin: 5px 0 0 0;
+    transition: all 0.5s;
+    width: 0;
+    display: inline-block;
+    
+    height: 15px;
+    padding: 5px 0;
+    border-radius: 50%;
+    background: white;
+    --_m: 
+      conic-gradient(#0000 10%,#000),
+      linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+            mask: var(--_m);
+    -webkit-mask-composite: source-out;
+            mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+.loader.active {
+    width: 15px;
+    margin: 5px 0 0 10px;
+    opacity: 1;
+    padding: 5px 5px;
+  }
+
+@keyframes l3 {to{transform: rotate(1turn)}}
+
+.wc-admin-loader {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.6);
+    z-index: 9999;
+}
+
+.wc-admin-loader::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 4px solid #2271b1;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+/* ===================================
+   Caixa do Número de Ordem
+   =================================== */
+
+div.__A__Order_No {
+    width: 20% !important;
+    min-width: 20% !important;
+    padding: 4px 10px;
+}

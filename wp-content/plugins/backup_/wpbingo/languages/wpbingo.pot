@@ -1,0 +1,2148 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Wpbingo Core\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-06 11:58+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.4; wp-6.2.2\n"
+"X-Domain: wpbingo"
+
+#: lib/metabox.php:206
+msgid " Chose to select footer page content for this page. "
+msgstr ""
+
+#: lib/metabox.php:192
+msgid " Chose to select header page content for this page. "
+msgstr ""
+
+#: widgets-template/bwp-recent-post/sidebar.php:57
+#: elementor-template/bwp-recent-post/default.php:49
+#: elementor-template/bwp-recent-post/sidebar.php:45
+msgid " Comment"
+msgstr ""
+
+#: widgets-template/bwp-recent-post/sidebar.php:59
+#: widgets-template/bwp-recent-post/sidebar.php:62
+#: elementor-template/bwp-recent-post/default.php:51
+#: elementor-template/bwp-recent-post/default.php:54
+#: elementor-template/bwp-recent-post/sidebar.php:47
+#: elementor-template/bwp-recent-post/sidebar.php:50
+msgid " Comments"
+msgstr ""
+
+#: elementor-template/bwp-product-categories/default.php:79
+msgid " Item"
+msgstr ""
+
+#: elementor-template/bwp-product-categories/list.php:57
+#: elementor-template/bwp-product-categories/default.php:81
+msgid " Items"
+msgstr ""
+
+#: elementor-template/bwp-image/banner_category.php:15
+#: elementor-template/bwp-image/banner_category.php:17
+#: elementor-template/bwp-product-categories/slider.php:73
+#: elementor-template/bwp-product-categories/slider.php:75
+#: elementor-template/bwp-product-categories/slider2.php:73
+#: elementor-template/bwp-product-categories/slider2.php:75
+msgid " products"
+msgstr ""
+
+#: elementor-template/bwp-product-list/product-menu.php:34
+msgid " review"
+msgstr ""
+
+#: elementor-template/bwp-product-list/product-menu.php:41
+msgid " reviews"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/result-count.php:9
+#: widgets-template/bwp-ajax-filter/result-count.php:26
+#, php-format
+msgctxt "%1$d = first, %2$d = last, %3$d = total"
+msgid "Showing %1$d&ndash;%2$d of %3$d item(s)"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:642
+#, php-format
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr ""
+
+#: widgets/custom_menu.php:143
+msgid "&mdash; Select &mdash;"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:322
+msgid "- Select -"
+msgstr ""
+
+#: lib/metabox.php:718
+msgid "360 product view"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1153
+#, php-format
+msgid ""
+"A new version of this importer is available. Please update to version %s to "
+"ensure compatibility with newer export files."
+msgstr ""
+
+#: widgets/custom_menu.php:18
+msgid "Add a custom menu to your sidebar."
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:60
+msgid "Add Lookbook"
+msgstr ""
+
+#: lib/portfolio.php:7
+msgid "Add New"
+msgstr ""
+
+#: lib/brands.php:86
+msgid "Add New Brands"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:267
+msgid "Add New Lookbook"
+msgstr ""
+
+#: lib/ourteam.php:8 lib/ourteam.php:9
+msgid "Add New Our Team"
+msgstr ""
+
+#: lib/portfolio.php:8
+msgid "Add New Portfolio Item"
+msgstr ""
+
+#: lib/slider.php:8 lib/slider.php:9
+msgid "Add New Slider"
+msgstr ""
+
+#: lib/testimonial.php:7 lib/testimonial.php:8
+msgid "Add New Testimonial"
+msgstr ""
+
+#: elementor-template/bwp-portfolio/portfolio-item.php:46
+#: elementor-template/bwp-filter-homepage/tab-category/slider.php:26
+#: elementor-template/bwp-filter-homepage/tab-category/default.php:28
+#: elementor-template/bwp-filter-homepage/tab-category/scroll.php:26
+#: elementor-template/bwp-filter-homepage/tab-category/slider-2.php:26
+msgid "All"
+msgstr ""
+
+#: lib/brands.php:81
+msgid "All Brands"
+msgstr ""
+
+#: elementor/bwp_recent_post.php:24 elementor/bwp_product_list.php:21
+#: elementor/bwp_filter_homepage.php:21 elementor/bwp_product_countdown.php:21
+#: elementor/bwp_product_countdown.php:247
+msgid "All Categories"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:190
+msgid "All Category Portfolio"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:176
+msgid "All done."
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/loadmore.php:48
+msgid "All Products"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:54
+#: elementor-template/bwp-filter-homepage/default.php:57
+msgid "All products"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:6
+msgid "Allows you to filter atribute,price products"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:311
+msgid "as a new user:"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:264
+msgid "Assign Authors"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:319
+msgid "assign posts to an existing user:"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:350
+msgid "Attribute"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:70
+#: elementor-template/bwp-product-countdown/slider2.php:64
+msgid "Available:"
+msgstr ""
+
+#: lib/metabox.php:47 lib/metabox.php:112
+msgid "Background Breadcrumb"
+msgstr ""
+
+#: elementor/bwp-image.php:170
+#: elementor-template/bwp-image/banner_category.php:5
+msgid "Banner Category"
+msgstr ""
+
+#: elementor-template/bwp-image/banner_product_countdown_2.php:10
+#: elementor-template/bwp-image/banner_product_countdown.php:10
+msgid "Banner Coutdown"
+msgstr ""
+
+#: elementor-template/bwp-image/layout.php:8
+#: elementor-template/bwp-image/default.php:7
+#: elementor-template/bwp-image/nostyle.php:8
+#: elementor-template/bwp-image/layout3.php:14
+msgid "Banner Image"
+msgstr ""
+
+#: elementor/bwp-image.php:171
+msgid "Banner Menu"
+msgstr ""
+
+#: elementor-template/bwp-image/banner_product.php:15
+msgid "Banner Product"
+msgstr ""
+
+#: elementor/bwp-image.php:172
+msgid "Banner Product Countdown"
+msgstr ""
+
+#: elementor/bwp-image.php:173
+msgid "Banner Product Countdown 2"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/loadmore.php:77
+#: elementor-template/bwp-filter-homepage/tab-product/default.php:29
+msgid "Best Sellers"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/tab-product/slider.php:24
+msgid "Best Selling"
+msgstr ""
+
+#: elementor/bwp_recent_post.php:191
+msgid "Blog Menu"
+msgstr ""
+
+#: lib/brands.php:102
+msgid "brand"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:555 lib/brands.php:78 lib/brands.php:79
+#: elementor/bwp_brand.php:58
+msgid "Brands"
+msgstr ""
+
+#: lib/metabox.php:571 lib/metabox.php:594
+msgid "Browse"
+msgstr ""
+
+#: elementor/bwp-image.php:65 elementor/bwp_lookbook.php:87
+#: elementor/bwp_recent_post.php:66 elementor/bwp_product_list.php:63
+msgid "Button label"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:339
+msgid "Cancel"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:599 elementor/bwp_product_categories.php:55
+msgid "Categories"
+msgstr ""
+
+#: lib/admin.php:21
+msgid "Categories Portfolio"
+msgstr ""
+
+#: widgets/recent_post.php:228 elementor/bwp_recent_post.php:57
+#: elementor/bwp_product_list.php:81 elementor/bwp_filter_homepage.php:229
+msgid "Category"
+msgstr ""
+
+#: lib/metabox.php:59 lib/metabox.php:130
+msgid "Category Icon"
+msgstr ""
+
+#: lib/portfolio.php:41
+msgid "Category Portfolio"
+msgstr ""
+
+#: function.php:273 elementor/bwp_filter_homepage.php:377
+msgid "Choose "
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1169
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr ""
+
+#: function.php:323
+msgid "Choose Brands"
+msgstr ""
+
+#: elementor/bwp-image.php:132 elementor/bwp-video.php:84
+#: elementor/bwp_slider.php:78 elementor/bwp_cta.php:59
+#: elementor/bwp-policy.php:65
+msgid "Choose Image"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/title.php:26
+#: elementor-template/bwp-filter-homepage/slider.php:84
+#: elementor-template/bwp-filter-homepage/default.php:84
+msgid "Clear All"
+msgstr ""
+
+#: widgets/custom_menu.php:37
+msgid "Close"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:376
+msgid "color"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:24 elementor/bwp-image.php:31
+#: elementor/bwp-video.php:23 elementor/bwp_brand.php:33
+#: elementor/bwp_testimonial.php:24 elementor/bwp_cta.php:25
+#: elementor/bwp_recent_post.php:32 elementor/bwp_product_list.php:29
+#: elementor/bwp_ourteam.php:26 elementor/bwp_product_categories.php:30
+#: elementor/bwp_filter_homepage.php:29 elementor/bwp-policy.php:30
+#: elementor/bwp_product_countdown.php:29
+msgid "Content"
+msgstr ""
+
+#: elementor/bwp_client.php:23
+msgid "Content Client"
+msgstr ""
+
+#: elementor/bwp_instagram.php:23
+msgid "Content Instagram"
+msgstr ""
+
+#: elementor/bwp_lookbook.php:34
+msgid "Content Lookbook"
+msgstr ""
+
+#: elementor/bwp_slider.php:25
+msgid "Content Slider"
+msgstr ""
+
+#: elementor/bwp_cta.php:50
+msgid "Count"
+msgstr ""
+
+#: elementor-template/bwp-cta/default.php:4
+msgid "counter up"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:243
+msgid "Create New Lookbook"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider2.php:85
+#: elementor-template/bwp-product-list/list-deal.php:24
+msgid "d"
+msgstr ""
+
+#: elementor-template/bwp-image/banner_product_countdown_2.php:33
+#: elementor-template/bwp-image/banner_product_countdown.php:32
+#: elementor-template/bwp-image/banner_countdown.php:32
+msgid "Days"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:80
+msgid "days"
+msgstr ""
+
+#: function.php:180 function.php:197 widgets/recent_post.php:367
+#: elementor/bwp-image.php:158 elementor/bwp-video.php:98
+#: elementor/bwp_brand.php:154 elementor/bwp_slider.php:201
+#: elementor/bwp_testimonial.php:137 elementor/bwp_lookbook.php:202
+#: elementor/bwp_cta.php:73 elementor/bwp_recent_post.php:190
+#: elementor/bwp_product_list.php:252 elementor/bwp_ourteam.php:129
+#: elementor/bwp_product_categories.php:229
+#: elementor/bwp_filter_homepage.php:273 elementor/bwp_instagram.php:179
+#: elementor/bwp-policy.php:79
+msgid "Default"
+msgstr ""
+
+#: elementor/bwp_brand.php:155 elementor/bwp_lookbook.php:203
+#: elementor/bwp-policy.php:80
+msgid "Default 2"
+msgstr ""
+
+#: elementor/bwp_lookbook.php:204 elementor/bwp-policy.php:81
+msgid "Default 3"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:14
+#: elementor-template/bwp-filter-homepage/default.php:14
+msgid "Default sorting"
+msgstr ""
+
+#: elementor/bwp-video.php:99
+msgid "Default2"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:95
+msgid "Delete"
+msgstr ""
+
+#: lib/extensions/wbc_importer/extension_wbc_importer.php:236
+msgid "Demo Already Imported"
+msgstr ""
+
+#: lib/extensions/wbc_importer/wbc_importer/field_wbc_importer.php:97
+msgid "Demo Imported"
+msgstr ""
+
+#: lib/extensions/wbc_importer/extension_wbc_importer.php:262
+#: lib/extensions/wbc_importer/extension_wbc_importer.php:264
+msgid "Demo Importer"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:73 elementor/bwp_product_list.php:111
+#: elementor/bwp_product_countdown.php:103
+msgid "Descending"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:40 elementor/bwp-image.php:56
+#: elementor/bwp-video.php:39 elementor/bwp_slider.php:50
+#: elementor/bwp_lookbook.php:59 elementor/bwp_recent_post.php:48
+#: elementor/bwp_filter_homepage.php:54 elementor/bwp_instagram.php:82
+#: elementor/bwp-policy.php:46 elementor/bwp_product_countdown.php:54
+#: lib/lookbook/admin/admin.php:309
+msgid "Description"
+msgstr ""
+
+#: elementor-template/bwp-image/banner_product.php:33
+msgid "detail"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/parsers.php:43
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:526
+msgid "don't exist"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:280
+msgid "Download and import file attachments"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:90
+msgid "Edit"
+msgstr ""
+
+#: lib/brands.php:84
+msgid "Edit Brands"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:246
+msgid "Edit Lookbook"
+msgstr ""
+
+#: widgets/custom_menu.php:153
+msgid "Edit Menu"
+msgstr ""
+
+#: lib/ourteam.php:10
+msgid "Edit Our Team"
+msgstr ""
+
+#: lib/portfolio.php:9
+msgid "Edit Portfolio Item"
+msgstr ""
+
+#: lib/slider.php:10
+msgid "Edit Slider"
+msgstr ""
+
+#: lib/testimonial.php:9
+msgid "Edit Testimonial"
+msgstr ""
+
+#: elementor-template/bwp-product-list/list-deal.php:22
+msgid "end in"
+msgstr ""
+
+#: lib/metabox.php:713
+msgid "Enter the Featured Video URL field."
+msgstr ""
+
+#: elementor/bwp-image.php:86 elementor/bwp_product_list.php:239
+msgid "Ex : 2019-5-25"
+msgstr ""
+
+#: lib/metabox.php:61 lib/metabox.php:133
+msgid "Ex : fa fa-home"
+msgstr ""
+
+#: elementor/bwp_testimonial.php:40 elementor/bwp_recent_post.php:93
+msgid "Excerpt length (in words)"
+msgstr ""
+
+#: widgets/recent_post.php:245
+msgid "Excerpt length (in words): "
+msgstr ""
+
+#: elementor/bwp-video.php:66 elementor/bwp_brand.php:49
+#: elementor/bwp_lookbook.php:68 elementor/bwp_product_list.php:45
+#: elementor/bwp_filter_homepage.php:45 elementor/bwp_product_countdown.php:63
+msgid "Extra Class"
+msgstr ""
+
+#: elementor/bwp_product_list.php:54
+msgid "Extra Description"
+msgstr ""
+
+#: elementor/bwp-policy.php:59
+msgid "fa fa home"
+msgstr ""
+
+#: lib/shortcode.php:36 lib/metabox.php:317
+msgid "Facebook"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:372
+#, php-format
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:516
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:738
+#, php-format
+msgid "Failed to import %s %s"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:704
+#, php-format
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:605
+#, php-format
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:238
+#, php-format
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:424
+#, php-format
+msgid "Failed to import category %s"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:467
+#, php-format
+msgid "Failed to import post tag %s"
+msgstr ""
+
+#: lib/brands.php:121 lib/brands.php:139
+#: elementor-template/bwp-filter-homepage/tab-product/slider.php:27
+msgid "Featured"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/loadmore.php:80
+#: elementor-template/bwp-filter-homepage/tab-product/default.php:32
+msgid "Featured Products"
+msgstr ""
+
+#: lib/metabox.php:710
+msgid "Featured Video URL"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:957
+msgid "Fetching attachments is not enabled"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:563
+msgid "File size too large"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:67
+#: elementor-template/bwp-filter-homepage/default.php:50
+msgid "Filter"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:148
+msgid "FitRows"
+msgstr ""
+
+#: lib/metabox.php:200 lib/footer.php:7 lib/footer.php:8
+msgid "Footer"
+msgstr ""
+
+#: lib/metabox.php:204
+msgid "Footer Page Select"
+msgstr ""
+
+#: lib/admin.php:15
+msgid "Footers"
+msgstr ""
+
+#: elementor/bwp_slider.php:97 elementor/bwp_lookbook.php:107
+#: elementor/bwp_client.php:57 elementor/bwp_instagram.php:57
+msgid "Garenal"
+msgstr ""
+
+#: elementor/bwp_recent_post.php:75
+msgid "Go to news"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider2.php:86
+#: elementor-template/bwp-product-list/list-deal.php:25
+msgid "h"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:176
+msgid "Have fun!"
+msgstr ""
+
+#: lib/metabox.php:179
+msgid "Header"
+msgstr ""
+
+#: lib/metabox.php:190
+msgid "Header Style Select"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:73
+msgid "Height"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:24
+#: elementor-template/bwp-product-countdown/slider2.php:26
+msgid "Hot"
+msgstr ""
+
+#: elementor-template/bwp-image/banner_product_countdown_2.php:34
+#: elementor-template/bwp-image/banner_product_countdown.php:33
+#: elementor-template/bwp-image/banner_countdown.php:33
+msgid "Hours"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:81
+msgid "hours"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:126
+msgid "Hover"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1168
+msgid ""
+"Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import "
+"the posts, pages, comments, custom fields, categories, and tags into this "
+"site."
+msgstr ""
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "https://themeforest.net/user/wpbingo"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:76
+#: elementor-template/bwp-product-countdown/slider2.php:81
+msgid "HungRy Up !"
+msgstr ""
+
+#: elementor/bwp-policy.php:56
+msgid "Icon"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:267
+#, php-format
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:74
+msgid "Image"
+msgstr ""
+
+#: elementor/bwp_client.php:29
+msgid "Image Client"
+msgstr ""
+
+#: elementor/bwp_instagram.php:29
+msgid "Image Instagram"
+msgstr ""
+
+#: elementor-template/bwp-lookbook/slider.php:58
+#: elementor-template/bwp-lookbook/default2.php:75
+#: elementor-template/bwp-lookbook/default.php:69
+msgid "Image Lookbook"
+msgstr ""
+
+#: elementor-template/bwp-policy/default.php:6
+#: elementor-template/bwp-policy/layout1.php:5
+msgid "Image Policy"
+msgstr ""
+
+#: elementor-template/bwp-product-list/product-menu.php:27
+msgid "Image Product"
+msgstr ""
+
+#: elementor-template/bwp-slider/default.php:29
+#: elementor-template/bwp-slider/gallery.php:17
+#: elementor-template/bwp-slider/layout-1.php:10
+#: elementor-template/bwp-instagram/slider.php:29
+#: elementor-template/bwp-instagram/default.php:27
+#: elementor-template/bwp-client/slider.php:23
+#: elementor-template/bwp-client/default.php:27
+msgid "Image Slider"
+msgstr ""
+
+#: elementor-template/bwp-lookbook/default2.php:78
+#: elementor-template/bwp-lookbook/default.php:72
+msgid "Image Thumb Lookbook"
+msgstr ""
+
+#: elementor-template/bwp-video/default2.php:7
+#: elementor-template/bwp-video/default.php:7
+#: elementor-template/bwp-video/layout1.php:7
+msgid "Image Video"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1243
+msgid ""
+"Import <strong>posts, pages, comments, custom fields, categories, and "
+"tags</strong> from a WordPress export file."
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:277
+msgid "Import Attachments"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:297
+msgid "Import author:"
+msgstr ""
+
+#: lib/extensions/wbc_importer/wbc_importer/field_wbc_importer.php:93
+#: lib/extensions/wbc_importer/wbc_importer/field_wbc_importer.php:114
+msgid "Import Demo"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1146
+msgid "Import WordPress"
+msgstr ""
+
+#: lib/extensions/wbc_importer/wbc_importer/field_wbc_importer.php:116
+#: lib/extensions/wbc_importer/inc/importer/radium-importer.php:499
+msgid "Imported"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/radium-importer.php:502
+msgid "Imported to Inactive"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/filter.php:98
+msgid "In Stock"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:970
+msgid "Invalid file type"
+msgstr ""
+
+#: lib/metabox.php:307 lib/metabox.php:424
+msgid "Job"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:63
+msgid "Label Buton"
+msgstr ""
+
+#: elementor/bwp-video.php:48
+msgid "Label Button"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/loadmore.php:74
+#: elementor-template/bwp-filter-homepage/tab-product/slider.php:21
+#: elementor-template/bwp-filter-homepage/tab-product/default.php:26
+msgid "Latest Products"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:144 elementor/bwp-image.php:154
+#: elementor/bwp-video.php:94 elementor/bwp_brand.php:150
+#: elementor/bwp_slider.php:197 elementor/bwp_testimonial.php:133
+#: elementor/bwp_lookbook.php:198 elementor/bwp_client.php:176
+#: elementor/bwp_cta.php:69 elementor/bwp_recent_post.php:186
+#: elementor/bwp_product_list.php:248 elementor/bwp_ourteam.php:125
+#: elementor/bwp_product_categories.php:225
+#: elementor/bwp_filter_homepage.php:269 elementor/bwp_instagram.php:175
+#: elementor/bwp-policy.php:75 elementor/bwp_product_countdown.php:212
+msgid "Layout"
+msgstr ""
+
+#: elementor/bwp-image.php:159 elementor/bwp-video.php:100
+#: elementor/bwp_slider.php:202 elementor/bwp_testimonial.php:138
+msgid "Layout 1"
+msgstr ""
+
+#: elementor/bwp-image.php:168
+msgid "Layout 10"
+msgstr ""
+
+#: elementor/bwp-image.php:169
+msgid "Layout 11"
+msgstr ""
+
+#: elementor/bwp-image.php:160 elementor/bwp_slider.php:203
+#: elementor/bwp_testimonial.php:139
+msgid "Layout 2"
+msgstr ""
+
+#: elementor/bwp-image.php:161
+msgid "Layout 3"
+msgstr ""
+
+#: elementor/bwp-image.php:162
+msgid "Layout 4"
+msgstr ""
+
+#: elementor/bwp-image.php:163
+msgid "Layout 5"
+msgstr ""
+
+#: elementor/bwp-image.php:164
+msgid "Layout 6"
+msgstr ""
+
+#: elementor/bwp-image.php:165
+msgid "Layout 7"
+msgstr ""
+
+#: elementor/bwp-image.php:166
+msgid "Layout 8"
+msgstr ""
+
+#: elementor/bwp-image.php:167
+msgid "Layout 9"
+msgstr ""
+
+#: elementor/bwp_brand.php:156
+msgid "Layout Style"
+msgstr ""
+
+#: elementor/bwp_brand.php:157
+msgid "Layout Style 3"
+msgstr ""
+
+#: elementor/bwp-image.php:74 elementor/bwp_lookbook.php:96
+#: elementor/bwp_product_list.php:72
+msgid "Link"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:72
+msgid "Link Buton"
+msgstr ""
+
+#: elementor/bwp-video.php:57
+msgid "Link Button"
+msgstr ""
+
+#: elementor/bwp_client.php:39
+msgid "Link Image Client"
+msgstr ""
+
+#: elementor/bwp_instagram.php:39
+msgid "Link Image Instagram"
+msgstr ""
+
+#: lib/shortcode.php:42
+msgid "LinkedIn"
+msgstr ""
+
+#: lib/metabox.php:361
+msgid "Linkedin"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:230
+msgid "List"
+msgstr ""
+
+#: elementor/bwp_client.php:47
+msgid "List Client"
+msgstr ""
+
+#: elementor/bwp_instagram.php:47
+msgid "List Instagram"
+msgstr ""
+
+#: lib/ourteam.php:23
+msgid "List OurTeam"
+msgstr ""
+
+#: elementor/bwp_slider.php:87
+msgid "List Slider"
+msgstr ""
+
+#: lib/slider.php:23
+msgid "List slider"
+msgstr ""
+
+#: lib/testimonial.php:22
+msgid "List Testimonial"
+msgstr ""
+
+#: elementor/bwp_product_list.php:255
+#: elementor-template/bwp-product-list/loadmore.php:50
+msgid "Load More"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/loadmore.php:141
+#: elementor-template/bwp-filter-homepage/default.php:165
+msgid "Load more"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:274
+#: widgets-template/bwp-ajax-filter/pagination.php:9
+msgid "Loadmore"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:38
+msgid "Location"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:34
+msgid "London Eye, London, United Kingdom"
+msgstr ""
+
+#: lib/lookbook.php:40
+msgid "LookBook"
+msgstr ""
+
+#: elementor/bwp_lookbook.php:77
+msgid "Lookbooks"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider2.php:87
+#: elementor-template/bwp-product-list/list-deal.php:26
+msgid "m"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:30 elementor/bwp-google-maps.php:101
+msgid "Map"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:149
+msgid "Masonry"
+msgstr ""
+
+#: widgets/megamenu.php:7 widgets/megamenu.php:8 lib/admin.php:16
+#: lib/admin.php:16
+msgid "Mega Menu"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:879
+#, php-format
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:872
+msgid "Menu item skipped due to missing menu slug"
+msgstr ""
+
+#: elementor-template/bwp-image/banner_product_countdown_2.php:35
+#: elementor-template/bwp-image/banner_product_countdown.php:34
+#: elementor-template/bwp-image/banner_countdown.php:34
+msgid "Mins"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:82
+msgid "mins"
+msgstr ""
+
+#: lib/brands.php:40
+msgid "Most Used"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:75 lib/lookbook/admin/admin.php:291
+msgid "Name"
+msgstr ""
+
+#: lib/brands.php:87
+msgid "New Brands Name"
+msgstr ""
+
+#: lib/ourteam.php:11
+msgid "New Our Team"
+msgstr ""
+
+#: lib/portfolio.php:10
+msgid "New Portfolio Item"
+msgstr ""
+
+#: lib/slider.php:11
+msgid "New Slider"
+msgstr ""
+
+#: lib/testimonial.php:10
+msgid "New Testimonial"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/pagination.php:28
+msgid "Next"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:269 widgets/bwp_ajax_filter.php:284
+#: widgets/bwp_ajax_filter.php:299 widgets/bwp_ajax_filter.php:314
+#: widgets/bwp_ajax_filter.php:329 widgets/bwp_ajax_filter.php:344
+#: widgets/recent_post.php:356 widgets/custom_menu.php:136 lib/metabox.php:721
+#: elementor/bwp_brand.php:142 elementor/bwp_slider.php:177
+#: elementor/bwp_slider.php:189 elementor/bwp_testimonial.php:113
+#: elementor/bwp_testimonial.php:125 elementor/bwp_lookbook.php:178
+#: elementor/bwp_lookbook.php:190 elementor/bwp_client.php:156
+#: elementor/bwp_client.php:168 elementor/bwp_recent_post.php:166
+#: elementor/bwp_recent_post.php:178 elementor/bwp_product_list.php:213
+#: elementor/bwp_product_list.php:225 elementor/bwp_ourteam.php:105
+#: elementor/bwp_ourteam.php:117 elementor/bwp_product_categories.php:139
+#: elementor/bwp_product_categories.php:151
+#: elementor/bwp_product_categories.php:163
+#: elementor/bwp_product_categories.php:175
+#: elementor/bwp_product_categories.php:187
+#: elementor/bwp_product_categories.php:199
+#: elementor/bwp_product_categories.php:214
+#: elementor/bwp_filter_homepage.php:174 elementor/bwp_filter_homepage.php:190
+#: elementor/bwp_filter_homepage.php:245 elementor/bwp_instagram.php:155
+#: elementor/bwp_instagram.php:167 elementor/bwp_product_countdown.php:186
+#: elementor/bwp_product_countdown.php:201
+msgid "No"
+msgstr ""
+
+#: elementor/bwp-image.php:99
+msgid "no"
+msgstr ""
+
+#: lib/extensions/wbc_importer/wbc_importer/field_wbc_importer.php:127
+msgid "No Demo Data Provided"
+msgstr ""
+
+#: widgets/custom_menu.php:120
+#, php-format
+msgid "No menus have been created yet. <a href=\"%s\">Create some</a>."
+msgstr ""
+
+#: lib/ourteam.php:14
+msgid "No Our Teams found"
+msgstr ""
+
+#: lib/ourteam.php:15
+msgid "No Our Teams found in Trash"
+msgstr ""
+
+#: lib/metabox.php:662
+msgid "No Select"
+msgstr ""
+
+#: lib/slider.php:14
+msgid "No Sliders found"
+msgstr ""
+
+#: lib/slider.php:15
+msgid "No Sliders found in Trash"
+msgstr ""
+
+#: lib/testimonial.php:13
+msgid "No Testimonials found"
+msgstr ""
+
+#: lib/testimonial.php:14
+msgid "No Testimonials found in Trash"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:47
+#: elementor-template/bwp-product-countdown/slider2.php:45
+msgid "No thumb"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/radium-importer.php:509
+msgid "No Title"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:110
+msgid "Normal"
+msgstr ""
+
+#: elementor/bwp-image.php:174
+msgid "nostyle"
+msgstr ""
+
+#: lib/portfolio.php:13
+msgid "Nothing found"
+msgstr ""
+
+#: lib/portfolio.php:14
+msgid "Nothing found in Trash"
+msgstr ""
+
+#: elementor/bwp_brand.php:88 elementor/bwp_client.php:102
+#: elementor/bwp_product_list.php:149 elementor/bwp_product_categories.php:85
+#: elementor/bwp_filter_homepage.php:110
+#: elementor/bwp_product_countdown.php:132
+msgid "Number of Columns 1200px to 1440px"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:91 elementor/bwp_slider.php:123
+#: elementor/bwp_testimonial.php:59 elementor/bwp_lookbook.php:124
+#: elementor/bwp_recent_post.php:112 elementor/bwp_ourteam.php:51
+#: elementor/bwp_instagram.php:101
+msgid "Number of Columns >1200px"
+msgstr ""
+
+#: widgets/recent_post.php:253
+msgid "Number of Columns >1200px: "
+msgstr ""
+
+#: elementor/bwp_brand.php:78 elementor/bwp_client.php:92
+#: elementor/bwp_product_list.php:139 elementor/bwp_product_categories.php:75
+#: elementor/bwp_filter_homepage.php:100
+#: elementor/bwp_product_countdown.php:122
+msgid "Number of Columns >1440px"
+msgstr ""
+
+#: elementor/bwp_brand.php:128 elementor/bwp_slider.php:163
+#: elementor/bwp_testimonial.php:99 elementor/bwp_lookbook.php:164
+#: elementor/bwp_client.php:142 elementor/bwp_recent_post.php:152
+#: elementor/bwp_product_list.php:189 elementor/bwp_ourteam.php:91
+#: elementor/bwp_product_categories.php:125
+#: elementor/bwp_filter_homepage.php:150 elementor/bwp_instagram.php:141
+#: elementor/bwp_product_countdown.php:172
+msgid "Number of Columns in 480px or less than"
+msgstr ""
+
+#: widgets/recent_post.php:329
+msgid "Number of Columns in 480px or less than: "
+msgstr ""
+
+#: elementor/bwp_brand.php:118 elementor/bwp_slider.php:153
+#: elementor/bwp_testimonial.php:89 elementor/bwp_lookbook.php:154
+#: elementor/bwp_client.php:132 elementor/bwp_recent_post.php:142
+#: elementor/bwp_product_list.php:179 elementor/bwp_ourteam.php:81
+#: elementor/bwp_product_categories.php:115
+#: elementor/bwp_filter_homepage.php:140 elementor/bwp_instagram.php:131
+#: elementor/bwp_product_countdown.php:162
+msgid "Number of Columns on 480px to 767px"
+msgstr ""
+
+#: widgets/recent_post.php:310
+msgid "Number of Columns on 480px to 767px: "
+msgstr ""
+
+#: elementor/bwp_portfolio.php:111 elementor/bwp_brand.php:108
+#: elementor/bwp_slider.php:143 elementor/bwp_testimonial.php:79
+#: elementor/bwp_lookbook.php:144 elementor/bwp_client.php:122
+#: elementor/bwp_recent_post.php:132 elementor/bwp_product_list.php:169
+#: elementor/bwp_ourteam.php:71 elementor/bwp_product_categories.php:105
+#: elementor/bwp_filter_homepage.php:130 elementor/bwp_instagram.php:121
+#: elementor/bwp_product_countdown.php:152
+msgid "Number of Columns on 768px to 991px"
+msgstr ""
+
+#: widgets/recent_post.php:291
+msgid "Number of Columns on 768px to 991px: "
+msgstr ""
+
+#: elementor/bwp_portfolio.php:101 elementor/bwp_brand.php:98
+#: elementor/bwp_slider.php:133 elementor/bwp_testimonial.php:69
+#: elementor/bwp_lookbook.php:134 elementor/bwp_client.php:112
+#: elementor/bwp_recent_post.php:122 elementor/bwp_product_list.php:159
+#: elementor/bwp_ourteam.php:61 elementor/bwp_product_categories.php:95
+#: elementor/bwp_filter_homepage.php:120 elementor/bwp_instagram.php:111
+#: elementor/bwp_product_countdown.php:142
+msgid "Number of Columns on 992px to 1199px"
+msgstr ""
+
+#: widgets/recent_post.php:272
+msgid "Number of Columns on 992px to 1199px: "
+msgstr ""
+
+#: elementor/bwp_portfolio.php:121
+msgid "Number of Columns on mobile"
+msgstr ""
+
+#: elementor/bwp_ourteam.php:42
+msgid "Number of Our Team"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:82
+msgid "Number of Portfolios"
+msgstr ""
+
+#: widgets/recent_post.php:233 elementor/bwp_recent_post.php:84
+msgid "Number of Posts"
+msgstr ""
+
+#: elementor/bwp_product_list.php:120 elementor/bwp_product_list.php:123
+#: elementor/bwp_filter_homepage.php:81 elementor/bwp_filter_homepage.php:84
+#: elementor/bwp_product_countdown.php:82
+#: elementor/bwp_product_countdown.php:85
+msgid "Number Of Products"
+msgstr ""
+
+#: widgets/feature_product.php:75
+msgid "Number of Products"
+msgstr ""
+
+#: widgets/recent_post.php:239 elementor/bwp_recent_post.php:102
+msgid "Number row of Posts"
+msgstr ""
+
+#: elementor/bwp_testimonial.php:49
+msgid "Number row of Testimonial"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:131 elementor/bwp_brand.php:68
+#: elementor/bwp_slider.php:113 elementor/bwp_lookbook.php:114
+#: elementor/bwp_client.php:82 elementor/bwp_product_list.php:129
+#: elementor/bwp_product_categories.php:65 elementor/bwp_filter_homepage.php:90
+#: elementor/bwp_instagram.php:91 elementor/bwp_product_countdown.php:112
+msgid "Number row per column"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:77
+#: elementor-template/bwp-product-countdown/slider2.php:83
+msgid "Offer end in :"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/filter.php:89
+msgid "Only Sale"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:321
+msgid "or assign posts to an existing user:"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:308
+msgid "or create new user with login name:"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:70 elementor/bwp_product_list.php:108
+#: elementor/bwp_product_countdown.php:100
+msgid "Order"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:61 elementor/bwp_product_list.php:99
+#: elementor/bwp_product_countdown.php:91
+msgid "Order By"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:202 elementor/bwp_filter_homepage.php:256
+msgid "Order Product"
+msgstr ""
+
+#: widgets/custom_menu.php:36
+msgid "Other"
+msgstr ""
+
+#: lib/ourteam.php:6 lib/ourteam.php:7
+msgid "Our Team"
+msgstr ""
+
+#: lib/ourteam.php:17
+msgid "Our Teams"
+msgstr ""
+
+#: lib/admin.php:18
+msgid "Ourteam"
+msgstr ""
+
+#: lib/metabox.php:183
+msgid "Page Logo"
+msgstr ""
+
+#: lib/metabox.php:6
+msgid "Page Metabox"
+msgstr ""
+
+#: lib/brands.php:82
+msgid "Parent Brands"
+msgstr ""
+
+#: lib/brands.php:83
+msgid "Parent Brands:"
+msgstr ""
+
+#: lib/ourteam.php:16
+msgid "Parent Our Team:"
+msgstr ""
+
+#: lib/slider.php:16
+msgid "Parent Slider:"
+msgstr ""
+
+#: lib/testimonial.php:15
+msgid "Parent Testimonial:"
+msgstr ""
+
+#: lib/shortcode.php:45
+msgid "Pinterest"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:41
+msgid "Please active woocommerce plugin or install woomcommerce plugin first!"
+msgstr ""
+
+#: lib/extensions/wbc_importer/wbc_importer/field_wbc_importer.php:114
+#: lib/extensions/wbc_importer/wbc_importer/field_wbc_importer.php:117
+msgid "Please Wait..."
+msgstr ""
+
+#: lib/admin.php:20 lib/portfolio.php:5
+msgid "Portfolio"
+msgstr ""
+
+#: lib/portfolio.php:6
+msgid "Portfolio Item"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:50
+msgid "Portfolios"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/pagination.php:27
+msgid "Previous"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:409
+msgid "Price"
+msgstr ""
+
+#: elementor/bwp-image.php:120
+msgid "Product Id"
+msgstr ""
+
+#: lib/metabox.php:7 lib/metabox.php:8
+msgid "Profile"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:413
+msgid "Range : "
+msgstr ""
+
+#: lib/extensions/wbc_importer/wbc_importer/field_wbc_importer.php:118
+msgid "Re-Import"
+msgstr ""
+
+#: function.php:161 elementor-template/bwp-recent-post/blogs.php:20
+msgid "Read more"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:177
+msgid "Remember to update the passwords and roles of imported users."
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1035
+msgid "Remote file is incorrect size"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1046
+#, php-format
+msgid "Remote file is too large, limit is %s"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1020
+msgid "Remote server did not respond"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1028
+#, php-format
+msgid "Remote server returned error response %1$d %2$s"
+msgstr ""
+
+#: lib/metabox.php:572
+msgid "Remove"
+msgstr ""
+
+#: lib/metabox.php:42 lib/metabox.php:54 lib/metabox.php:106
+#: lib/metabox.php:124 lib/metabox.php:595 lib/metabox.php:686
+msgid "Remove image"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider2.php:88
+#: elementor-template/bwp-product-list/list-deal.php:27
+msgid "s"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:337
+msgid "Save"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:338
+msgid "Save And Stay"
+msgstr ""
+
+#: elementor-template/bwp-product-list/scroll.php:39
+#: elementor-template/bwp-filter-homepage/tab-category/scroll.php:112
+msgid "Scroll Me"
+msgstr ""
+
+#: lib/brands.php:80
+msgid "Search Genres"
+msgstr ""
+
+#: lib/ourteam.php:13
+msgid "Search Our Teams"
+msgstr ""
+
+#: lib/portfolio.php:12
+msgid "Search Portfolio"
+msgstr ""
+
+#: lib/slider.php:13
+msgid "Search Sliders"
+msgstr ""
+
+#: lib/testimonial.php:12
+msgid "Search Testimonials"
+msgstr ""
+
+#: elementor-template/bwp-image/banner_product_countdown_2.php:36
+#: elementor-template/bwp-image/banner_product_countdown.php:35
+#: elementor-template/bwp-image/banner_countdown.php:35
+msgid "Secs"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:83
+msgid "secs"
+msgstr ""
+
+#: elementor/bwp-image.php:109 elementor/bwp_filter_homepage.php:215
+#: elementor/bwp_product_countdown.php:72
+msgid "Select Categories"
+msgstr ""
+
+#: widgets/custom_menu.php:141
+msgid "Select Menu:"
+msgstr ""
+
+#: elementor-template/bwp-widget-slider/default.php:19
+msgid "Shop Now"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:334
+msgid "Show Brand"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:259
+msgid "Show Categories"
+msgstr ""
+
+#: elementor/bwp-image.php:95 elementor/bwp_product_categories.php:147
+msgid "Show Count Product Categories"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:274
+msgid "Show Filter Price"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:171
+#: elementor/bwp_filter_homepage.php:241
+msgid "Show Icon Categories"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:159
+msgid "Show Image Categories"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:304
+msgid "Show In Stock"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:135
+msgid "Show Name Categories"
+msgstr ""
+
+#: widgets/recent_post.php:348 elementor/bwp_brand.php:138
+#: elementor/bwp_slider.php:173 elementor/bwp_testimonial.php:109
+#: elementor/bwp_lookbook.php:174 elementor/bwp_client.php:152
+#: elementor/bwp_recent_post.php:162 elementor/bwp_product_list.php:221
+#: elementor/bwp_ourteam.php:113 elementor/bwp_product_categories.php:195
+#: elementor/bwp_filter_homepage.php:170 elementor/bwp_instagram.php:151
+#: elementor/bwp_product_countdown.php:182
+msgid "Show Navigation"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:319
+msgid "Show Number Of Product"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:289
+msgid "Show Only Sale"
+msgstr ""
+
+#: elementor/bwp_slider.php:185 elementor/bwp_testimonial.php:121
+#: elementor/bwp_lookbook.php:186 elementor/bwp_client.php:164
+#: elementor/bwp_recent_post.php:174 elementor/bwp_product_list.php:209
+#: elementor/bwp_ourteam.php:101 elementor/bwp_product_categories.php:210
+#: elementor/bwp_filter_homepage.php:186 elementor/bwp_instagram.php:163
+#: elementor/bwp_product_countdown.php:197
+msgid "Show Pagination"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:183
+msgid "Show Thumbnail Categories"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/result-count.php:7
+#: widgets-template/bwp-ajax-filter/result-count.php:24
+#, php-format
+msgid "Showing all %d results"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/result-count.php:22
+msgid "Showing the single result"
+msgstr ""
+
+#: widgets/recent_post.php:371
+msgid "Sidebar"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/radium-importer.php:405
+msgid "Sidebar does not exist in theme (using Inactive)"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/radium-importer.php:427
+msgid "Site does not support widget"
+msgstr ""
+
+#: lib/slider.php:6 lib/slider.php:7 lib/admin.php:19 lib/admin.php:19
+#: elementor/bwp_portfolio.php:150 elementor/bwp_lookbook.php:205
+#: elementor/bwp_client.php:180 elementor/bwp_recent_post.php:192
+#: elementor/bwp_product_list.php:253 elementor/bwp_product_categories.php:231
+#: elementor/bwp_instagram.php:180 elementor/bwp_product_countdown.php:216
+msgid "Slider"
+msgstr ""
+
+#: elementor/bwp_client.php:181 elementor/bwp_product_list.php:254
+#: elementor/bwp_product_categories.php:232 elementor/bwp_instagram.php:181
+#: elementor/bwp_product_countdown.php:217
+msgid "Slider 2"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:233 elementor/bwp_instagram.php:182
+msgid "Slider 3"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:234
+msgid "Slider 4"
+msgstr ""
+
+#: lib/slider.php:17
+msgid "Sliders"
+msgstr ""
+
+#: elementor-template/bwp-product-countdown/slider.php:71
+#: elementor-template/bwp-product-countdown/slider2.php:65
+msgid "Sold:"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:132
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:141
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:192
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:196
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:205
+msgid "Sorry, there has been an error."
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:70
+msgid "Sort by"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:16
+#: elementor-template/bwp-filter-homepage/default.php:16
+msgid "Sort by average rating"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:17
+#: elementor-template/bwp-filter-homepage/default.php:17
+msgid "Sort by newness"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:15
+#: elementor-template/bwp-filter-homepage/default.php:15
+msgid "Sort by popularity"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:19
+#: elementor-template/bwp-filter-homepage/default.php:19
+msgid "Sort by price: high to low"
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/slider.php:18
+#: elementor-template/bwp-filter-homepage/default.php:18
+msgid "Sort by price: low to high"
+msgstr ""
+
+#: elementor/bwp_product_list.php:90
+msgid "Source Product"
+msgstr ""
+
+#: lib/metabox.php:436
+msgid "Star Rating"
+msgstr ""
+
+#: function.php:45 function.php:63 function.php:82 function.php:101
+msgid "Sticky"
+msgstr ""
+
+#: widgets-template/bwp-ajax-filter/filter.php:82
+msgid "Stock status"
+msgstr ""
+
+#: elementor/bwp_product_list.php:199 elementor/bwp_filter_homepage.php:160
+msgid "Style content product"
+msgstr ""
+
+#: elementor/bwp-image.php:142
+msgid "Style Layout"
+msgstr ""
+
+#: elementor/bwp-image.php:47 elementor/bwp_slider.php:41
+#: elementor/bwp_lookbook.php:50 elementor/bwp_client.php:73
+#: elementor/bwp_cta.php:41 elementor/bwp_instagram.php:73
+#: elementor/bwp_product_countdown.php:45
+msgid "Sub Title"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:284
+msgid "Submit"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:46
+msgid "Subtitle"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:275
+msgid "Tab Category Default"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:276
+msgid "Tab Category Slider"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:277
+msgid "Tab Product"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:278
+msgid "Tab Product Slider"
+msgstr ""
+
+#: widgets/recent_post.php:361
+msgid "Template"
+msgstr ""
+
+#: lib/testimonial.php:5 lib/testimonial.php:6 lib/admin.php:17
+#: lib/admin.php:17
+msgid "Testimonial"
+msgstr ""
+
+#: lib/testimonial.php:16
+msgid "Testimonials"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:197
+#, php-format
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:133
+msgid "The file does not exist, please try again."
+msgstr ""
+
+#: lib/admin.php:14
+msgid "Theme Options"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/radium-importer.php:256
+msgid "Theme options Import file could not be found. Please try again."
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/parsers.php:42
+#: lib/extensions/wbc_importer/inc/importer/parsers.php:72
+#: lib/extensions/wbc_importer/inc/importer/parsers.php:80
+msgid "There was an error when reading this WXR file"
+msgstr ""
+
+#: lib/extensions/wbc_importer/extension_wbc_importer.php:269
+msgid ""
+"This demo content importer has been built to make the import process as easy "
+"for you as possible. We&#39;ve done what we can to ensure as little "
+"difficulty as possible. We have also gone the extra mile to add in the extra "
+"things are sorted for you, such as setting the home page, menu, and widgets -"
+" things that aren&#39;t possible with the standard WordPress Importer!</br>"
+"</br>\n"
+"                    <strong>Steps to take before using this plugin:</strong>"
+"</br></br>\n"
+"\n"
+"    1. The import process will work best on a clean install. You can use a "
+"plugin such as WordPress Reset to clear your data for you.</br>\n"
+"    2. Ensure all plugins are installed beforehand, e.g. WooCommerce - any "
+"plugins that you add content to.</br>\n"
+"    3. Once you start the process, please leave it running and uninteruppted."
+"</br>\n"
+"    4. Enjoy</br>"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/parsers.php:84
+#: lib/extensions/wbc_importer/inc/importer/parsers.php:89
+#: lib/extensions/wbc_importer/inc/importer/parsers.php:306
+#: lib/extensions/wbc_importer/inc/importer/parsers.php:502
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:574
+msgid "This file type not allowed"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:213
+#, php-format
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+
+#: lib/metabox.php:565 lib/metabox.php:583
+msgid "Thumbnail"
+msgstr ""
+
+#: lib/metabox.php:35 lib/metabox.php:94
+msgid "Thumbnail 1"
+msgstr ""
+
+#: elementor/bwp-image.php:83 elementor/bwp_product_list.php:236
+msgid "Time Coundown"
+msgstr ""
+
+#: widgets/feature_product.php:69 widgets/bwp_ajax_filter.php:253
+#: widgets/recent_post.php:222 lib/metabox.php:430
+#: elementor/bwp_portfolio.php:31 elementor/bwp-image.php:38
+#: elementor/bwp-video.php:30 elementor/bwp_brand.php:40
+#: elementor/bwp_slider.php:104 elementor/bwp_testimonial.php:31
+#: elementor/bwp_lookbook.php:41 elementor/bwp_client.php:64
+#: elementor/bwp_cta.php:32 elementor/bwp_recent_post.php:39
+#: elementor/bwp_product_list.php:36 elementor/bwp_ourteam.php:33
+#: elementor/bwp_product_categories.php:37 elementor/bwp_filter_homepage.php:36
+#: elementor/bwp_instagram.php:64 elementor/bwp-policy.php:37
+#: elementor/bwp_product_countdown.php:36 lib/lookbook/admin/admin.php:300
+msgid "Title"
+msgstr ""
+
+#: elementor/bwp_slider.php:60
+msgid "Title Button"
+msgstr ""
+
+#: elementor/bwp_slider.php:32
+msgid "Title Slider"
+msgstr ""
+
+#: widgets/custom_menu.php:124
+msgid "Title:"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:265
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>"
+"admin</code>s entries."
+msgstr ""
+
+#: elementor-template/bwp-filter-homepage/loadmore.php:83
+#: elementor-template/bwp-filter-homepage/tab-product/slider.php:30
+#: elementor-template/bwp-filter-homepage/tab-product/default.php:35
+msgid "Top Rating"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:141
+msgid "Transition Duration"
+msgstr ""
+
+#: lib/metabox.php:350
+msgid "Tumblr"
+msgstr ""
+
+#. Author of the plugin
+msgid "TungHV"
+msgstr ""
+
+#: lib/shortcode.php:39 lib/metabox.php:328
+msgid "Twitter"
+msgstr ""
+
+#: elementor/bwp-image.php:68 elementor/bwp_lookbook.php:90
+#: elementor/bwp_recent_post.php:69 elementor/bwp_product_list.php:66
+msgid "Type your Button label here"
+msgstr ""
+
+#: elementor/bwp_product_list.php:48 elementor/bwp_filter_homepage.php:48
+msgid "Type your Class here"
+msgstr ""
+
+#: elementor/bwp_cta.php:53
+msgid "Type your Count here"
+msgstr ""
+
+#: elementor/bwp-image.php:59 elementor/bwp_lookbook.php:62
+#: elementor/bwp_recent_post.php:51 elementor/bwp_product_list.php:57
+#: elementor/bwp_filter_homepage.php:57 elementor/bwp_product_countdown.php:57
+msgid "Type your Description here"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:44 elementor/bwp-video.php:42
+#: elementor/bwp_slider.php:54 elementor/bwp_instagram.php:85
+#: elementor/bwp-policy.php:50
+msgid "Type your description here"
+msgstr ""
+
+#: elementor/bwp_testimonial.php:43 elementor/bwp_recent_post.php:96
+msgid "Type your Excerpt length (in words)"
+msgstr ""
+
+#: elementor/bwp-video.php:69 elementor/bwp_brand.php:52
+#: elementor/bwp_product_countdown.php:66
+msgid "Type your Extra Class here"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:49
+msgid "Type your Extra Subtitle here"
+msgstr ""
+
+#: elementor/bwp-video.php:51 elementor/bwp_filter_homepage.php:66
+msgid "Type your label button here"
+msgstr ""
+
+#: elementor/bwp-video.php:60 elementor/bwp_filter_homepage.php:75
+msgid "Type your link button here"
+msgstr ""
+
+#: elementor/bwp_recent_post.php:78
+msgid "Type your link Go to news here"
+msgstr ""
+
+#: elementor/bwp-image.php:77 elementor/bwp_lookbook.php:99
+#: elementor/bwp_product_list.php:75
+msgid "Type your Link here"
+msgstr ""
+
+#: elementor/bwp_client.php:42
+msgid "Type your link image client here"
+msgstr ""
+
+#: elementor/bwp_instagram.php:42
+msgid "Type your link image instagram here"
+msgstr ""
+
+#: elementor/bwp_ourteam.php:45
+msgid "Type your Number of Our Team"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:85
+msgid "Type your Number of Portfolios"
+msgstr ""
+
+#: elementor/bwp_recent_post.php:87
+msgid "Type your Number of Posts"
+msgstr ""
+
+#: elementor/bwp_testimonial.php:52 elementor/bwp_recent_post.php:105
+msgid "Type your Number row of Testimonial here"
+msgstr ""
+
+#: elementor/bwp-image.php:123
+msgid "Type your Product Id here"
+msgstr ""
+
+#: elementor/bwp_lookbook.php:71
+msgid "Type your sub Extra Class here"
+msgstr ""
+
+#: elementor/bwp_lookbook.php:53 elementor/bwp_client.php:76
+#: elementor/bwp_instagram.php:76 elementor/bwp_product_countdown.php:48
+msgid "Type your Sub Title here"
+msgstr ""
+
+#: elementor/bwp_cta.php:44
+msgid "Type your Sub title here"
+msgstr ""
+
+#: elementor/bwp-image.php:50 elementor/bwp_slider.php:44
+msgid "Type your sub title here"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:34 elementor/bwp-image.php:41
+#: elementor/bwp-video.php:33 elementor/bwp-video.php:78
+#: elementor/bwp_brand.php:43 elementor/bwp_slider.php:35
+#: elementor/bwp_slider.php:63 elementor/bwp_slider.php:107
+#: elementor/bwp_testimonial.php:34 elementor/bwp_lookbook.php:44
+#: elementor/bwp_client.php:67 elementor/bwp_cta.php:35
+#: elementor/bwp_recent_post.php:42 elementor/bwp_product_list.php:39
+#: elementor/bwp_ourteam.php:36 elementor/bwp_product_categories.php:40
+#: elementor/bwp_filter_homepage.php:39 elementor/bwp_instagram.php:67
+#: elementor/bwp-policy.php:40 elementor/bwp_product_countdown.php:39
+msgid "Type your title here"
+msgstr ""
+
+#: elementor/bwp_slider.php:72
+msgid "Type your url here"
+msgstr ""
+
+#: lib/brands.php:85
+msgid "Update Brands"
+msgstr ""
+
+#: lib/metabox.php:185
+msgid "Upload custom Logo for this page"
+msgstr ""
+
+#: lib/lookbook/admin/admin.php:318
+msgid "Upload file"
+msgstr ""
+
+#: lib/metabox.php:41 lib/metabox.php:53 lib/metabox.php:105
+#: lib/metabox.php:123 lib/metabox.php:685
+msgid "Upload/Add image"
+msgstr ""
+
+#: lib/metabox.php:500 elementor/bwp_slider.php:69
+msgid "Url"
+msgstr ""
+
+#. Description of the plugin
+msgid "Use For Wpbingo Theme."
+msgstr ""
+
+#: widgets/custom_menu.php:128
+msgid "Vetical Menu"
+msgstr ""
+
+#: elementor/bwp-video.php:75
+msgid "Video Link"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:90
+msgid "View"
+msgstr ""
+
+#: lib/ourteam.php:12
+msgid "View Our Team"
+msgstr ""
+
+#: lib/portfolio.php:11
+msgid "View Portfolio Item"
+msgstr ""
+
+#: lib/slider.php:12
+msgid "View Slider"
+msgstr ""
+
+#: lib/testimonial.php:11
+msgid "View Testimonial"
+msgstr ""
+
+#: lib/admin.php:13
+msgid "Welcome"
+msgstr ""
+
+#: lib/admin.php:25
+msgid "Welcome to Wpbingo Farmework"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/radium-importer.php:450
+msgid "Widget already exists"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/radium-importer.php:331
+msgid "Widget Import file could not be found. Please try again."
+msgstr ""
+
+#: lib/admin.php:12
+msgid "Wpbingo"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:12
+msgid "Wpbingo Ajax Filter"
+msgstr ""
+
+#: elementor/bwp_brand.php:13
+msgid "Wpbingo Brand"
+msgstr ""
+
+#: elementor/bwp_client.php:11
+msgid "Wpbingo Client"
+msgstr ""
+
+#. Name of the plugin
+msgid "Wpbingo Core"
+msgstr ""
+
+#: elementor/bwp_product_countdown.php:11
+msgid "Wpbingo Countdown Product"
+msgstr ""
+
+#: elementor/bwp_cta.php:13
+msgid "Wpbingo Counter Up"
+msgstr ""
+
+#: widgets/custom_menu.php:21
+msgid "Wpbingo Custom Menu"
+msgstr ""
+
+#: widgets/feature_product.php:22
+msgid "Wpbingo Feature Product"
+msgstr ""
+
+#: widgets/feature_product.php:16
+msgid "Wpbingo Feature Product Widget"
+msgstr ""
+
+#: elementor/bwp_filter_homepage.php:11
+msgid "Wpbingo Filter Homepage"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:15
+msgid "Wpbingo Google Maps"
+msgstr ""
+
+#: elementor/bwp-image.php:11
+msgid "Wpbingo Image"
+msgstr ""
+
+#: elementor/bwp_instagram.php:11
+msgid "Wpbingo Instagram"
+msgstr ""
+
+#: lib/admin.php:26
+msgid ""
+"Wpbingo is a very young team of developers and designers. Our goal is "
+"product quality and customer satisfaction, so we have gathered people who "
+"are driven by the passion to create an excellent product and be a helpful "
+"hand to their customers. If you are interested in Premium WordPress, PSD or "
+"Shopify Theme, one of our products may please you.\n"
+"\n"
+"We love what we do and your review would be a big ‘Wpbingo’ for our "
+"development!"
+msgstr ""
+
+#: wpbingo.php:87
+msgid ""
+"Wpbingo is enabled but not effective. It requires WooCommerce in order to "
+"work."
+msgstr ""
+
+#: elementor/bwp_lookbook.php:13
+msgid "Wpbingo Lookbook"
+msgstr ""
+
+#: elementor/bwp_ourteam.php:13
+msgid "Wpbingo Our Team"
+msgstr ""
+
+#: elementor/bwp-policy.php:18
+msgid "Wpbingo Policy"
+msgstr ""
+
+#: elementor/bwp_portfolio.php:11
+msgid "Wpbingo Portfolio"
+msgstr ""
+
+#: elementor/bwp_product_categories.php:13
+msgid "Wpbingo Product Categories"
+msgstr ""
+
+#: elementor/bwp_product_list.php:11
+msgid "Wpbingo Product List"
+msgstr ""
+
+#: widgets/recent_post.php:22 elementor/bwp_recent_post.php:11
+msgid "Wpbingo Recent Post"
+msgstr ""
+
+#: widgets/recent_post.php:16
+msgid "Wpbingo Recent Post Widget"
+msgstr ""
+
+#: lib/metabox.php:9 elementor/bwp_slider.php:13
+msgid "Wpbingo Slider"
+msgstr ""
+
+#: elementor/bwp_testimonial.php:11
+msgid "Wpbingo Testimonial"
+msgstr ""
+
+#: elementor/bwp-video.php:11
+msgid "Wpbingo Video"
+msgstr ""
+
+#: widgets/bwp_ajax_filter.php:265 widgets/bwp_ajax_filter.php:280
+#: widgets/bwp_ajax_filter.php:295 widgets/bwp_ajax_filter.php:310
+#: widgets/bwp_ajax_filter.php:325 widgets/bwp_ajax_filter.php:340
+#: widgets/recent_post.php:353 widgets/custom_menu.php:133 lib/metabox.php:722
+#: elementor/bwp_brand.php:141 elementor/bwp_slider.php:176
+#: elementor/bwp_slider.php:188 elementor/bwp_testimonial.php:112
+#: elementor/bwp_testimonial.php:124 elementor/bwp_lookbook.php:177
+#: elementor/bwp_lookbook.php:189 elementor/bwp_client.php:155
+#: elementor/bwp_client.php:167 elementor/bwp_recent_post.php:165
+#: elementor/bwp_recent_post.php:177 elementor/bwp_product_list.php:212
+#: elementor/bwp_product_list.php:224 elementor/bwp_ourteam.php:104
+#: elementor/bwp_ourteam.php:116 elementor/bwp_product_categories.php:138
+#: elementor/bwp_product_categories.php:150
+#: elementor/bwp_product_categories.php:162
+#: elementor/bwp_product_categories.php:174
+#: elementor/bwp_product_categories.php:186
+#: elementor/bwp_product_categories.php:198
+#: elementor/bwp_product_categories.php:213
+#: elementor/bwp_filter_homepage.php:173 elementor/bwp_filter_homepage.php:189
+#: elementor/bwp_filter_homepage.php:244 elementor/bwp_instagram.php:154
+#: elementor/bwp_instagram.php:166 elementor/bwp_product_countdown.php:185
+#: elementor/bwp_product_countdown.php:200
+msgid "Yes"
+msgstr ""
+
+#: elementor/bwp-image.php:98
+msgid "yes"
+msgstr ""
+
+#: lib/metabox.php:339
+msgid "Youtube"
+msgstr ""
+
+#: lib/extensions/wbc_importer/inc/importer/wordpress-importer.php:1040
+msgid "Zero size file downloaded"
+msgstr ""
+
+#: elementor/bwp-google-maps.php:55
+msgid "Zoom"
+msgstr ""

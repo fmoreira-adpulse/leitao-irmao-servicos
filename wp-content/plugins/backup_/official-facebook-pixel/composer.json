@@ -1,0 +1,31 @@
+{
+  "name": "facebook/pixel-for-wordpress",
+  "description": "Facebook Pixel plugins for wordpress",
+  "type": "project",
+  "require-dev": {
+    "phing/phing": "^3.0.0-RC3",
+    "10up/wp_mock": "1.0.1"
+  },
+  "prefer-stable" : true,
+  "license": "GPL",
+  "require": {
+    "facebook/php-business-sdk": "^19.0",
+    "techcrunch/wp-async-task": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "FacebookPixelPlugin\\": "./",
+      "FacebookPixelPlugin\\Core\\": "core/",
+      "FacebookPixelPlugin\\Integration\\": "integration/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "__tests__/",
+      "./"
+    ]
+  },
+  "replace": {
+    "guzzlehttp/guzzle": "*"
+  }
+}
