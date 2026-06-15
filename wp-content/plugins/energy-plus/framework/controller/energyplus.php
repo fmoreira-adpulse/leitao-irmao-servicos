@@ -182,9 +182,20 @@ class EnergyPlus {
   public static function wc_engine()  {
     global $wpdb;
 
+    // Already initialized - skip
+    if ( !empty( WC()->api->WC_API_Customers ) ) {
+      return true;
+    }
+
+    // WooCommerce Legacy REST API (removed in WC 9.0) is now a separate plugin.
+    // Check that the required class and method exist before calling them.
+    if ( ! method_exists( WC()->api, 'includes' ) || ! class_exists( 'WC_API_Server' ) ) {
+      return false;
+    }
+
     WC()->api->includes();
     WC()->api->register_resources( new WC_API_Server( '/' ) );
-
+    return true;
   }
 
 

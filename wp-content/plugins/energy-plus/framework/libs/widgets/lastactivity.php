@@ -291,6 +291,12 @@ class Widgets__Lastactivity extends EnergyPlus_Widgets {
 
 		private static function get_user($user, $ip = 0) {
 			if (is_numeric($user)) {
+				if ( empty( WC()->api->WC_API_Customers ) ) {
+					$wc_customer = new WC_Customer( absint($user) );
+					$visitor = trim( $wc_customer->get_first_name() . ' ' . $wc_customer->get_last_name() ) ?: esc_html__('Visitor', 'energyplus');
+					$city    = trim( $wc_customer->get_billing_city() . ', ' . $wc_customer->get_billing_country() ) ?: $ip;
+					return sprintf("%s <span class='__A__City'>%s</span>", $visitor, $city);
+				}
 				$__visitor = WC()->api->WC_API_Customers->get_customer( absint($user) );
 				if (!is_wp_error($__visitor)) {
 					$visitor = sprintf("%s %s", $__visitor['customer']['first_name'],  $__visitor['customer']['last_name']);

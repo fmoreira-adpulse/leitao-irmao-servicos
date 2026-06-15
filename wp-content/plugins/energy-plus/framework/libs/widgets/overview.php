@@ -75,35 +75,32 @@ class Widgets__Overview extends EnergyPlus_Widgets {
 
     EnergyPlus::wc_engine();
 
-    $date =   EnergyPlus_Helpers::strtotime('now', 'Y-m-d');
+    $date = EnergyPlus_Helpers::strtotime('now', 'Y-m-d');
 
-    $_today =  WC()->api->WC_API_Reports->get_sales_report(null, array('date_min' => $date, 'date_max' => $date));
+    if ( !empty( WC()->api->WC_API_Reports ) ) {
 
+      $_today = WC()->api->WC_API_Reports->get_sales_report(null, array('date_min' => $date, 'date_max' => $date));
 
-    if ('true' === $result['today_revenue']['active']) {
-      $result['today_revenue']['count'] = intval($_today['sales']['totals'][$date]['sales']);
+      if ('true' === $result['today_revenue']['active']) {
+        $result['today_revenue']['count'] = intval($_today['sales']['totals'][$date]['sales']);
+      }
+
+      if ('true' === $result['today_orders']['active']) {
+        $result['today_orders']['count'] = intval($_today['sales']['totals'][$date]['orders']);
+      }
+
+      $_week = WC()->api->WC_API_Reports->get_sales_report(null, array('date_min' => date("Y-m-d", strtotime('this week')), 'date_max' => $date));
+
+      if ('true' === $result['week_revenue']['active']) {
+        $result['week_revenue']['count'] = intval($_week['sales']['total_sales']);
+      }
+
+      $_month = WC()->api->WC_API_Reports->get_sales_report(null, array('date_min' => date("Y-m-d", strtotime('first day of this month')), 'date_max' => $date));
+
+      if ('true' === $result['month_revenue']['active']) {
+        $result['month_revenue']['count'] = intval($_month['sales']['total_sales']);
+      }
     }
-
-    if ('true' === $result['today_orders']['active']) {
-      $result['today_orders']['count'] = intval($_today['sales']['totals'][$date]['orders']);
-    }
-    /*
-    if ('true' === $result['today_members']['active']) {
-    $result['today_members']['count'] = intval($_today['sales']['totals'][$date]['customers']);
-  }
-  */
-
-  $_week =  WC()->api->WC_API_Reports->get_sales_report(null, array('date_min' => date("Y-m-d", strtotime('this week')), 'date_max' => $date));
-
-  if ('true' === $result['week_revenue']['active']) {
-    $result['week_revenue']['count'] = intval($_week['sales']['total_sales']);
-  }
-
-  $_month =  WC()->api->WC_API_Reports->get_sales_report(null, array('date_min' => date("Y-m-d", strtotime('first day of this month')), 'date_max' => $date));
-
-  if ('true' === $result['month_revenue']['active']) {
-    $result['month_revenue']['count'] = intval($_month['sales']['total_sales']);
-  }
 
   if ('true' === $result['pending_orders']['active']) {
     $result['pending_orders']['count'] = wc_orders_count('on-hold') + wc_orders_count('processing') + wc_orders_count('pending');

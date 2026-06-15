@@ -133,7 +133,8 @@ class EnergyPlus_Customers extends EnergyPlus {
 
 			// Other menus
 			case 95:
-			$customers_count =  WC()->api->WC_API_Customers->get_customers_count();
+			$_all_users      = count_users();
+			$customers_count = array( 'count' => isset( $_all_users['avail_roles']['customer'] ) ? $_all_users['avail_roles']['customer'] : $_all_users['total_users'] );
 			echo EnergyPlus_View::run('customers/list-95', array('count' => intval($customers_count['count']), 'iframe_url' => EnergyPlus_Helpers::get_submenu_url(EnergyPlus_Helpers::get('go')) ));
 			break;
 
@@ -174,6 +175,10 @@ class EnergyPlus_Customers extends EnergyPlus {
 			wp_die( -1 );
 		}
 
+		if ( empty( WC()->api->WC_API_Customers ) ) {
+			wp_die( -2 );
+		}
+
 		$customer =  WC()->api->WC_API_Customers->get_customer( $id );
 
 		if (is_wp_error($customer)) {
@@ -182,9 +187,7 @@ class EnergyPlus_Customers extends EnergyPlus {
 
 		$customer_id = absint($customer['customer']['id']);
 
-		$orders      = WC()->api->WC_API_Orders->get_orders( null, array('customer' => $customer_id ));
-		$refunded    = WC()->api->WC_API_Orders->get_orders( null, array('status'=> 'refunded', 'customer' => $customer_id ));
-		$meta        = get_user_meta($customer_id) ;
+		$meta = get_user_meta($customer_id) ;
 
 		// ✅ FIX: usar customer_id nativo em vez de meta_query (compatível com HPOS)
 		$orders = EnergyPlus_Orders::index( array(
@@ -276,6 +279,11 @@ class EnergyPlus_Customers extends EnergyPlus {
 
 			EnergyPlus::wc_engine();
 
+			if ( empty( WC()->api->WC_API_Customers ) ) {
+				EnergyPlus_Ajax::error( 'WooCommerce Legacy REST API not available' );
+				wp_die();
+			}
+
 			$customer =  WC()->api->WC_API_Customers->get_customer( $customer_id );
 
 			if (is_wp_error( $customer )) {
@@ -337,6 +345,11 @@ class EnergyPlus_Customers extends EnergyPlus {
 			case 'details':
 
 			EnergyPlus::wc_engine();
+
+			if ( empty( WC()->api->WC_API_Customers ) ) {
+				EnergyPlus_Ajax::error( 'WooCommerce Legacy REST API not available' );
+				wp_die();
+			}
 
 			$customer =  WC()->api->WC_API_Customers->get_customer( $customer_id );
 
