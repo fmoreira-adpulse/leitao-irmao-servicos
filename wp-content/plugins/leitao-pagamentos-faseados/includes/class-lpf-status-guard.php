@@ -18,7 +18,7 @@ class LPF_Status_Guard {
         if ( empty( $statuses_requiring_payment ) ) return;
 
         // As settings guardam com prefixo "wc-"; o hook devolve sem prefixo
-        if ( ! in_array( 'wc-' . $new_status, $statuses_requiring_payment, true ) ) return;
+        if ( ! in_array( 'wc-' . $old_status, $statuses_requiring_payment, true ) ) return;
 
         $phases          = $order->get_meta( '_lpf_payment_phases', true ) ?: [];
         $blocking_phases = [];

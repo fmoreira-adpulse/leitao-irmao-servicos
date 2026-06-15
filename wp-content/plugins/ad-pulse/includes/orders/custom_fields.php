@@ -128,7 +128,9 @@ function save_custom_fields($order_id, $order): void
     // Skip if not a real form submission
     if (empty($_POST)) return;
 
-    $real_order = get_order_from_post($order);
+    // Load a fresh order from HPOS so we pick up the status already committed
+    // by WC_Meta_Box_Order_Data::save (priority 40) before this runs (priority 45).
+    $real_order = wc_get_order($order_id);
     if (!$real_order) return;
 
     $fields = get_order_custom_fields();
@@ -136,11 +138,13 @@ function save_custom_fields($order_id, $order): void
     foreach($fields as $field) {
         $meta_key = '_order_custom_' . $field['name'];
         if (!empty($_POST[$meta_key])) {
-            update_post_meta($order_id, $meta_key, sanitize_text_field($_POST[$meta_key]));
+            $real_order->update_meta_data($meta_key, sanitize_text_field($_POST[$meta_key]));
         }
     }
 
-    // Removed $real_order->save() — was causing recursive save loop
+    remove_action('woocommerce_process_shop_order_meta', 'save_custom_fields', 45);
+    $real_order->save();
+    add_action('woocommerce_process_shop_order_meta', 'save_custom_fields', 45, 2);
 }
 
 /**
@@ -247,7 +251,7 @@ add_filter( 'woocommerce_admin_billing_fields', 'woocommerce_custom_admin_billin
 add_filter( 'woocommerce_billing_fields', 'add_custom_billing_fields', 10, 2 );
 
 add_action('woocommerce_admin_order_data_after_order_details', 'add_custom_fields', 10, 1);
-add_action('woocommerce_process_shop_order_meta', 'save_custom_fields', 10, 2);
+add_action('woocommerce_process_shop_order_meta', 'save_custom_fields', 45, 2);
 add_filter( 'woocommerce_ajax_get_customer_details', 'customize_autofill_customer_details', 11, 3 );
 add_action('add_meta_boxes', 'remove_default_acf_fields_meta_box', 99);
 // endregion

@@ -12,7 +12,7 @@ function custom_order_number($order_id, $new_order) {
     // check if it is allowed to change this order number (by its products' categories)
     $allowed_categories = get_option('APF')['order_number']['order_number_product_categories'];
     $order_number_allowed = false;
-    foreach ($new_order->items as $item) {
+    foreach ($new_order->get_items() as $item) {
         $product_id = $item->get_product_id();
         $product = wc_get_product($product_id);
         $product_category_ids = $product->get_category_ids();
