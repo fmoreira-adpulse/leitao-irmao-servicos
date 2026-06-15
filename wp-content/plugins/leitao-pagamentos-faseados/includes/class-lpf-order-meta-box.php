@@ -37,6 +37,7 @@ class LPF_Order_Meta_Box {
             : wc_get_order( $post_or_order->ID );
 
         if ( ! $order ) return;
+        if ( ! self::should_show( $order ) ) return;
 
         $phases      = $order->get_meta( '_lpf_payment_phases', true ) ?: [];
         $order_total = (float) $order->get_total();
@@ -200,6 +201,7 @@ class LPF_Order_Meta_Box {
             : wc_get_order( $post_or_order->ID );
 
         if ( ! $order ) return;
+        if ( ! self::should_show( $order ) ) return;
 
         $phases      = $order->get_meta( '_lpf_payment_phases', true ) ?: [];
         $order_total = (float) $order->get_total();
@@ -310,6 +312,22 @@ class LPF_Order_Meta_Box {
             <span><?php printf( esc_html__( 'Em falta: %s', 'lpf' ), wc_price( $outstanding ) ); ?></span>
         </div>
         <?php
+    }
+
+    private static function should_show( WC_Order $order ): bool {
+        $activation = LPF_Settings::get_status_mostrar_fases();
+
+        // Sem configuração → mostrar sempre
+        if ( $activation === '' ) return true;
+
+        $current = 'wc-' . $order->get_status();
+
+        // Mostrar se estiver no estado configurado
+        if ( $current === $activation ) return true;
+
+        // Mostrar se já existirem fases definidas (encomenda já passou pelo estado)
+        $phases = $order->get_meta( '_lpf_payment_phases', true );
+        return ! empty( $phases );
     }
 
     public static function save( int $order_id ): void {
