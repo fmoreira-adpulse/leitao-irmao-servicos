@@ -1,0 +1,314 @@
+#lpf-phases-wrapper {
+    padding: 4px 0 8px;
+}
+
+.lpf-phase-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.lpf-phase-row.is-paid {
+    background: #f6fff6;
+}
+
+.lpf-phase-fields {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    flex: 1;
+}
+
+.lpf-phase-fields input[type="text"] {
+    width: 160px;
+}
+
+.lpf-phase-fields input[type="number"] {
+    width: 80px;
+}
+
+.lpf-phase-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 4px;
+}
+
+.lpf-status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.lpf-status-badge.is-paid {
+    background: #d4edda;
+    color: #155724;
+}
+
+.lpf-status-badge.is-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.lpf-remove-phase {
+    color: #999;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 0 4px;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.lpf-remove-phase:hover {
+    color: #cc0000;
+}
+
+#lpf-add-phase {
+    margin-top: 10px;
+}
+
+/* Fase obrigatória */
+.lpf-phase-row.is-required {
+    border-left: 3px solid #e74c3c;
+    padding-left: 8px;
+}
+
+.lpf-required-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    cursor: pointer;
+    color: #c0392b;
+}
+
+.lpf-required-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #fde8e8;
+    color: #c0392b;
+}
+
+/* Último pagamento */
+.lpf-phase-row.is-last {
+    border-left: 3px solid #2c3e50;
+    padding-left: 8px;
+}
+
+.lpf-last-label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.lpf-last-info {
+    font-size: 12px;
+    color: #2c3e50;
+    background: #eaf0fb;
+    border: 1px solid #c5d5f0;
+    border-radius: 3px;
+    padding: 4px 10px;
+    margin: 4px 0 0 0;
+    width: 100%;
+}
+
+.lpf-summary {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    padding: 8px 10px;
+    background: #f8f8f8;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.lpf-summary-sep {
+    color: #ccc;
+}
+
+.lpf-hidden {
+    display: none !important;
+}
+
+/* Histórico de pagamentos (backoffice) */
+.lpf-history-wrapper {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    padding: 4px 0;
+}
+
+.lpf-timeline {
+    flex: 1;
+    position: relative;
+    padding-left: 20px;
+}
+
+.lpf-timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: #ddd;
+}
+
+.lpf-timeline-item {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    padding-bottom: 16px;
+}
+
+.lpf-timeline-item.is-last-item {
+    padding-bottom: 0;
+}
+
+.lpf-timeline-dot {
+    position: absolute;
+    left: -17px;
+    top: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #27ae60;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px #27ae60;
+    flex-shrink: 0;
+}
+
+.lpf-timeline-dot.is-final {
+    background: #2c3e50;
+    box-shadow: 0 0 0 2px #2c3e50;
+}
+
+.lpf-timeline-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    align-items: center;
+    padding-top: 0;
+}
+
+.lpf-tl-date {
+    font-size: 11px;
+    color: #999;
+    white-space: nowrap;
+}
+
+.lpf-tl-desc {
+    font-weight: 600;
+    color: #333;
+}
+
+.lpf-tl-amount {
+    font-weight: 600;
+    color: #27ae60;
+}
+
+.lpf-tl-deduction {
+    width: 100%;
+    font-size: 11px;
+    color: #2c3e50;
+    font-style: italic;
+}
+
+.lpf-badge--online {
+    background: #d5eaf7;
+    color: #1a6fa8;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+.lpf-badge--manual {
+    background: #e8e8e8;
+    color: #555;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+}
+
+.lpf-history-summary {
+    min-width: 220px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+    font-size: 13px;
+}
+
+.lpf-hs-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.lpf-hs-row:last-child {
+    border-bottom: none;
+}
+
+.lpf-hs-deduction {
+    color: #2c3e50;
+    background: #eaf0fb;
+}
+
+.lpf-hs-outstanding {
+    font-weight: 700;
+    background: #f8f8f8;
+    color: #c0392b;
+}
+
+/* My Account */
+.lpf-myaccount-phases {
+    margin-top: 32px;
+}
+
+.lpf-myaccount-phases h2 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.lpf-phases-table .lpf-paid td {
+    color: #555;
+}
+
+.lpf-phases-table .lpf-outstanding th,
+.lpf-phases-table .lpf-outstanding td {
+    font-weight: bold;
+    color: #c0392b;
+}
+
+.lpf-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.lpf-badge--paid {
+    background: #d4edda;
+    color: #155724;
+}
+
+.lpf-badge--pending {
+    background: #fff3cd;
+    color: #856404;
+}

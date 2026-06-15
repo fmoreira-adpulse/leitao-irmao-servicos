@@ -29,13 +29,13 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wp_leitaoirmao' );
+define( 'DB_NAME', 'leitao-irmao' );
 
 /** Database username */
-define( 'DB_USER', 'wp_leitaoirmao' );
+define( 'DB_USER', 'root' );
 
 /** Database password */
-define( 'DB_PASSWORD', 'f45e41b2229588' );
+define( 'DB_PASSWORD', 'root' );
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );
@@ -98,8 +98,8 @@ define( 'WP_DEBUG_DISPLAY', false );
 
 define('WP_MEMORY_LIMIT','1024M');
 
-define( 'WP_HOME', 'https://leitao-irmao.ad-pulse.com' );
-define( 'WP_SITEURL', 'https://leitao-irmao.ad-pulse.com' );
+define( 'WP_HOME', 'http://localhost' );
+define( 'WP_SITEURL', 'http://localhost' );
 
 //define( 'DUPLICATOR_AUTH_KEY', 'YbyAm[-PN{$mM_Q]u(N9-iGdL5T+ 9,<U:F8T|^DS8Ql*`!hZ|[z9xuAre ,m;^6' );
 /* That's all, stop editing! Happy publishing. */
