@@ -354,11 +354,10 @@ class EnergyPlus_Events extends EnergyPlus {
       // Orders not completed
       case 2:
 
-      EnergyPlus::wc_engine();
-
-      $notification_count = absint(WC()->api->WC_API_Orders->get_orders_count( 'pending' ) ['count'] ) +
-      absint(WC()->api->WC_API_Orders->get_orders_count( 'processing' ) ['count'] ) +
-      absint(WC()->api->WC_API_Orders->get_orders_count( 'on-hold' ) ['count'] );;
+      // Use native WC function (compatible with HPOS and WC 9.0+)
+      $notification_count = wc_orders_count( 'pending' ) +
+        wc_orders_count( 'processing' ) +
+        wc_orders_count( 'on-hold' );
 
       if (0 < $notification_count) {
         $title = "($notification_count)";
@@ -529,25 +528,36 @@ public static function post_updated_messages( ) {
 
 public static function save_post_shop_order( $order_id ) {
 
-  EnergyPlus::wc_engine();
-
   wc_delete_shop_order_transients();
 
-  include_once( WC()->plugin_path() . '/includes/admin/reports/class-wc-admin-report.php' );
-  include_once( WC()->plugin_path() . '/includes/admin/reports/class-wc-report-sales-by-date.php' );
+  $report_path       = WC()->plugin_path() . '/includes/admin/reports/class-wc-admin-report.php';
+  $report_sales_path = WC()->plugin_path() . '/includes/admin/reports/class-wc-report-sales-by-date.php';
+
+  if ( ! file_exists( $report_path ) || ! file_exists( $report_sales_path ) ) {
+    return;
+  }
+
+  include_once( $report_path );
+  include_once( $report_sales_path );
+
+  if ( ! class_exists( 'WC_Report_Sales_By_Date' ) ) {
+    return;
+  }
 
   $report = new WC_Report_Sales_By_Date();
 
   $_GET['start_date'] = EnergyPlus_Helpers::strtotime('now', "Y-m-d");
   $_GET['end_date']   = EnergyPlus_Helpers::strtotime('now', "Y-m-d");
 
-  $report_data     = $report->calculate_current_range( 'custom' );
-  $report_data     = $report->get_report_data();
+  $report->calculate_current_range( 'custom' );
+  $report_data = $report->get_report_data();
 
-  if (is_wp_error($report_data)) {
+  if ( is_wp_error( $report_data ) || ! isset( $report_data->total_sales ) ) {
     return;
   }
-  set_transient( 'today_sales', floatval(floor($report_data->total_sales)) , EnergyPlus_Helpers::strtotime('tomorrow 00:00:00', 'U')-EnergyPlus_Helpers::strtotime('now', 'U') );
+
+  set_transient( 'today_sales', floatval( floor( $report_data->total_sales ) ),
+    EnergyPlus_Helpers::strtotime('tomorrow 00:00:00', 'U') - EnergyPlus_Helpers::strtotime('now', 'U') );
 
 }
 

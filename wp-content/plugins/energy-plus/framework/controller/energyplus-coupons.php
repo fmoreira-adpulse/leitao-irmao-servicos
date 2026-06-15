@@ -176,6 +176,16 @@ class EnergyPlus_Coupons extends EnergyPlus {
 
 		if ($coupon_id > 0) {
 
+			if ( empty( WC()->api->WC_API_Coupons ) ) {
+				if (isset($args['return'])) {
+					$coupon['usage_count'] = 0;
+					return $coupon;
+				} else {
+					wp_safe_redirect( EnergyPlus_Helpers::admin_page('coupons') );
+					return;
+				}
+			}
+
 			$coupon_data = WC()->api->WC_API_Coupons->get_coupon($coupon_id);
 			if (is_wp_error($coupon_data)) {
 				if (isset($args['return'])) {
@@ -355,7 +365,11 @@ class EnergyPlus_Coupons extends EnergyPlus {
 				}
 
 				if ( 'trash' === EnergyPlus_Helpers::post( 'state' ) ) {
-					WC()->api->WC_API_Coupons->delete_coupon($id);
+					if ( !empty( WC()->api->WC_API_Coupons ) ) {
+						WC()->api->WC_API_Coupons->delete_coupon($id);
+					} else {
+						wp_trash_post( $id );
+					}
 					$success[] = $id;
 					$state     = 'trashnew';
 				}
@@ -367,7 +381,11 @@ class EnergyPlus_Coupons extends EnergyPlus {
 				}
 
 				if ( 'deleteforever' === EnergyPlus_Helpers::post( 'state' ) ) {
-					$result    = WC()->api->WC_API_Coupons->delete_coupon($id, 'true');
+					if ( !empty( WC()->api->WC_API_Coupons ) ) {
+						$result = WC()->api->WC_API_Coupons->delete_coupon($id, 'true');
+					} else {
+						$result = wp_delete_post( $id, true );
+					}
 					$success[] = $id;
 					$state     = 'trashnew';
 				}
@@ -447,7 +465,11 @@ class EnergyPlus_Coupons extends EnergyPlus {
 			wp_safe_redirect(  EnergyPlus_Helpers::admin_page('coupons') );
 
 		} else {
-			$result = WC()->api->WC_API_Coupons->delete_coupon($coupon_id, $force);
+			if ( !empty( WC()->api->WC_API_Coupons ) ) {
+				$result = WC()->api->WC_API_Coupons->delete_coupon($coupon_id, $force);
+			} else {
+				$result = wp_delete_post( $coupon_id, 'true' === $force );
+			}
 		}
 		wp_safe_redirect( wp_get_referer() ? remove_query_arg( array( 'trashed', 'untrashed', 'deleted', 'ids' ), wp_get_referer() ) : admin_url( 'edit.php?post_type=product' ) );
 

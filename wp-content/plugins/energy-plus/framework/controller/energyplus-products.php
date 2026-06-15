@@ -27,7 +27,10 @@ class EnergyPlus_Products extends EnergyPlus {
 
 	public static function run() {
 
-		EnergyPlus::wc_engine();
+		if ( ! EnergyPlus::wc_engine() ) {
+			echo '<div class="notice notice-error"><p>' . esc_html__( 'Products panel requires the WooCommerce Legacy REST API plugin to be active.', 'energyplus' ) . '</p></div>';
+			return;
+		}
 
 		wp_enqueue_script("energyplus-products",  EnergyPlus_Public . "js/energyplus-products.js", array(), EnergyPlus_Version);
 		wp_enqueue_script("energyplus-nested-sortable",  EnergyPlus_Public . "3rd/nested-sortable.js", array(), EnergyPlus_Version);
