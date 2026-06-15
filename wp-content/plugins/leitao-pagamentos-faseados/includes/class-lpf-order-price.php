@@ -82,7 +82,9 @@ class LPF_Order_Price {
     // Impedir avanço automático de estado quando VAP é pago directamente
     // -------------------------------------------------------------------------
 
-    public static function prevent_auto_status_advance( string $new_status, int $order_id, WC_Order $order ): string {
+    public static function prevent_auto_status_advance( ?string $new_status, int $order_id, WC_Order $order ): string {
+        if ( $new_status === null ) return 'completed';
+
         $aguarda_vap = LPF_Settings::get_status_aguarda_vap();
         if ( ! $aguarda_vap ) return $new_status;
 
