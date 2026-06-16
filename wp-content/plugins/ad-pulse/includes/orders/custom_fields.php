@@ -128,16 +128,17 @@ function save_custom_fields($order_id, $order): void
     // Skip if not a real form submission
     if (empty($_POST)) return;
 
-    // Load a fresh order from HPOS so we pick up the status already committed
-    // by WC_Meta_Box_Order_Data::save (priority 40) before this runs (priority 45).
-    $real_order = wc_get_order($order_id);
+    // In HPOS, $order is the same WC_Order object already modified by WC_Meta_Box_Order_Data::save
+    // at priority 40 (new status set in memory and in DB). Using it directly avoids returning a
+    // stale cached instance via wc_get_order() that would revert the status on save.
+    $real_order = ($order instanceof WC_Order) ? $order : wc_get_order($order_id);
     if (!$real_order) return;
 
     $fields = get_order_custom_fields();
 
     foreach($fields as $field) {
         $meta_key = '_order_custom_' . $field['name'];
-        if (!empty($_POST[$meta_key])) {
+        if (isset($_POST[$meta_key])) {
             $real_order->update_meta_data($meta_key, sanitize_text_field($_POST[$meta_key]));
         }
     }

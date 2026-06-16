@@ -255,7 +255,6 @@ function custom_disable_order_date_based_on_status() {
         ?>
         <script>
         jQuery(document).ready(function($) {
-            debugger;
             $('<?= implode(', ', $inputs_to_deactivate) ?>').prop('disabled', true);
             $('<?= implode(', ', $elems_to_remove) ?>').remove();
             // hide file uploader (it is loaded later so it cant be done as the other cases)
