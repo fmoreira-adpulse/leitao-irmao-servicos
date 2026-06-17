@@ -10,6 +10,7 @@ class LPF_Order_Meta_Box {
         add_action( 'woocommerce_process_shop_order_meta', [ __CLASS__, 'ensure_order_status' ], 35 );
         add_action( 'admin_enqueue_scripts',               [ __CLASS__, 'enqueue' ] );
         add_action( 'wp_ajax_lpf_mark_phase_paid',         [ __CLASS__, 'ajax_mark_paid' ] );
+        add_action( 'woocommerce_order_status_changed',    [ __CLASS__, 'maybe_inject_on_status_change' ], 10, 4 );
     }
 
     public static function register() {
@@ -346,12 +347,23 @@ class LPF_Order_Meta_Box {
         $order = wc_get_order( $order_id );
         if ( ! $order ) return;
 
-        $raw    = $_POST['lpf_phases'] ?? [];
+        $raw      = $_POST['lpf_phases'] ?? [];
+        $existing = $order->get_meta( '_lpf_payment_phases', true ) ?: [];
+
+        // Preserve fields managed by AJAX (not in the form) keyed by phase_id
+        $existing_map = [];
+        foreach ( $existing as $p ) {
+            $existing_map[ $p['phase_id'] ] = $p;
+        }
+
         $phases = [];
 
         foreach ( $raw as $data ) {
+            $phase_id = sanitize_text_field( $data['phase_id'] ?? '' );
+            $prev     = $existing_map[ $phase_id ] ?? [];
+
             $phases[] = [
-                'phase_id'      => sanitize_text_field( $data['phase_id'] ?? '' ),
+                'phase_id'      => $phase_id,
                 'description'   => sanitize_text_field( $data['description'] ?? '' ),
                 'type'          => in_array( $data['type'] ?? '', [ 'nominal', 'percentage' ], true ) ? $data['type'] : 'nominal',
                 'value'         => floatval( $data['value'] ?? 0 ),
@@ -361,11 +373,77 @@ class LPF_Order_Meta_Box {
                 'is_last'       => ! empty( $data['is_last'] ) && $data['is_last'] === '1',
                 'is_required'   => ! empty( $data['is_required'] ) && $data['is_required'] === '1',
                 'vap_deduction' => floatval( $data['vap_deduction'] ?? 0 ),
+                'mini_order_id' => $prev['mini_order_id'] ?? '',
+                'link_sent_at'  => $prev['link_sent_at'] ?? '',
             ];
         }
 
+        self::inject_vap_peqrep_phases( $order, $phases );
+
         $order->update_meta_data( '_lpf_payment_phases', $phases );
         $order->save();
+    }
+
+    private static function inject_vap_peqrep_phases( WC_Order $order, array &$phases ): void {
+        $map = array_filter( [
+            'auto-vap'    => LPF_Settings::get_vap_product_id(),
+            'auto-peqrep' => LPF_Settings::get_peqrep_product_id(),
+        ] );
+
+        if ( empty( $map ) ) return;
+
+        $existing_ids = array_column( $phases, 'phase_id' );
+
+        foreach ( $map as $auto_id => $product_id ) {
+            if ( in_array( $auto_id, $existing_ids, true ) ) continue;
+
+            $value = 0.0;
+            foreach ( $order->get_items() as $item ) {
+                if ( $item instanceof WC_Order_Item_Product && $item->get_product_id() === $product_id ) {
+                    $value += (float) $item->get_total();
+                }
+            }
+
+            if ( $value <= 0 ) continue;
+
+            $product = wc_get_product( $product_id );
+            $desc    = $product ? $product->get_name() : strtoupper( str_replace( 'auto-', '', $auto_id ) );
+
+            array_unshift( $phases, [
+                'phase_id'      => $auto_id,
+                'description'   => $desc,
+                'type'          => 'nominal',
+                'value'         => $value,
+                'method'        => 'manual',
+                'status'        => 'pending',
+                'paid_at'       => '',
+                'is_last'       => false,
+                'is_required'   => false,
+                'vap_deduction' => 0.0,
+                'mini_order_id' => '',
+                'link_sent_at'  => '',
+            ] );
+
+            $existing_ids[] = $auto_id;
+        }
+    }
+
+    public static function maybe_inject_on_status_change( int $order_id, string $old_status, string $new_status, WC_Order $order ): void {
+        $aguarda_vap = LPF_Settings::get_status_aguarda_vap();
+        if ( ! $aguarda_vap ) return;
+
+        $target = str_replace( 'wc-', '', $aguarda_vap );
+        if ( $new_status !== $target ) return;
+
+        $phases = $order->get_meta( '_lpf_payment_phases', true ) ?: [];
+        $count  = count( $phases );
+
+        self::inject_vap_peqrep_phases( $order, $phases );
+
+        if ( count( $phases ) !== $count ) {
+            $order->update_meta_data( '_lpf_payment_phases', $phases );
+            $order->save();
+        }
     }
 
     public static function ajax_mark_paid() {

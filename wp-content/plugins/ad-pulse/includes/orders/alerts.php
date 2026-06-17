@@ -1,13 +1,18 @@
 <?php
 
 function set_alert_on_order($order) {
+    static $saving = [];
+
     if ($order->get_parent_id() > 0)
         return;
+
+    $order_id = $order->get_id();
+    if (!empty($saving[$order_id])) return;
 
     $user_id_who_changed = get_current_user_id();
     $order_alert_prefix = '_order_alert_for_user_';
 
-    foreach ($order->meta_data as $meta) {
+    foreach ($order->get_meta_data() as $meta) {
         if (str_contains($meta->key, $order_alert_prefix)) {
             $has_alert = $meta->key != $order_alert_prefix . $user_id_who_changed;
             $user_id_to_be_notified = str_replace($order_alert_prefix, '', $meta->key);
@@ -16,7 +21,9 @@ function set_alert_on_order($order) {
     }
     
     $order->update_meta_data($order_alert_prefix . $user_id_who_changed, false);
+    $saving[$order_id] = true;
     $order->save();
+    unset($saving[$order_id]);
 }
 
 function remove_alert_from_order() {
@@ -24,7 +31,7 @@ function remove_alert_from_order() {
     $user_id_who_clicked = get_current_user_id();
     $order_alert_prefix = '_order_alert_for_user_';
 
-    foreach ($order->meta_data as $meta) {
+    foreach ($order->get_meta_data() as $meta) {
         if (str_contains($meta->key, $order_alert_prefix) && str_replace($order_alert_prefix, '', $meta->key) == $user_id_who_clicked) {
             $order->update_meta_data($meta->key, false);
             $order->save();
