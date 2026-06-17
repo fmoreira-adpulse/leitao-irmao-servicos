@@ -7,6 +7,7 @@ class LPF_Order_Meta_Box {
     public static function init() {
         add_action( 'add_meta_boxes',                      [ __CLASS__, 'register' ] );
         add_action( 'woocommerce_process_shop_order_meta', [ __CLASS__, 'save' ] );
+        add_action( 'woocommerce_process_shop_order_meta', [ __CLASS__, 'ensure_order_status' ], 35 );
         add_action( 'admin_enqueue_scripts',               [ __CLASS__, 'enqueue' ] );
         add_action( 'wp_ajax_lpf_mark_phase_paid',         [ __CLASS__, 'ajax_mark_paid' ] );
     }
@@ -42,13 +43,12 @@ class LPF_Order_Meta_Box {
         $phases      = $order->get_meta( '_lpf_payment_phases', true ) ?: [];
         $order_total = (float) $order->get_total();
 
-        // Calcular dedução VAP/PEQREP a partir dos produtos na encomenda
+        // Calcular dedução VAP a partir dos produtos na encomenda (só VAP é devolvido; PEQREP não é deduzido)
         $vap_id        = LPF_Settings::get_vap_product_id();
-        $peqrep_id     = LPF_Settings::get_peqrep_product_id();
         $vap_deduction = 0.0;
         foreach ( $order->get_items() as $item ) {
             if ( ! $item instanceof WC_Order_Item_Product ) continue;
-            if ( in_array( $item->get_product_id(), array_filter( [ $vap_id, $peqrep_id ] ), true ) ) {
+            if ( $vap_id && $item->get_product_id() === $vap_id ) {
                 $vap_deduction += (float) $item->get_total();
             }
         }
@@ -182,7 +182,7 @@ class LPF_Order_Meta_Box {
             <?php if ( $is_last && $vap_deduction > 0 ) : ?>
                 <div class="lpf-last-info">
                     <?php printf(
-                        esc_html__( 'Dedução VAP/PEQREP aplicada: -%s', 'lpf' ),
+                        esc_html__( 'Dedução VAP aplicada: -%s', 'lpf' ),
                         wc_price( $vap_deduction )
                     ); ?>
                 </div>
@@ -257,7 +257,7 @@ class LPF_Order_Meta_Box {
                         </span>
                         <?php if ( $is_last && $phase_vap > 0 ) : ?>
                             <span class="lpf-tl-deduction">
-                                <?php printf( esc_html__( 'Inclui dedução VAP/PEQREP: -%s', 'lpf' ), wc_price( $phase_vap ) ); ?>
+                                <?php printf( esc_html__( 'Inclui dedução VAP: -%s', 'lpf' ), wc_price( $phase_vap ) ); ?>
                             </span>
                         <?php endif; ?>
                     </div>
@@ -276,7 +276,7 @@ class LPF_Order_Meta_Box {
                 </div>
                 <?php if ( $vap_deduction > 0 ) : ?>
                 <div class="lpf-hs-row lpf-hs-deduction">
-                    <span><?php esc_html_e( 'Dedução VAP/PEQREP', 'lpf' ); ?></span>
+                    <span><?php esc_html_e( 'Dedução VAP', 'lpf' ); ?></span>
                     <span>-<?php echo wp_kses_post( wc_price( $vap_deduction ) ); ?></span>
                 </div>
                 <?php endif; ?>
@@ -328,6 +328,14 @@ class LPF_Order_Meta_Box {
         // Mostrar se já existirem fases definidas (encomenda já passou pelo estado)
         $phases = $order->get_meta( '_lpf_payment_phases', true );
         return ! empty( $phases );
+    }
+
+    // Garante que order_status existe no POST antes de WC_Meta_Box_Order_Data::save (p40) correr.
+    // Em HPOS, o select2 pode não enviar order_status; nesse caso usa original_order_status.
+    public static function ensure_order_status(): void {
+        if ( ! isset( $_POST['order_status'] ) && isset( $_POST['original_order_status'] ) ) {
+            $_POST['order_status'] = sanitize_key( wp_unslash( $_POST['original_order_status'] ) );
+        }
     }
 
     public static function save( int $order_id ): void {
@@ -426,7 +434,7 @@ class LPF_Order_Meta_Box {
                 'link_sent'               => __( 'Link enviado —', 'lpf' ),
                 'send_link'               => __( 'Enviar link', 'lpf' ),
                 'error'                   => __( 'Ocorreu um erro. Tenta novamente.', 'lpf' ),
-                'vap_deduction'           => __( 'Dedução VAP/PEQREP aplicada', 'lpf' ),
+                'vap_deduction'           => __( 'Dedução VAP aplicada', 'lpf' ),
                 'suggested_value'         => __( 'Valor sugerido', 'lpf' ),
             ],
         ] );
