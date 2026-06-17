@@ -355,10 +355,12 @@ function date_format_check_null($date)
 
 #region Ligação das funções com os filtros/ações
 
+// Sistema antigo de sub-encomendas (substituído pelo plugin Pagamentos Faseados)
 // add_action('add_meta_boxes', 'payments_box', 10, 2);
-add_action('woocommerce_order_status_changed', 'check_payment_for_statuses', 10, 4);
-add_action('woocommerce_payment_complete', 'set_status_after_payment', 10, 2);
-add_action( 'wp_ajax_confirm_sub_order_payment', 'set_sub_order_paid');
+// add_action('woocommerce_order_status_changed', 'check_payment_for_statuses', 10, 4);
+// add_action('woocommerce_payment_complete', 'set_status_after_payment', 10, 2);
+// add_action( 'wp_ajax_confirm_sub_order_payment', 'set_sub_order_paid');
+// add_action('wp_ajax_generate_payments', 'generate_payments');
+
 add_filter('woocommerce_payment_complete_order_status', 'set_child_order_as_completed', 10, 3);
-add_action('wp_ajax_generate_payments', 'generate_payments');
 #endregion
