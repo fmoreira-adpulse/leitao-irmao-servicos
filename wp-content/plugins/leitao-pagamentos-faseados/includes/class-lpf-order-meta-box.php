@@ -10,6 +10,7 @@ class LPF_Order_Meta_Box {
         add_action( 'woocommerce_process_shop_order_meta', [ __CLASS__, 'ensure_order_status' ], 35 );
         add_action( 'admin_enqueue_scripts',               [ __CLASS__, 'enqueue' ] );
         add_action( 'wp_ajax_lpf_mark_phase_paid',         [ __CLASS__, 'ajax_mark_paid' ] );
+        add_action( 'wp_ajax_lpf_save_phases',             [ __CLASS__, 'ajax_save_phases' ] );
         add_action( 'woocommerce_order_status_changed',    [ __CLASS__, 'maybe_inject_on_status_change' ], 10, 4 );
     }
 
@@ -71,6 +72,13 @@ class LPF_Order_Meta_Box {
 
             <div id="lpf-phases-summary">
                 <?php self::render_summary( $phases, $order_total ); ?>
+            </div>
+
+            <div id="lpf-phases-actions">
+                <button type="button" id="lpf-save-phases" class="button lpf-btn-save">
+                    <?php esc_html_e( 'Guardar', 'lpf' ); ?>
+                </button>
+                <span id="lpf-save-feedback" class="lpf-save-feedback"></span>
             </div>
         </div>
 
@@ -361,18 +369,20 @@ class LPF_Order_Meta_Box {
         foreach ( $raw as $data ) {
             $phase_id = sanitize_text_field( $data['phase_id'] ?? '' );
             $prev     = $existing_map[ $phase_id ] ?? [];
+            $is_paid  = ( $data['status'] ?? '' ) === 'paid';
 
+            // Fases pagas têm inputs disabled que não chegam no POST — preservar do meta existente.
             $phases[] = [
                 'phase_id'      => $phase_id,
-                'description'   => sanitize_text_field( $data['description'] ?? '' ),
-                'type'          => in_array( $data['type'] ?? '', [ 'nominal', 'percentage' ], true ) ? $data['type'] : 'nominal',
-                'value'         => floatval( $data['value'] ?? 0 ),
-                'method'        => in_array( $data['method'] ?? '', [ 'manual', 'online' ], true ) ? $data['method'] : 'manual',
-                'status'        => in_array( $data['status'] ?? '', [ 'pending', 'paid' ], true ) ? $data['status'] : 'pending',
-                'paid_at'       => sanitize_text_field( $data['paid_at'] ?? '' ),
-                'is_last'       => ! empty( $data['is_last'] ) && $data['is_last'] === '1',
-                'is_required'   => ! empty( $data['is_required'] ) && $data['is_required'] === '1',
-                'vap_deduction' => floatval( $data['vap_deduction'] ?? 0 ),
+                'description'   => $is_paid ? ( $prev['description'] ?? '' ) : sanitize_text_field( $data['description'] ?? '' ),
+                'type'          => $is_paid ? ( $prev['type'] ?? 'nominal' ) : ( in_array( $data['type'] ?? '', [ 'nominal', 'percentage' ], true ) ? $data['type'] : 'nominal' ),
+                'value'         => $is_paid ? floatval( $prev['value'] ?? 0 ) : floatval( $data['value'] ?? 0 ),
+                'method'        => $is_paid ? ( $prev['method'] ?? 'manual' ) : ( in_array( $data['method'] ?? '', [ 'manual', 'online' ], true ) ? $data['method'] : 'manual' ),
+                'status'        => $is_paid ? 'paid' : 'pending',
+                'paid_at'       => sanitize_text_field( $data['paid_at'] ?? $prev['paid_at'] ?? '' ),
+                'is_last'       => $is_paid ? ( $prev['is_last'] ?? false ) : ( ! empty( $data['is_last'] ) && $data['is_last'] === '1' ),
+                'is_required'   => $is_paid ? ( $prev['is_required'] ?? false ) : ( ! empty( $data['is_required'] ) && $data['is_required'] === '1' ),
+                'vap_deduction' => floatval( $data['vap_deduction'] ?? $prev['vap_deduction'] ?? 0 ),
                 'mini_order_id' => $prev['mini_order_id'] ?? '',
                 'link_sent_at'  => $prev['link_sent_at'] ?? '',
             ];
@@ -491,6 +501,81 @@ class LPF_Order_Meta_Box {
         wp_send_json_success( [ 'paid_at' => $updated['paid_at'] ] );
     }
 
+    public static function ajax_save_phases(): void {
+        check_ajax_referer( 'lpf_save_phases', 'nonce' );
+
+        if ( ! current_user_can( 'edit_shop_orders' ) ) {
+            wp_send_json_error( [ 'message' => __( 'Permissão insuficiente.', 'lpf' ) ] );
+        }
+
+        $order_id = absint( $_POST['order_id'] ?? 0 );
+        $order    = wc_get_order( $order_id );
+        if ( ! $order ) {
+            wp_send_json_error( [ 'message' => __( 'Encomenda não encontrada.', 'lpf' ) ] );
+        }
+
+        $raw = json_decode( wp_unslash( $_POST['phases'] ?? '[]' ), true );
+        if ( ! is_array( $raw ) ) {
+            wp_send_json_error( [ 'message' => __( 'Dados inválidos.', 'lpf' ) ] );
+        }
+
+        $existing     = $order->get_meta( '_lpf_payment_phases', true ) ?: [];
+        $existing_map = [];
+        foreach ( $existing as $p ) {
+            $existing_map[ $p['phase_id'] ] = $p;
+        }
+
+        $phases = [];
+        foreach ( $raw as $data ) {
+            $phase_id = sanitize_text_field( $data['phase_id'] ?? '' );
+            $prev     = $existing_map[ $phase_id ] ?? [];
+
+            $phases[] = [
+                'phase_id'      => $phase_id,
+                'description'   => sanitize_text_field( $data['description'] ?? '' ),
+                'type'          => in_array( $data['type'] ?? '', [ 'nominal', 'percentage' ], true ) ? $data['type'] : 'nominal',
+                'value'         => floatval( $data['value'] ?? 0 ),
+                'method'        => in_array( $data['method'] ?? '', [ 'manual', 'online' ], true ) ? $data['method'] : 'manual',
+                'status'        => in_array( $data['status'] ?? '', [ 'pending', 'paid' ], true ) ? $data['status'] : 'pending',
+                'paid_at'       => sanitize_text_field( $data['paid_at'] ?? '' ),
+                'is_last'       => ( $data['is_last'] ?? '0' ) === '1',
+                'is_required'   => ( $data['is_required'] ?? '0' ) === '1',
+                'vap_deduction' => floatval( $data['vap_deduction'] ?? 0 ),
+                'mini_order_id' => $prev['mini_order_id'] ?? '',
+                'link_sent_at'  => $prev['link_sent_at'] ?? '',
+            ];
+        }
+
+        self::inject_vap_peqrep_phases( $order, $phases );
+
+        $order_total   = (float) $order->get_total();
+        $paid_total    = 0.0;
+        $pending_total = 0.0;
+        foreach ( $phases as $phase ) {
+            $val    = floatval( $phase['value'] ?? 0 );
+            $amount = ( ( $phase['type'] ?? 'nominal' ) === 'percentage' )
+                ? ( $val / 100 ) * $order_total
+                : $val;
+            if ( ( $phase['status'] ?? 'pending' ) === 'paid' ) {
+                $paid_total += $amount;
+            } else {
+                $pending_total += $amount;
+            }
+        }
+        if ( $pending_total > ( $order_total - $paid_total ) + 0.001 ) {
+            wp_send_json_error( [ 'message' => __( 'O total das fases pendentes não pode ser superior ao valor remanescente da encomenda.', 'lpf' ) ] );
+        }
+
+        $order->update_meta_data( '_lpf_payment_phases', $phases );
+        $order->save();
+
+        ob_start();
+        self::render_summary( $phases, $order_total );
+        $summary_html = ob_get_clean();
+
+        wp_send_json_success( [ 'summary_html' => $summary_html ] );
+    }
+
     public static function enqueue( string $hook ): void {
         $is_order = ( $hook === 'post.php' && isset( $GLOBALS['post'] ) && $GLOBALS['post']->post_type === 'shop_order' )
                  || ( $hook === 'woocommerce_page_wc-orders' && ( $_GET['action'] ?? '' ) === 'edit' );
@@ -504,6 +589,7 @@ class LPF_Order_Meta_Box {
             'ajax_url'        => admin_url( 'admin-ajax.php' ),
             'nonce'           => wp_create_nonce( 'lpf_mark_paid' ),
             'send_link_nonce' => wp_create_nonce( 'lpf_send_link' ),
+            'save_nonce'      => wp_create_nonce( 'lpf_save_phases' ),
             'i18n'            => [
                 'paid'                     => __( 'Pago', 'lpf' ),
                 'confirm_paid'             => __( 'Confirmar o pagamento desta fase?', 'lpf' ),
@@ -514,6 +600,9 @@ class LPF_Order_Meta_Box {
                 'error'                   => __( 'Ocorreu um erro. Tenta novamente.', 'lpf' ),
                 'vap_deduction'           => __( 'Dedução VAP aplicada', 'lpf' ),
                 'suggested_value'         => __( 'Valor sugerido', 'lpf' ),
+                'save_recalculate'        => __( 'Guardar', 'lpf' ),
+                'saved'                   => __( 'Guardado!', 'lpf' ),
+                'total_exceeds'           => __( 'O total das fases pendentes não pode ser superior ao valor remanescente da encomenda.', 'lpf' ),
             ],
         ] );
     }

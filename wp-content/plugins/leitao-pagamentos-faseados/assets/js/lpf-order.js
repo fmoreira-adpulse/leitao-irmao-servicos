@@ -116,6 +116,94 @@ jQuery( function ( $ ) {
         } );
     } );
 
+    const orderTotal = parseFloat( $( '#lpf-order-total' ).val() ) || 0;
+
+    function calcPendingTotal() {
+        let total = 0;
+        container.find( '.lpf-phase-row' ).each( function () {
+            if ( $( this ).find( '[name$="[status]"]' ).val() === 'paid' ) return;
+            const val  = parseFloat( $( this ).find( '.lpf-value-input' ).val() ) || 0;
+            const type = $( this ).find( '.lpf-type-select' ).val() || 'nominal';
+            total += ( type === 'percentage' ) ? ( val / 100 ) * orderTotal : val;
+        } );
+        return total;
+    }
+
+    function validateTotal() {
+        const $feedback  = $( '#lpf-save-feedback' );
+        const $btn       = $( '#lpf-save-phases' );
+        const paidTotal  = calcPaidTotal( orderTotal );
+        const remaining  = orderTotal - paidTotal;
+
+        if ( calcPendingTotal() > remaining + 0.001 ) {
+            $feedback.text( lpf_order.i18n.total_exceeds ).addClass( 'is-error' );
+            $btn.prop( 'disabled', true );
+            return false;
+        }
+        $feedback.text( '' ).removeClass( 'is-error' );
+        $btn.prop( 'disabled', false );
+        return true;
+    }
+
+    container.on( 'input',  '.lpf-value-input',  validateTotal );
+    container.on( 'change', '.lpf-type-select',  validateTotal );
+
+    // Guardar (AJAX)
+    $( '#lpf-save-phases' ).on( 'click', function ( e ) {
+        e.preventDefault();
+        e.stopPropagation();
+        const $btn      = $( this );
+        const $feedback = $( '#lpf-save-feedback' );
+        const orderId   = $( '#post_ID' ).val()
+                       || new URLSearchParams( window.location.search ).get( 'id' );
+
+        if ( ! validateTotal() ) return;
+
+        const phases = [];
+        container.find( '.lpf-phase-row' ).each( function () {
+            const row = $( this );
+            phases.push( {
+                phase_id:      row.data( 'phase-id' ),
+                description:   row.find( '[name$="[description]"]' ).val(),
+                type:          row.find( '.lpf-type-select' ).val(),
+                value:         row.find( '.lpf-value-input' ).val(),
+                method:        row.find( '.lpf-method-select' ).val(),
+                status:        row.find( '[name$="[status]"]' ).val(),
+                paid_at:       row.find( '[name$="[paid_at]"]' ).val(),
+                is_last:       row.find( '.lpf-is-last-hidden' ).val(),
+                is_required:   row.find( '.lpf-is-required-hidden' ).val(),
+                vap_deduction: row.find( '.lpf-vap-deduction-hidden' ).val(),
+            } );
+        } );
+
+        $btn.prop( 'disabled', true ).text( '...' );
+        $feedback.text( '' ).removeClass( 'is-error' );
+
+        $.post( lpf_order.ajax_url, {
+            action:   'lpf_save_phases',
+            nonce:    lpf_order.save_nonce,
+            order_id: orderId,
+            phases:   JSON.stringify( phases ),
+        } )
+        .done( function ( response ) {
+            if ( response.success ) {
+                $( '#lpf-phases-summary' ).html( response.data.summary_html );
+                $feedback.text( lpf_order.i18n.saved );
+                setTimeout( function () {
+                    $btn.prop( 'disabled', false ).text( lpf_order.i18n.save_recalculate );
+                    $feedback.text( '' );
+                }, 2000 );
+            } else {
+                $feedback.text( response.data.message || lpf_order.i18n.error ).addClass( 'is-error' );
+                $btn.prop( 'disabled', false ).text( lpf_order.i18n.save_recalculate );
+            }
+        } )
+        .fail( function () {
+            $feedback.text( lpf_order.i18n.error ).addClass( 'is-error' );
+            $btn.prop( 'disabled', false ).text( lpf_order.i18n.save_recalculate );
+        } );
+    } );
+
     // Marcar fase como paga (AJAX)
     container.on( 'click', '.lpf-mark-paid', function () {
         if ( ! confirm( lpf_order.i18n.confirm_paid ) ) return;

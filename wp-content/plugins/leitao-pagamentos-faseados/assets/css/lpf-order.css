@@ -73,6 +73,36 @@
     margin-top: 10px;
 }
 
+.lpf-btn-save {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+}
+
+.lpf-btn-save:hover,
+.lpf-btn-save:focus {
+    background: #135e96;
+    border-color: #135e96;
+    color: #fff;
+}
+
+#lpf-phases-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.lpf-save-feedback {
+    font-size: 13px;
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.lpf-save-feedback.is-error {
+    color: #c0392b;
+}
+
 /* Fase obrigatória */
 .lpf-phase-row.is-required {
     border-left: 3px solid #e74c3c;
