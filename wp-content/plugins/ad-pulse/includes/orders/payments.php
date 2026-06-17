@@ -128,6 +128,7 @@ function set_child_order_as_completed ($status, $order_id, $order) {
     if ($order->parent_id > 0) {
         return 'completed';
     }
+    return $status;
 }
 
 function set_status_after_payment($order_id) {
