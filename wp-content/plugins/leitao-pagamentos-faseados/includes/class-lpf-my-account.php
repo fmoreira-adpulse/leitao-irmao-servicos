@@ -10,6 +10,9 @@ class LPF_My_Account {
 
         // Esconder mini-encomendas da lista de encomendas do cliente
         add_filter( 'woocommerce_my_account_my_orders_query', [ __CLASS__, 'exclude_mini_orders' ] );
+
+        // Esconder mini-encomendas da listagem de encomendas no backoffice (HPOS)
+        add_filter( 'woocommerce_shop_order_list_table_prepare_items_query_args', [ __CLASS__, 'exclude_mini_orders_from_admin' ] );
     }
 
     public static function render_phases( WC_Order $order ) {
@@ -83,6 +86,15 @@ class LPF_My_Account {
 
     public static function exclude_mini_orders( array $args ) {
         // Excluir mini-encomendas geradas pelo plugin da lista do cliente
+        $args['meta_query'][] = [
+            'key'     => '_lpf_mini_order',
+            'compare' => 'NOT EXISTS',
+        ];
+        return $args;
+    }
+
+    public static function exclude_mini_orders_from_admin( array $args ): array {
+        // Excluir mini-encomendas geradas pelo plugin da listagem admin (HPOS)
         $args['meta_query'][] = [
             'key'     => '_lpf_mini_order',
             'compare' => 'NOT EXISTS',
