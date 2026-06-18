@@ -38,24 +38,23 @@ function get_order_seller_name($order_id) {
 }
 
 function convert_to_pdf_by_remote_url($file_path) {
-    // info to send
     $url = "https://doc2pdf.ad-pulse.com/convert.php";
 
-    //Initialise the cURL var
     $ch = curl_init();
-
-    // return the response instead of sending it to stdout:
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    // set the Url
     curl_setopt($ch, CURLOPT_URL, $url);
-    // set the request as a post
     curl_setopt($ch, CURLOPT_POST, true);
-    // set the file to send
     curl_setopt($ch, CURLOPT_POSTFIELDS, ['file' => new CURLFile($file_path, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'input.docx')]);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 60);
 
-    // send the request and get the response
     $curl_response = curl_exec($ch);
-    // close the connection
+
+    if (curl_errno($ch)) {
+        error_log('[REPORT] Erro curl: ' . curl_error($ch));
+        $curl_response = false;
+    }
+
     curl_close($ch);
 
     return $curl_response;
@@ -103,25 +102,36 @@ function convert_to_pdf($path_to_output, $input_file) {
 }
 
 function generate_report_handler() {
+    set_time_limit(120);
+    error_log('[REPORT] Início da geração do relatório. order_id=' . $_POST['order_id']);
+
     // Load the template file
     $template_path = __DIR__ . '/../../assets/report_template.docx';
+    if (!file_exists($template_path)) {
+        error_log('[REPORT] ERRO: template não encontrado em ' . $template_path);
+        echo json_encode(['status-code' => 500, 'message' => 'Template não encontrado.']);
+        wp_die();
+    }
     $template_processor = new TemplateProcessor($template_path);
+    error_log('[REPORT] Template carregado com sucesso.');
 
     // Load the order info
     $order = wc_get_order($_POST['order_id']);
     if (!$order) {
+        error_log('[REPORT] ERRO: encomenda não encontrada.');
         echo json_encode(['status-code' => 400, 'message' => 'Encomenda não encontrada.']);
         wp_die();
     }
     $user = $order->get_user();
-    
+
     $order_meta_data = array_column($order->get_meta_data(), 'value', 'key');
     error_log("This is the order's meta data: " . json_encode($order_meta_data));
 
     $all_custom_fields = get_order_custom_fields();
 
     #region Insert info in header
-    $order_seller = get_order_seller($order->id);
+    $order_seller = get_order_seller($order->get_id());
+    error_log('[REPORT] Vendedor: ' . (is_object($order_seller) ? $order_seller->display_name : 'NÃO ENCONTRADO (valor: ' . json_encode($order_seller) . ')'));
     $store_name = '';
 
     foreach ($all_custom_fields as $custom_field) {
@@ -136,8 +146,9 @@ function generate_report_handler() {
     // Placeholders in header
     $template_processor->setValue('order_number', $order_meta_data['_order_number']);
     $template_processor->setValue('client_name', $user->display_name);
-    $template_processor->setValue('seller_name', $order_seller->display_name);
+    $template_processor->setValue('seller_name', is_object($order_seller) ? $order_seller->display_name : '');
     $template_processor->setValue('store_name', $store_name);
+    error_log('[REPORT] Cabeçalho preenchido.');
     #endregion
 
     #region Insert info in body
@@ -154,11 +165,11 @@ function generate_report_handler() {
 
     $all_custom_fields_names = array_column($all_custom_fields, 'label', 'name');
 
-    
+
     $report_fields_in_template = [];
     foreach ($report_fields as $report_field) {
         error_log("This is as a report field: " . $report_field);
-        
+
         $meta_value = $order_meta_data['_order_custom_' . $report_field];
         error_log("This is as a report field's value: " . $meta_value);
 
@@ -199,20 +210,22 @@ function generate_report_handler() {
     #endregion
 
     #region Insert info in footer
-    
-    $seller_meta = get_user_meta($order_seller->id);
 
-    $template_processor->setValue('user_mobile_phone', $seller_meta['billing_phone'][0]);
-    $template_processor->setValue('user_landline', $seller_meta['telefone_fixo'][0]);
-    $template_processor->setValue('user_email', $seller_meta['billing_email'][0]);
+    $seller_meta = is_object($order_seller) ? get_user_meta($order_seller->ID) : [];
+    error_log('[REPORT] Metadados do vendedor: ' . json_encode($seller_meta));
+
+    $template_processor->setValue('user_mobile_phone', $seller_meta['billing_phone'][0] ?? '');
+    $template_processor->setValue('user_landline', $seller_meta['telefone_fixo'][0] ?? '');
+    $template_processor->setValue('user_email', $seller_meta['billing_email'][0] ?? '');
+    error_log('[REPORT] Rodapé preenchido.');
 
     #endregion
-    
+
     // Calculate path files (for docx)
     $file_name = 'result_' . $order->get_id();
     $report_path_prefix = 'reports/' . $file_name;
     $report_path_docx = $report_path_prefix . '.docx';
-    
+
     $report_pdf_name = $file_name . '.pdf';
     $full_report_path_docx = __DIR__ . '/../../' . $report_path_docx;
 
@@ -221,27 +234,39 @@ function generate_report_handler() {
 
     // Save docx
     $template_processor->saveAs($full_report_path_docx);
+    error_log('[REPORT] DOCX guardado em: ' . $full_report_path_docx);
 
     #region Export as pdf
-    $folder_inside_wp_content = 'uploads/ad-pulse/reports/';
-    $full_report_folder_path = __DIR__ . '/../../../../' . $folder_inside_wp_content;
+    $upload_dir = wp_upload_dir();
+    $full_report_folder_path = $upload_dir['basedir'] . '/ad-pulse/reports/';
+    $full_report_folder_url = $upload_dir['baseurl'] . '/ad-pulse/reports/';
 
     $full_report_pdf_path = $full_report_folder_path . $report_pdf_name;
-    $result_code = convert_to_pdf_by_remote_url($full_report_path_docx);
+
+    if (!file_exists($full_report_folder_path)) {
+        $mkdir_result = wp_mkdir_p($full_report_folder_path);
+        error_log('[REPORT] Criação da pasta: ' . ($mkdir_result ? 'OK' : 'FALHOU') . ' — ' . $full_report_folder_path);
+    }
+
+    error_log('[REPORT] A enviar DOCX para conversão remota...');
+    $pdf_content = convert_to_pdf_by_remote_url($full_report_path_docx);
+    error_log('[REPORT] Resposta da conversão: ' . ($pdf_content === false ? 'FALSE (curl falhou)' : 'recebida (' . strlen($pdf_content) . ' bytes)'));
+
     $file_pointer = fopen($full_report_pdf_path, 'wb');
     if ($file_pointer) {
-        // if the file was created
-
-        fwrite($file_pointer, $result_code);
+        fwrite($file_pointer, $pdf_content);
         fclose($file_pointer);
 
         $response['message'] = 'Success';
         $response['status-code'] = 200;
-        $response['file'] = get_site_url() . '/wp-content/' . $folder_inside_wp_content . $report_pdf_name;
+        $response['file'] = $full_report_folder_url . $report_pdf_name;
+        error_log('[REPORT] PDF guardado com sucesso em: ' . $full_report_pdf_path);
+    } else {
+        error_log('[REPORT] ERRO: fopen falhou para o caminho: ' . $full_report_pdf_path . ' — pasta existe: ' . (file_exists($full_report_folder_path) ? 'sim' : 'não') . ' — permissões: ' . decoct(fileperms($full_report_folder_path) & 0777));
     }
     #endregion
 
-    // Return the report's url
+    error_log('[REPORT] Resposta final: ' . json_encode($response));
     echo json_encode($response);
     wp_die();
 }
