@@ -69,7 +69,8 @@ jQuery(document).ready(function($) {
 
         // set default order status if the order is being created now
         const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('post') == null) {
+        const isNewOrder = urlParams.get('post') == null && urlParams.get('id') == null && !window.location.hash.replace('#', '');
+        if (isNewOrder) {
             jQuery("span#select2-order_status-container").text("-");
             jQuery("select#order_status").val("wc-pedido-aberto");
         }
@@ -449,7 +450,7 @@ function sendWpAjax(action, dataToSend = {}) {
 function generateReportAjax(loader) {
     let queryString = window.location.search,
         urlParams = new URLSearchParams(queryString),
-        orderId = urlParams.get('post');
+        orderId = urlParams.get('post') ?? urlParams.get('id');
 
     loader.addClass('active');
 

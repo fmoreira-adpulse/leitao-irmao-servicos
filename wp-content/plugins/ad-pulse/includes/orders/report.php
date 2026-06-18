@@ -109,6 +109,10 @@ function generate_report_handler() {
 
     // Load the order info
     $order = wc_get_order($_POST['order_id']);
+    if (!$order) {
+        echo json_encode(['status-code' => 400, 'message' => 'Encomenda não encontrada.']);
+        wp_die();
+    }
     $user = $order->get_user();
     
     $order_meta_data = array_column($order->get_meta_data(), 'value', 'key');
