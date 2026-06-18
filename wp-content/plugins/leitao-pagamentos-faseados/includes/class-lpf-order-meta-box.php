@@ -584,7 +584,7 @@ class LPF_Order_Meta_Box {
                 $pending_total += $amount;
             }
         }
-        if ( $pending_total > ( $order_total - $paid_total ) + 0.001 ) {
+        if ( $pending_total > $order_total + 0.001 ) {
             wp_send_json_error( [ 'message' => __( 'O total das fases pendentes não pode ser superior ao valor remanescente da encomenda.', 'lpf' ) ] );
         }
 

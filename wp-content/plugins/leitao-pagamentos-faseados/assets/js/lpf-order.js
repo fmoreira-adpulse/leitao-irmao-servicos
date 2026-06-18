@@ -132,10 +132,7 @@ jQuery( function ( $ ) {
     function validateTotal() {
         const $feedback  = $( '#lpf-save-feedback' );
         const $btn       = $( '#lpf-save-phases' );
-        const paidTotal  = calcPaidTotal( orderTotal );
-        const remaining  = orderTotal - paidTotal;
-
-        if ( calcPendingTotal() > remaining + 0.001 ) {
+        if ( calcPendingTotal() > orderTotal + 0.001 ) {
             $feedback.text( lpf_order.i18n.total_exceeds ).addClass( 'is-error' );
             $btn.prop( 'disabled', true );
             return false;
