@@ -388,6 +388,14 @@ class LPF_Order_Meta_Box {
             ];
         }
 
+        // Fases pagas podem ter os inputs disabled no browser e não chegam no POST — restaurar da DB.
+        $built_ids = array_column( $phases, 'phase_id' );
+        foreach ( $existing_map as $eid => $ep ) {
+            if ( ! in_array( $eid, $built_ids, true ) && ( $ep['status'] ?? '' ) === 'paid' ) {
+                $phases[] = $ep;
+            }
+        }
+
         self::inject_vap_peqrep_phases( $order, $phases );
 
         $order->update_meta_data( '_lpf_payment_phases', $phases );
@@ -498,7 +506,21 @@ class LPF_Order_Meta_Box {
             true
         );
 
-        wp_send_json_success( [ 'paid_at' => $updated['paid_at'] ] );
+        $new_status = '';
+
+        // Transição automática de estado quando VAP ou PEQREP são pagos.
+        if ( in_array( $phase_id, [ 'auto-vap', 'auto-peqrep' ], true ) ) {
+            $target = LPF_Settings::get_status_pronto_orcamento();
+            if ( $target ) {
+                $target_slug = str_replace( 'wc-', '', $target );
+                if ( $order->get_status() !== $target_slug ) {
+                    $order->update_status( $target_slug );
+                    $new_status = $target_slug;
+                }
+            }
+        }
+
+        wp_send_json_success( [ 'paid_at' => $updated['paid_at'], 'new_status' => $new_status ] );
     }
 
     public static function ajax_save_phases(): void {

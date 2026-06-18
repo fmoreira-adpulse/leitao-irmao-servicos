@@ -224,9 +224,10 @@ jQuery( function ( $ ) {
         } )
         .done( function ( response ) {
             if ( response.success ) {
-                const paidAt = response.data.paid_at;
+                const paidAt    = response.data.paid_at;
+                const newStatus = response.data.new_status;
 
-                row.find( 'input, select' ).prop( 'disabled', true );
+                row.find( 'input:not([type="hidden"]), select' ).prop( 'disabled', true );
                 row.find( '[name$="[status]"]' ).val( 'paid' );
                 row.find( '[name$="[paid_at]"]' ).val( paidAt );
 
@@ -237,6 +238,18 @@ jQuery( function ( $ ) {
                 );
 
                 row.removeClass( 'is-pending' ).addClass( 'is-paid' );
+
+                // Sincronizar o dropdown de estado do WooCommerce para evitar reversão ao guardar o form
+                if ( newStatus ) {
+                    const newValue    = 'wc-' + newStatus;
+                    const $wc_select  = $( '#order_status' );
+                    if ( $wc_select.length ) {
+                        if ( ! $wc_select.find( 'option[value="' + newValue + '"]' ).length ) {
+                            $wc_select.append( $( '<option>' ).val( newValue ).text( newValue ) );
+                        }
+                        $wc_select.val( newValue ).trigger( 'change' );
+                    }
+                }
             } else {
                 alert( response.data.message || lpf_order.i18n.error );
                 $btn.prop( 'disabled', false ).text( 'Marcar como pago' );

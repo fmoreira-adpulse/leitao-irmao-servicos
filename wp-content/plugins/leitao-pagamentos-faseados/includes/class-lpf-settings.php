@@ -76,6 +76,12 @@ class LPF_Settings {
                 $statuses
             );
             self::render_status_select(
+                'lpf_status_pronto_orcamento',
+                __( 'Estado após pagamento VAP/PEQREP', 'lpf' ),
+                __( 'Quando o VAP ou PEQREP é marcado como pago, a encomenda transita automaticamente para este estado (ex: Pronto para Orçamento).', 'lpf' ),
+                $statuses
+            );
+            self::render_status_select(
                 'lpf_status_mostrar_fases',
                 __( 'Mostrar painéis a partir do estado', 'lpf' ),
                 __( 'Os painéis "Pagamentos Faseados" e "Histórico" só aparecem quando a encomenda estiver neste estado, ou se já tiver fases definidas. Deixar em branco para mostrar sempre.', 'lpf' ),
@@ -199,6 +205,7 @@ class LPF_Settings {
             'lpf_status_aguarda_vap',
             'lpf_status_aprovacao_pendente',
             'lpf_status_orcamento_aceite',
+            'lpf_status_pronto_orcamento',
             'lpf_status_mostrar_fases',
         ];
         foreach ( $single_statuses as $field ) {
@@ -257,6 +264,10 @@ class LPF_Settings {
 
     public static function get_status_requer_pagamento(): array {
         return (array) get_option( 'lpf_status_requer_pagamento', [] );
+    }
+
+    public static function get_status_pronto_orcamento(): string {
+        return (string) get_option( 'lpf_status_pronto_orcamento', '' );
     }
 
     public static function get_status_mostrar_fases(): string {
