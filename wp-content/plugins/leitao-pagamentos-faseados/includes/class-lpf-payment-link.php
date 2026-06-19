@@ -5,11 +5,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class LPF_Payment_Link {
 
     public static function init() {
-        add_action( 'wp_ajax_lpf_send_payment_link',    [ __CLASS__, 'ajax_send_link' ] );
-        add_action( 'wp_ajax_lpf_upload_phase_invoice', [ __CLASS__, 'ajax_upload_invoice' ] );
-        add_action( 'wp_ajax_lpf_send_phase_invoice',   [ __CLASS__, 'ajax_send_invoice' ] );
-        add_action( 'woocommerce_payment_complete',      [ __CLASS__, 'on_payment_complete' ] );
-        add_action( 'woocommerce_order_status_changed',  [ __CLASS__, 'on_status_changed' ], 10, 4 );
+        add_action( 'wp_ajax_lpf_send_payment_link',         [ __CLASS__, 'ajax_send_link' ] );
+        add_action( 'wp_ajax_lpf_upload_phase_invoice',      [ __CLASS__, 'ajax_upload_invoice' ] );
+        add_action( 'wp_ajax_lpf_send_phase_invoice',        [ __CLASS__, 'ajax_send_invoice' ] );
+        add_action( 'woocommerce_payment_complete',           [ __CLASS__, 'on_payment_complete' ] );
+        add_action( 'woocommerce_order_status_changed',       [ __CLASS__, 'on_status_changed' ], 10, 4 );
+        add_filter( 'woocommerce_available_payment_gateways', [ __CLASS__, 'filter_gateways_for_mini_orders' ] );
+    }
+
+    public static function filter_gateways_for_mini_orders( array $gateways ): array {
+        $allowed = LPF_Settings::get_payment_gateways();
+        if ( empty( $allowed ) ) return $gateways;
+
+        $order_id = absint( get_query_var( 'order-pay' ) );
+        if ( ! $order_id ) return $gateways;
+
+        $order = wc_get_order( $order_id );
+        if ( ! $order || ! $order->get_meta( '_lpf_mini_order' ) ) return $gateways;
+
+        return array_intersect_key( $gateways, array_flip( $allowed ) );
     }
 
     // -------------------------------------------------------------------------
