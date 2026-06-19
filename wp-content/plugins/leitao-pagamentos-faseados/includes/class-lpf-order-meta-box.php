@@ -97,14 +97,18 @@ class LPF_Order_Meta_Box {
     }
 
     private static function render_phase_row( array $phase ): void {
-        $pid           = esc_attr( $phase['phase_id'] );
-        $is_paid       = ( $phase['status'] ?? 'pending' ) === 'paid';
-        $method        = $phase['method'] ?? 'manual';
-        $paid_at       = $phase['paid_at'] ?? '';
-        $type          = $phase['type'] ?? 'nominal';
-        $is_last       = ! empty( $phase['is_last'] );
-        $is_required   = ! empty( $phase['is_required'] );
-        $vap_deduction = floatval( $phase['vap_deduction'] ?? 0 );
+        $pid              = esc_attr( $phase['phase_id'] );
+        $is_paid          = ( $phase['status'] ?? 'pending' ) === 'paid';
+        $method           = $phase['method'] ?? 'manual';
+        $paid_at          = $phase['paid_at'] ?? '';
+        $type             = $phase['type'] ?? 'nominal';
+        $is_last          = ! empty( $phase['is_last'] );
+        $is_required      = ! empty( $phase['is_required'] );
+        $vap_deduction    = floatval( $phase['vap_deduction'] ?? 0 );
+        $invoice_file_id  = intval( $phase['invoice_file_id'] ?? 0 );
+        $invoice_sent_at  = $phase['invoice_sent_at'] ?? '';
+        $invoice_url      = $invoice_file_id ? wp_get_attachment_url( $invoice_file_id ) : '';
+        $invoice_filename = $invoice_file_id ? basename( (string) get_attached_file( $invoice_file_id ) ) : '';
         ?>
         <div class="lpf-phase-row <?php echo $is_paid ? 'is-paid' : 'is-pending'; ?><?php echo $is_last ? ' is-last' : ''; ?>" data-phase-id="<?php echo $pid; ?>">
 
@@ -142,48 +146,79 @@ class LPF_Order_Meta_Box {
                     <option value="online" <?php selected( $method, 'online' ); ?>><?php esc_html_e( 'Online', 'lpf' ); ?></option>
                 </select>
 
-                <div class="lpf-phase-actions">
-                    <?php if ( $is_paid ) : ?>
+                <?php if ( $is_paid ) : ?>
+                    <div class="lpf-phase-actions">
+                        <?php if ( $is_required ) : ?>
+                            <span class="lpf-required-badge"><?php esc_html_e( 'Obrigatória', 'lpf' ); ?></span>
+                        <?php endif; ?>
                         <span class="lpf-status-badge is-paid">
                             <?php esc_html_e( 'Pago', 'lpf' ); ?>
                             <?php if ( $paid_at ) echo ' (' . esc_html( $paid_at ) . ')'; ?>
                         </span>
-                        <?php if ( $is_required ) : ?>
-                            <span class="lpf-required-badge"><?php esc_html_e( 'Obrigatória', 'lpf' ); ?></span>
-                        <?php endif; ?>
-                    <?php else : ?>
-                        <label class="lpf-required-label">
-                            <input type="checkbox"
-                                   class="lpf-is-required-checkbox"
-                                   value="1"
-                                   <?php checked( $is_required, true ); ?>>
-                            <?php esc_html_e( 'Obrigatória', 'lpf' ); ?>
+                    </div>
+                <?php else : ?>
+                    <div class="lpf-phase-row2">
+                        <div class="lpf-phase-checks">
+                            <label class="lpf-required-label">
+                                <input type="checkbox"
+                                       class="lpf-is-required-checkbox"
+                                       value="1"
+                                       <?php checked( $is_required, true ); ?>>
+                                <?php esc_html_e( 'Obrigatória', 'lpf' ); ?>
+                            </label>
+                            <label class="lpf-last-label">
+                                <input type="checkbox"
+                                       class="lpf-is-last-checkbox"
+                                       value="1"
+                                       <?php checked( $is_last, true ); ?>>
+                                <?php esc_html_e( 'Último pagamento', 'lpf' ); ?>
+                            </label>
+                        </div>
+                        <div class="lpf-phase-actions">
+                            <span class="lpf-status-badge is-pending"><?php esc_html_e( 'Pendente', 'lpf' ); ?></span>
+                            <button type="button"
+                                    class="button lpf-mark-paid<?php echo $method === 'online' ? ' lpf-hidden' : ''; ?>"
+                                    data-phase-id="<?php echo $pid; ?>">
+                                <?php esc_html_e( 'Marcar como pago', 'lpf' ); ?>
+                            </button>
+                            <button type="button"
+                                    class="button lpf-send-link<?php echo $method === 'manual' ? ' lpf-hidden' : ''; ?>"
+                                    data-phase-id="<?php echo $pid; ?>">
+                                <?php esc_html_e( 'Enviar link', 'lpf' ); ?>
+                            </button>
+                            <button type="button" class="button-link lpf-remove-phase" title="<?php esc_attr_e( 'Remover fase', 'lpf' ); ?>">✕</button>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+                <div class="lpf-phase-invoice<?php echo $is_paid ? '' : ' lpf-hidden'; ?>">
+                    <input type="hidden" class="lpf-invoice-file-id-hidden" value="<?php echo esc_attr( $invoice_file_id ); ?>">
+                    <input type="hidden" class="lpf-invoice-sent-at-hidden" value="<?php echo esc_attr( $invoice_sent_at ); ?>">
+
+                    <div class="lpf-invoice-upload-area<?php echo $invoice_file_id ? ' lpf-hidden' : ''; ?>">
+                        <label class="lpf-upload-label">
+                            <span class="lpf-upload-label-text">&#x1F4CE; <?php esc_html_e( 'Upload fatura', 'lpf' ); ?></span>
+                            <input type="file" class="lpf-invoice-file-input" accept=".pdf,.jpg,.jpeg,.png">
                         </label>
+                        <span class="lpf-upload-filename-preview"></span>
+                        <span class="lpf-upload-feedback"></span>
+                    </div>
 
-                        <label class="lpf-last-label">
-                            <input type="checkbox"
-                                   class="lpf-is-last-checkbox"
-                                   value="1"
-                                   <?php checked( $is_last, true ); ?>>
-                            <?php esc_html_e( 'Último pagamento', 'lpf' ); ?>
-                        </label>
-
-                        <span class="lpf-status-badge is-pending"><?php esc_html_e( 'Pendente', 'lpf' ); ?></span>
-
-                        <button type="button"
-                                class="button lpf-mark-paid<?php echo $method === 'online' ? ' lpf-hidden' : ''; ?>"
-                                data-phase-id="<?php echo $pid; ?>">
-                            <?php esc_html_e( 'Marcar como pago', 'lpf' ); ?>
+                    <div class="lpf-invoice-file-area<?php echo $invoice_file_id ? '' : ' lpf-hidden'; ?>">
+                        <span class="lpf-invoice-filename">&#x1F4CE; <?php echo esc_html( $invoice_filename ); ?></span>
+                        <a href="<?php echo esc_url( $invoice_url ); ?>"
+                           target="_blank"
+                           class="lpf-invoice-view-link">
+                            <?php esc_html_e( 'Ver', 'lpf' ); ?>
+                        </a>
+                        <button type="button" class="lpf-send-invoice">
+                            <?php esc_html_e( 'Enviar fatura →', 'lpf' ); ?>
                         </button>
-
-                        <button type="button"
-                                class="button lpf-send-link<?php echo $method === 'manual' ? ' lpf-hidden' : ''; ?>"
-                                data-phase-id="<?php echo $pid; ?>">
-                            <?php esc_html_e( 'Enviar link', 'lpf' ); ?>
-                        </button>
-
-                        <button type="button" class="button-link lpf-remove-phase" title="<?php esc_attr_e( 'Remover fase', 'lpf' ); ?>">✕</button>
-                    <?php endif; ?>
+                        <span class="lpf-invoice-sent-label<?php echo $invoice_sent_at ? '' : ' lpf-hidden'; ?>">
+                            <?php if ( $invoice_sent_at ) printf( esc_html__( 'Enviado %s', 'lpf' ), esc_html( $invoice_sent_at ) ); ?>
+                        </span>
+                        <button type="button" class="button-link lpf-remove-invoice" title="<?php esc_attr_e( 'Remover fatura', 'lpf' ); ?>">✕</button>
+                    </div>
                 </div>
 
             </div>
@@ -383,8 +418,10 @@ class LPF_Order_Meta_Box {
                 'is_last'       => $is_paid ? ( $prev['is_last'] ?? false ) : ( ! empty( $data['is_last'] ) && $data['is_last'] === '1' ),
                 'is_required'   => $is_paid ? ( $prev['is_required'] ?? false ) : ( ! empty( $data['is_required'] ) && $data['is_required'] === '1' ),
                 'vap_deduction' => floatval( $data['vap_deduction'] ?? $prev['vap_deduction'] ?? 0 ),
-                'mini_order_id' => $prev['mini_order_id'] ?? '',
-                'link_sent_at'  => $prev['link_sent_at'] ?? '',
+                'mini_order_id'   => $prev['mini_order_id'] ?? '',
+                'link_sent_at'    => $prev['link_sent_at'] ?? '',
+                'invoice_file_id' => intval( $prev['invoice_file_id'] ?? 0 ),
+                'invoice_sent_at' => $prev['invoice_sent_at'] ?? '',
             ];
         }
 
@@ -428,18 +465,20 @@ class LPF_Order_Meta_Box {
             $desc    = $product ? $product->get_name() : strtoupper( str_replace( 'auto-', '', $auto_id ) );
 
             array_unshift( $phases, [
-                'phase_id'      => $auto_id,
-                'description'   => $desc,
-                'type'          => 'nominal',
-                'value'         => $value,
-                'method'        => 'manual',
-                'status'        => 'pending',
-                'paid_at'       => '',
-                'is_last'       => false,
-                'is_required'   => false,
-                'vap_deduction' => 0.0,
-                'mini_order_id' => '',
-                'link_sent_at'  => '',
+                'phase_id'        => $auto_id,
+                'description'     => $desc,
+                'type'            => 'nominal',
+                'value'           => $value,
+                'method'          => 'manual',
+                'status'          => 'pending',
+                'paid_at'         => '',
+                'is_last'         => false,
+                'is_required'     => false,
+                'vap_deduction'   => 0.0,
+                'mini_order_id'   => '',
+                'link_sent_at'    => '',
+                'invoice_file_id' => 0,
+                'invoice_sent_at' => '',
             ] );
 
             $existing_ids[] = $auto_id;
@@ -563,8 +602,10 @@ class LPF_Order_Meta_Box {
                 'is_last'       => ( $data['is_last'] ?? '0' ) === '1',
                 'is_required'   => ( $data['is_required'] ?? '0' ) === '1',
                 'vap_deduction' => floatval( $data['vap_deduction'] ?? 0 ),
-                'mini_order_id' => $prev['mini_order_id'] ?? '',
-                'link_sent_at'  => $prev['link_sent_at'] ?? '',
+                'mini_order_id'   => $prev['mini_order_id'] ?? '',
+                'link_sent_at'    => $prev['link_sent_at'] ?? '',
+                'invoice_file_id' => intval( $prev['invoice_file_id'] ?? 0 ),
+                'invoice_sent_at' => $prev['invoice_sent_at'] ?? '',
             ];
         }
 
@@ -608,23 +649,31 @@ class LPF_Order_Meta_Box {
         wp_enqueue_script( 'lpf-order', LPF_PLUGIN_URL . 'assets/js/lpf-order.js',  [ 'jquery' ],  LPF_VERSION, true );
 
         wp_localize_script( 'lpf-order', 'lpf_order', [
-            'ajax_url'        => admin_url( 'admin-ajax.php' ),
-            'nonce'           => wp_create_nonce( 'lpf_mark_paid' ),
-            'send_link_nonce' => wp_create_nonce( 'lpf_send_link' ),
-            'save_nonce'      => wp_create_nonce( 'lpf_save_phases' ),
-            'i18n'            => [
-                'paid'                     => __( 'Pago', 'lpf' ),
-                'confirm_paid'             => __( 'Confirmar o pagamento desta fase?', 'lpf' ),
-                'confirm_send_link'        => __( 'Enviar link de pagamento para a fase "%s"?', 'lpf' ),
-                'confirm_send_link_generic'=> __( 'Enviar link de pagamento ao cliente?', 'lpf' ),
-                'link_sent'               => __( 'Link enviado —', 'lpf' ),
-                'send_link'               => __( 'Enviar link', 'lpf' ),
-                'error'                   => __( 'Ocorreu um erro. Tenta novamente.', 'lpf' ),
-                'vap_deduction'           => __( 'Dedução VAP aplicada', 'lpf' ),
-                'suggested_value'         => __( 'Valor sugerido', 'lpf' ),
-                'save_recalculate'        => __( 'Guardar', 'lpf' ),
-                'saved'                   => __( 'Guardado!', 'lpf' ),
-                'total_exceeds'           => __( 'O total das fases pendentes não pode ser superior ao valor remanescente da encomenda.', 'lpf' ),
+            'ajax_url'             => admin_url( 'admin-ajax.php' ),
+            'nonce'                => wp_create_nonce( 'lpf_mark_paid' ),
+            'send_link_nonce'      => wp_create_nonce( 'lpf_send_link' ),
+            'save_nonce'           => wp_create_nonce( 'lpf_save_phases' ),
+            'upload_invoice_nonce' => wp_create_nonce( 'lpf_upload_invoice' ),
+            'send_invoice_nonce'   => wp_create_nonce( 'lpf_send_invoice' ),
+            'i18n'                 => [
+                'paid'                      => __( 'Pago', 'lpf' ),
+                'confirm_paid'              => __( 'Confirmar o pagamento desta fase?', 'lpf' ),
+                'confirm_send_link'         => __( 'Enviar link de pagamento para a fase "%s"?', 'lpf' ),
+                'confirm_send_link_generic' => __( 'Enviar link de pagamento ao cliente?', 'lpf' ),
+                'link_sent'                 => __( 'Link enviado —', 'lpf' ),
+                'send_link'                 => __( 'Enviar link', 'lpf' ),
+                'error'                     => __( 'Ocorreu um erro. Tenta novamente.', 'lpf' ),
+                'vap_deduction'             => __( 'Dedução VAP aplicada', 'lpf' ),
+                'suggested_value'           => __( 'Valor sugerido', 'lpf' ),
+                'save_recalculate'          => __( 'Guardar', 'lpf' ),
+                'saved'                     => __( 'Guardado!', 'lpf' ),
+                'total_exceeds'             => __( 'O total das fases pendentes não pode ser superior ao valor remanescente da encomenda.', 'lpf' ),
+                'upload_invoice'            => __( 'Carregar fatura', 'lpf' ),
+                'uploading'                 => __( 'A carregar...', 'lpf' ),
+                'send_invoice'              => __( 'Enviar fatura', 'lpf' ),
+                'confirm_send_invoice'      => __( 'Enviar fatura da fase "%s" para o cliente?', 'lpf' ),
+                'invoice_sent'              => __( 'Enviado', 'lpf' ),
+                'invoice_view'              => __( 'Ver', 'lpf' ),
             ],
         ] );
     }

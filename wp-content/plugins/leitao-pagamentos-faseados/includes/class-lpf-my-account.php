@@ -42,18 +42,21 @@ class LPF_My_Account {
                         <th><?php esc_html_e( 'Valor', 'lpf' ); ?></th>
                         <th><?php esc_html_e( 'Estado', 'lpf' ); ?></th>
                         <th><?php esc_html_e( 'Data', 'lpf' ); ?></th>
+                        <th><?php esc_html_e( 'Fatura', 'lpf' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ( $phases as $phase ) :
-                        $is_paid = ( $phase['status'] ?? 'pending' ) === 'paid';
-                        $val     = floatval( $phase['value'] ?? 0 );
-                        $amount  = ( ( $phase['type'] ?? 'nominal' ) === 'percentage' )
+                        $is_paid         = ( $phase['status'] ?? 'pending' ) === 'paid';
+                        $val             = floatval( $phase['value'] ?? 0 );
+                        $amount          = ( ( $phase['type'] ?? 'nominal' ) === 'percentage' )
                             ? ( $val / 100 ) * $order_total
                             : $val;
-                        $label   = ( $phase['type'] === 'percentage' )
+                        $label           = ( $phase['type'] === 'percentage' )
                             ? wc_price( $amount ) . ' (' . $val . '%)'
                             : wc_price( $amount );
+                        $invoice_file_id = intval( $phase['invoice_file_id'] ?? 0 );
+                        $invoice_url     = ( $is_paid && $invoice_file_id ) ? wp_get_attachment_url( $invoice_file_id ) : '';
                     ?>
                         <tr class="<?php echo $is_paid ? 'lpf-paid' : 'lpf-pending'; ?>">
                             <td><?php echo esc_html( $phase['description'] ?: '—' ); ?></td>
@@ -66,16 +69,28 @@ class LPF_My_Account {
                                 <?php endif; ?>
                             </td>
                             <td><?php echo $is_paid ? esc_html( $phase['paid_at'] ?? '—' ) : '—'; ?></td>
+                            <td>
+                                <?php if ( $invoice_url ) : ?>
+                                    <a href="<?php echo esc_url( $invoice_url ); ?>"
+                                       class="button lpf-btn-invoice-download"
+                                       target="_blank"
+                                       download>
+                                        <?php esc_html_e( 'Download', 'lpf' ); ?>
+                                    </a>
+                                <?php else : ?>
+                                    —
+                                <?php endif; ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="3"><?php esc_html_e( 'Total pago', 'lpf' ); ?></th>
+                        <th colspan="4"><?php esc_html_e( 'Total pago', 'lpf' ); ?></th>
                         <td><?php echo wp_kses_post( wc_price( $total_paid ) ); ?></td>
                     </tr>
                     <tr class="lpf-outstanding">
-                        <th colspan="3"><?php esc_html_e( 'Montante em falta', 'lpf' ); ?></th>
+                        <th colspan="4"><?php esc_html_e( 'Montante em falta', 'lpf' ); ?></th>
                         <td><?php echo wp_kses_post( wc_price( $outstanding ) ); ?></td>
                     </tr>
                 </tfoot>
