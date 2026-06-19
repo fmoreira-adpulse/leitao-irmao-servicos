@@ -1,0 +1,180 @@
+/* ─── LPF — My Account: Pagamentos Faseados ─────────────────────────────── */
+
+.lpf-myaccount-phases {
+    margin-top: 2em;
+}
+
+.lpf-myaccount-phases h2 {
+    margin-bottom: 0.75em;
+}
+
+/* Tabela */
+.lpf-phases-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.lpf-phases-table th,
+.lpf-phases-table td,
+.lpf-phases-table tr {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.lpf-phases-table th,
+.lpf-phases-table td {
+    padding: 10px 14px !important;
+    text-align: left;
+    border-bottom: 1px solid #e8e8e8;
+    vertical-align: middle;
+}
+
+.lpf-phases-table thead th {
+    background: #E6DCD040;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.82em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* Colunas de largura fixa */
+.lpf-phases-table .lpf-col-value  { white-space: nowrap; }
+.lpf-phases-table .lpf-col-date   { white-space: nowrap; color: #777; font-size: 0.9em; }
+.lpf-phases-table .lpf-col-action { text-align: right; white-space: nowrap; }
+
+/* Linhas */
+.lpf-phases-table tr.lpf-paid {
+    background: #f9fdf9;
+}
+
+.lpf-phases-table tr.lpf-pending {
+    background: #fff;
+}
+
+.lpf-phases-table tfoot th,
+.lpf-phases-table tfoot td {
+    border-bottom: none;
+    border-top: 2px solid #e0e0e0;
+    font-weight: 600;
+    background: #E6DCD040;
+}
+
+.lpf-phases-table tfoot td {
+    text-align: right !important;
+}
+
+/* Badges de estado */
+.lpf-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.78em;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.lpf-badge--paid {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.lpf-badge--pending {
+    background: #fff8e1;
+    color: #f57c00;
+}
+
+/* Botões de ação — usar selector pai para ganhar ao tema */
+.lpf-myaccount-phases .lpf-btn-pay-now,
+.lpf-myaccount-phases .lpf-btn-invoice-download {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.lpf-myaccount-phases .lpf-btn-pay-now {
+    background: transparent !important;
+    color: #555 !important;
+    border: 1px solid #ccc;
+}
+
+.lpf-myaccount-phases .lpf-btn-pay-now:hover {
+    background: #f5f5f5 !important;
+    color: #222 !important;
+}
+
+.lpf-myaccount-phases .lpf-btn-invoice-download {
+    background: transparent !important;
+    color: #555 !important;
+    border: 1px solid #ccc;
+}
+
+.lpf-myaccount-phases .lpf-btn-invoice-download:hover {
+    background: #f5f5f5 !important;
+    color: #222 !important;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .lpf-phases-table,
+    .lpf-phases-table thead,
+    .lpf-phases-table tbody,
+    .lpf-phases-table tfoot,
+    .lpf-phases-table th,
+    .lpf-phases-table td,
+    .lpf-phases-table tr {
+        display: block;
+    }
+
+    .lpf-phases-table thead {
+        display: none;
+    }
+
+    .lpf-phases-table tr {
+        margin-bottom: 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .lpf-phases-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0f0f0;
+        text-align: right;
+    }
+
+    .lpf-phases-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #555;
+        font-size: 0.8em;
+        text-transform: uppercase;
+        flex-shrink: 0;
+        margin-right: 8px;
+        text-align: left;
+    }
+
+    .lpf-phases-table tfoot td,
+    .lpf-phases-table tfoot th {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 12px;
+    }
+
+    .lpf-col-action {
+        text-align: right;
+    }
+}

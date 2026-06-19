@@ -4,8 +4,6 @@
 
 
 
-
-
  // Added by WP Rocket
 
 /**
@@ -97,6 +95,11 @@ define( 'WP_DEBUG_DISPLAY', false );
 /* Add any custom values between this line and the "stop editing" line. */
 
 define('WP_MEMORY_LIMIT','1024M');
+
+// Limite de execução estendido para dev local (Elementor CSS regeneration pode ser lento)
+if ( WP_DEBUG ) {
+    @ini_set( 'max_execution_time', 300 );
+}
 
 define( 'WP_HOME', 'http://localhost' );
 define( 'WP_SITEURL', 'http://localhost' );

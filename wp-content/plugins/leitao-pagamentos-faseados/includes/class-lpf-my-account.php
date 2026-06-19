@@ -5,14 +5,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class LPF_My_Account {
 
     public static function init() {
-        // Mostrar fases na página da encomenda em My Account
         add_action( 'woocommerce_order_details_after_order_table', [ __CLASS__, 'render_phases' ], 10, 1 );
-
-        // Esconder mini-encomendas da lista de encomendas do cliente
-        add_filter( 'woocommerce_my_account_my_orders_query', [ __CLASS__, 'exclude_mini_orders' ] );
-
-        // Esconder mini-encomendas da listagem de encomendas no backoffice (HPOS)
+        add_filter( 'woocommerce_my_account_my_orders_query',                     [ __CLASS__, 'exclude_mini_orders' ] );
         add_filter( 'woocommerce_shop_order_list_table_prepare_items_query_args', [ __CLASS__, 'exclude_mini_orders_from_admin' ] );
+        add_action( 'wp_enqueue_scripts', [ __CLASS__, 'enqueue' ] );
+    }
+
+    public static function enqueue(): void {
+        if ( ! is_wc_endpoint_url( 'view-order' ) ) return;
+        wp_enqueue_style( 'lpf-myaccount', LPF_PLUGIN_URL . 'assets/css/lpf-myaccount.css', [], LPF_VERSION );
     }
 
     public static function render_phases( WC_Order $order ) {
@@ -39,15 +40,18 @@ class LPF_My_Account {
                 <thead>
                     <tr>
                         <th><?php esc_html_e( 'Descrição', 'lpf' ); ?></th>
-                        <th><?php esc_html_e( 'Valor', 'lpf' ); ?></th>
+                        <th class="lpf-col-value"><?php esc_html_e( 'Valor', 'lpf' ); ?></th>
                         <th><?php esc_html_e( 'Estado', 'lpf' ); ?></th>
-                        <th><?php esc_html_e( 'Data', 'lpf' ); ?></th>
-                        <th><?php esc_html_e( 'Fatura', 'lpf' ); ?></th>
+                        <th class="lpf-col-date"><?php esc_html_e( 'Data', 'lpf' ); ?></th>
+                        <th class="lpf-col-action"><?php esc_html_e( 'Ação', 'lpf' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ( $phases as $phase ) :
                         $is_paid         = ( $phase['status'] ?? 'pending' ) === 'paid';
+                        $method          = $phase['method'] ?? 'manual';
+                        $mini_order_id   = intval( $phase['mini_order_id'] ?? 0 );
+                        $link_sent_at    = $phase['link_sent_at'] ?? '';
                         $val             = floatval( $phase['value'] ?? 0 );
                         $amount          = ( ( $phase['type'] ?? 'nominal' ) === 'percentage' )
                             ? ( $val / 100 ) * $order_total
@@ -57,10 +61,19 @@ class LPF_My_Account {
                             : wc_price( $amount );
                         $invoice_file_id = intval( $phase['invoice_file_id'] ?? 0 );
                         $invoice_url     = ( $is_paid && $invoice_file_id ) ? wp_get_attachment_url( $invoice_file_id ) : '';
+
+                        // Botão de pagamento online: só aparece se method=online, pendente e link já enviado
+                        $payment_url = '';
+                        if ( ! $is_paid && $method === 'online' && $link_sent_at && $mini_order_id ) {
+                            $mini = wc_get_order( $mini_order_id );
+                            if ( $mini && ! $mini->is_paid() ) {
+                                $payment_url = $mini->get_checkout_payment_url();
+                            }
+                        }
                     ?>
                         <tr class="<?php echo $is_paid ? 'lpf-paid' : 'lpf-pending'; ?>">
                             <td><?php echo esc_html( $phase['description'] ?: '—' ); ?></td>
-                            <td><?php echo wp_kses_post( $label ); ?></td>
+                            <td class="lpf-col-value"><?php echo wp_kses_post( $label ); ?></td>
                             <td>
                                 <?php if ( $is_paid ) : ?>
                                     <span class="lpf-badge lpf-badge--paid"><?php esc_html_e( 'Pago', 'lpf' ); ?></span>
@@ -68,9 +81,14 @@ class LPF_My_Account {
                                     <span class="lpf-badge lpf-badge--pending"><?php esc_html_e( 'Pendente', 'lpf' ); ?></span>
                                 <?php endif; ?>
                             </td>
-                            <td><?php echo $is_paid ? esc_html( $phase['paid_at'] ?? '—' ) : '—'; ?></td>
-                            <td>
-                                <?php if ( $invoice_url ) : ?>
+                            <td class="lpf-col-date"><?php echo $is_paid ? esc_html( $phase['paid_at'] ?? '—' ) : '—'; ?></td>
+                            <td class="lpf-col-action">
+                                <?php if ( $payment_url ) : ?>
+                                    <a href="<?php echo esc_url( $payment_url ); ?>"
+                                       class="button lpf-btn-pay-now">
+                                        <?php esc_html_e( 'Pagar agora', 'lpf' ); ?>
+                                    </a>
+                                <?php elseif ( $invoice_url ) : ?>
                                     <a href="<?php echo esc_url( $invoice_url ); ?>"
                                        class="button lpf-btn-invoice-download"
                                        target="_blank"
@@ -100,7 +118,6 @@ class LPF_My_Account {
     }
 
     public static function exclude_mini_orders( array $args ) {
-        // Excluir mini-encomendas geradas pelo plugin da lista do cliente
         $args['meta_query'][] = [
             'key'     => '_lpf_mini_order',
             'compare' => 'NOT EXISTS',
@@ -109,7 +126,6 @@ class LPF_My_Account {
     }
 
     public static function exclude_mini_orders_from_admin( array $args ): array {
-        // Excluir mini-encomendas geradas pelo plugin da listagem admin (HPOS)
         $args['meta_query'][] = [
             'key'     => '_lpf_mini_order',
             'compare' => 'NOT EXISTS',
