@@ -234,6 +234,7 @@ jQuery( function ( $ ) {
                     + '</span>'
                 );
 
+                row.find( '.lpf-phase-invoice' ).removeClass( 'lpf-hidden' );
                 row.removeClass( 'is-pending' ).addClass( 'is-paid' );
 
                 // Sincronizar o dropdown de estado do WooCommerce para evitar reversão ao guardar o form
@@ -257,4 +258,112 @@ jQuery( function ( $ ) {
             $btn.prop( 'disabled', false ).text( 'Marcar como pago' );
         } );
     } );
+
+    // Auto-upload ao seleccionar ficheiro de fatura
+    container.on( 'change', '.lpf-invoice-file-input', function () {
+        const $input   = $( this );
+        const file     = $input[0].files[0];
+        if ( ! file ) return;
+
+        const row      = $input.closest( '.lpf-phase-row' );
+        const phaseId  = row.data( 'phase-id' );
+        const orderId  = $( '#post_ID' ).val()
+                      || new URLSearchParams( window.location.search ).get( 'id' );
+        const $invoice = row.find( '.lpf-phase-invoice' );
+        const $label   = $invoice.find( '.lpf-upload-label' );
+        const $preview = $invoice.find( '.lpf-upload-filename-preview' );
+        const $feedback = $invoice.find( '.lpf-upload-feedback' );
+
+        $preview.text( file.name );
+        $feedback.text( lpf_order.i18n.uploading ).removeClass( 'is-error' );
+        $label.addClass( 'lpf-uploading' );
+
+        const formData = new FormData();
+        formData.append( 'action',       'lpf_upload_phase_invoice' );
+        formData.append( 'nonce',        lpf_order.upload_invoice_nonce );
+        formData.append( 'order_id',     orderId );
+        formData.append( 'phase_id',     phaseId );
+        formData.append( 'invoice_file', file );
+
+        $.ajax( {
+            url:         lpf_order.ajax_url,
+            type:        'POST',
+            data:        formData,
+            processData: false,
+            contentType: false,
+        } )
+        .done( function ( response ) {
+            $label.removeClass( 'lpf-uploading' );
+            if ( response.success ) {
+                const { attachment_id, file_url, filename } = response.data;
+                $invoice.find( '.lpf-invoice-file-id-hidden' ).val( attachment_id );
+                $invoice.find( '.lpf-invoice-sent-at-hidden' ).val( '' );
+                $invoice.find( '.lpf-invoice-filename' ).text( '📎 ' + filename );
+                $invoice.find( '.lpf-invoice-view-link' ).attr( 'href', file_url );
+                $invoice.find( '.lpf-invoice-sent-label' ).text( '' ).addClass( 'lpf-hidden' );
+                $invoice.find( '.lpf-invoice-upload-area' ).addClass( 'lpf-hidden' );
+                $invoice.find( '.lpf-invoice-file-area' ).removeClass( 'lpf-hidden' );
+                $feedback.text( '' );
+            } else {
+                $preview.text( '' );
+                $feedback.text( response.data.message || lpf_order.i18n.error ).addClass( 'is-error' );
+            }
+        } )
+        .fail( function () {
+            $label.removeClass( 'lpf-uploading' );
+            $preview.text( '' );
+            $feedback.text( lpf_order.i18n.error ).addClass( 'is-error' );
+        } );
+    } );
+
+    // Enviar fatura por email
+    container.on( 'click', '.lpf-send-invoice', function () {
+        const $btn    = $( this );
+        const row     = $btn.closest( '.lpf-phase-row' );
+        const phaseId = row.data( 'phase-id' );
+        const orderId = $( '#post_ID' ).val()
+                     || new URLSearchParams( window.location.search ).get( 'id' );
+        const label   = row.find( 'input[name$="[description]"]' ).val() || phaseId;
+
+        if ( ! confirm( lpf_order.i18n.confirm_send_invoice.replace( '%s', label ) ) ) return;
+
+        $btn.prop( 'disabled', true ).text( '...' );
+
+        $.post( lpf_order.ajax_url, {
+            action:   'lpf_send_phase_invoice',
+            nonce:    lpf_order.send_invoice_nonce,
+            order_id: orderId,
+            phase_id: phaseId,
+        } )
+        .done( function ( response ) {
+            if ( response.success ) {
+                const sentAt   = response.data.sent_at;
+                const $invoice = row.find( '.lpf-phase-invoice' );
+                $invoice.find( '.lpf-invoice-sent-at-hidden' ).val( sentAt );
+                $invoice.find( '.lpf-invoice-sent-label' )
+                    .text( lpf_order.i18n.invoice_sent + ' ' + sentAt )
+                    .removeClass( 'lpf-hidden' );
+                $btn.prop( 'disabled', false ).text( lpf_order.i18n.send_invoice );
+            } else {
+                alert( response.data.message || lpf_order.i18n.error );
+                $btn.prop( 'disabled', false ).text( lpf_order.i18n.send_invoice );
+            }
+        } )
+        .fail( function () {
+            alert( lpf_order.i18n.error );
+            $btn.prop( 'disabled', false ).text( lpf_order.i18n.send_invoice );
+        } );
+    } );
+
+    // Remover fatura (limpa a referência; o ficheiro fica na media library)
+    container.on( 'click', '.lpf-remove-invoice', function () {
+        const $invoice = $( this ).closest( '.lpf-phase-invoice' );
+        $invoice.find( '.lpf-invoice-file-id-hidden' ).val( '0' );
+        $invoice.find( '.lpf-invoice-sent-at-hidden' ).val( '' );
+        $invoice.find( '.lpf-invoice-file-area' ).addClass( 'lpf-hidden' );
+        $invoice.find( '.lpf-invoice-file-input' ).val( '' );
+        $invoice.find( '.lpf-upload-feedback' ).text( '' );
+        $invoice.find( '.lpf-invoice-upload-area' ).removeClass( 'lpf-hidden' );
+    } );
+
 } );

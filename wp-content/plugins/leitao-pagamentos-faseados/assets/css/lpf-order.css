@@ -5,8 +5,13 @@
 .lpf-phase-row {
     display: flex;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 12px 0;
+    border-bottom: 1px solid #e8e8e8;
+    gap: 0;
+}
+
+.lpf-phase-row + .lpf-phase-row {
+    margin-top: 4px;
 }
 
 .lpf-phase-row.is-paid {
@@ -29,11 +34,37 @@
     width: 80px;
 }
 
-.lpf-phase-actions {
+/* Segunda linha das fases pendentes: checks | status centrado | ações */
+.lpf-phase-row2 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+}
+
+.lpf-phase-checks {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+/* Ações dentro da segunda linha (pendente) — empurradas para a direita */
+.lpf-phase-row2 .lpf-phase-actions {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-left: 4px;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+/* Ações nas fases pagas — alinhadas à direita */
+.lpf-phase-fields > .lpf-phase-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
 .lpf-status-badge {
@@ -56,34 +87,39 @@
 }
 
 .lpf-remove-phase {
-    color: #999;
-    text-decoration: none;
-    font-size: 14px;
-    padding: 0 4px;
+    color: #bbb;
+    text-decoration: none !important;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0 2px;
     cursor: pointer;
     border: none;
     background: none;
+    display: inline-flex;
+    align-items: center;
 }
 
 .lpf-remove-phase:hover {
     color: #cc0000;
+    text-decoration: none !important;
 }
 
 #lpf-add-phase {
     margin-top: 10px;
+    margin-bottom: 16px;
 }
 
 .lpf-btn-save {
-    background: #2271b1;
-    border-color: #2271b1;
-    color: #fff;
+    background: #2271b1 !important;
+    border-color: #2271b1 !important;
+    color: #fff !important;
 }
 
 .lpf-btn-save:hover,
 .lpf-btn-save:focus {
-    background: #135e96;
-    border-color: #135e96;
-    color: #fff;
+    background: #135e96 !important;
+    border-color: #135e96 !important;
+    color: #fff !important;
 }
 
 #lpf-phases-actions {
@@ -305,6 +341,170 @@
     color: #c0392b;
 }
 
+/* Secção de fatura por fase (backoffice) */
+.lpf-phase-invoice {
+    width: 100%;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.lpf-invoice-upload-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.lpf-upload-label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #3c434a;
+    border: none;
+    background: none;
+    padding: 0;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.lpf-upload-label:hover {
+    color: #1d2327;
+}
+
+.lpf-upload-label.lpf-uploading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.lpf-invoice-file-input {
+    display: none;
+}
+
+.lpf-upload-filename-preview {
+    font-size: 12px;
+    color: #555;
+    font-style: italic;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lpf-invoice-file-area {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.lpf-invoice-filename {
+    font-size: 12px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.lpf-invoice-view-link,
+.lpf-send-invoice {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    color: #2271b1 !important;
+    text-decoration: underline !important;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: inherit;
+}
+
+.lpf-invoice-view-link:hover,
+.lpf-send-invoice:hover {
+    color: #135e96 !important;
+    text-decoration: underline !important;
+}
+
+.lpf-send-invoice {
+    margin-left: auto !important;
+}
+
+.lpf-invoice-sent-label {
+    font-size: 11px;
+    color: #27ae60;
+    font-style: italic;
+}
+
+.lpf-upload-feedback {
+    font-size: 12px;
+    color: #c0392b;
+}
+
+.lpf-remove-invoice {
+    color: #bbb;
+    text-decoration: none !important;
+    font-size: 14px;
+    padding: 0 2px;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.lpf-remove-invoice:hover {
+    color: #cc0000;
+    text-decoration: none !important;
+}
+
+/* Responsivo backoffice (painel lateral estreito) */
+@media (min-width: 783px) and (max-width: 1090px) {
+    /* Campos da primeira linha ocupam a largura total */
+    .lpf-phase-fields {
+        gap: 4px;
+    }
+
+    .lpf-phase-fields input[type="text"] {
+        width: auto;
+        flex: 2;
+        min-width: 0;
+    }
+
+    .lpf-phase-fields input[type="number"] {
+        width: auto;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .lpf-phase-fields .lpf-type-select,
+    .lpf-phase-fields .lpf-method-select {
+        width: auto;
+        flex: 1.5;
+        min-width: 0;
+    }
+
+    /* Segunda linha: checks à esquerda, Pendente centrado, botões à direita */
+    .lpf-phase-row2 {
+        margin-top: 8px;
+    }
+
+    .lpf-phase-checks {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    /* Fases pagas: badges alinhados à esquerda com espaçamento vertical */
+    .lpf-phase-fields > .lpf-phase-actions {
+        margin-left: 0;
+        width: 100%;
+        padding: 6px 0 2px;
+        gap: 8px;
+    }
+}
+
 /* My Account */
 .lpf-myaccount-phases {
     margin-top: 32px;
@@ -341,4 +541,10 @@
 .lpf-badge--pending {
     background: #fff3cd;
     color: #856404;
+}
+
+.lpf-btn-invoice-download {
+    font-size: 12px;
+    padding: 4px 10px;
+    white-space: nowrap;
 }
