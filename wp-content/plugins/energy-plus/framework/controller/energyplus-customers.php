@@ -266,6 +266,11 @@ class EnergyPlus_Customers extends EnergyPlus {
 					'key'     => 'shipping_city',
 					'value'   => $filter['search1']  ,
 					'compare' => 'LIKE'
+				),
+				array(
+					'key'     => 'sage',
+					'value'   => $filter['search1'],
+					'compare' => 'LIKE'
 				)
 			);
 
