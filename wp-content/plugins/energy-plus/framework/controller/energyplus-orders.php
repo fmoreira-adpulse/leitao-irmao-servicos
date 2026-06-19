@@ -317,6 +317,8 @@ class EnergyPlus_Orders extends EnergyPlus
 					$order = wc_get_order($order_id);
 					if (!$order || !method_exists($order, 'get_formatted_billing_address')) continue;
 					if (!$order instanceof WC_Order) continue;
+					if ($order->get_parent_id() > 0) continue;
+					if ($order->get_meta('_lpf_mini_order')) continue;
 
 					// Status filter
 					if (!empty($filter['post_status']) && ('wc-' . $order->get_status() !== $filter['post_status'])) continue;
@@ -375,6 +377,13 @@ class EnergyPlus_Orders extends EnergyPlus
 
 			$query_args                   = array_merge($query_args, $filter);
 			$query_args['posts_per_page'] = absint(EnergyPlus::option('reactors-tweaks-pg-orders', 20));
+
+			// Excluir sub-encomendas (child orders do sistema antigo) e mini-orders do LPF
+			$query_args['parent'] = 0;
+			$query_args['meta_query'][] = [
+				'key'     => '_lpf_mini_order',
+				'compare' => 'NOT EXISTS',
+			];
 
 			$query     = new WC_Order_Query($query_args);
 			$allorders = $query->get_orders();
