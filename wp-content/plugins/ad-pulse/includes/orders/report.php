@@ -12,6 +12,10 @@ use PhpOffice\PhpWord\Settings;
  * @return void
  * @throws ReflectionException
  */
+function word_line_breaks($text) {
+    return str_replace("\n", '</w:t><w:br/><w:t xml:space="preserve">', str_replace("\r\n", "\n", $text));
+}
+
 function pdf_box($screen, $order = null) {
     $real_order = get_order_from_post($order);
     if ($real_order instanceof WC_Order)
@@ -176,7 +180,7 @@ function generate_report_handler() {
         if (!is_null($meta_value) && !empty($meta_value)) {
             $report_fields_in_template[] = [
                 'order_meta_field_title' => $all_custom_fields_names[$report_field],
-                'order_meta_field_value' => $meta_value
+                'order_meta_field_value' => word_line_breaks($meta_value)
             ];
         }
     }
@@ -197,7 +201,7 @@ function generate_report_handler() {
             if (!empty($meta['value']) && is_string($meta['value'])) {
                 $meta_data_in_template[] = [
                     'product_meta_title' => $meta['key'],
-                    'product_meta_value' => $meta['value']
+                    'product_meta_value' => word_line_breaks($meta['value'])
                 ];
             }
         }
