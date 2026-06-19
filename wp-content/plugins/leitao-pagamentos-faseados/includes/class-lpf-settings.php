@@ -40,6 +40,21 @@ class LPF_Settings {
 
         <hr>
 
+        <!-- Secção: Métodos de Pagamento -->
+        <h3><?php esc_html_e( 'Métodos de Pagamento Faseado', 'lpf' ); ?></h3>
+        <p><?php esc_html_e( 'Seleccione quais os métodos de pagamento disponíveis no checkout das fases. Se nenhum for seleccionado, todos os métodos activos serão apresentados.', 'lpf' ); ?></p>
+        <table class="form-table">
+            <?php
+            self::render_gateway_multiselect(
+                'lpf_payment_gateways',
+                __( 'Métodos permitidos', 'lpf' ),
+                __( 'Apenas os métodos seleccionados aparecerão ao cliente no momento de pagar uma fase online.', 'lpf' )
+            );
+            ?>
+        </table>
+
+        <hr>
+
         <!-- Secção: Estados -->
         <h3><?php esc_html_e( 'Estados da Encomenda', 'lpf' ); ?></h3>
         <p><?php esc_html_e( 'Configure os estados do fluxo de trabalho. Seleccione a partir dos estados registados no WooCommerce.', 'lpf' ); ?></p>
@@ -89,6 +104,38 @@ class LPF_Settings {
             );
             ?>
         </table>
+        <?php
+    }
+
+    // -------------------------------------------------------------------------
+    // Campos: gateways de pagamento (multi-select)
+    // -------------------------------------------------------------------------
+
+    private static function render_gateway_multiselect( string $option_key, string $label, string $description ): void {
+        $saved    = (array) get_option( $option_key, [] );
+        $gateways = WC()->payment_gateways()->payment_gateways();
+        ?>
+        <tr valign="top">
+            <th scope="row" class="titledesc">
+                <label for="<?php echo esc_attr( $option_key ); ?>"><?php echo esc_html( $label ); ?></label>
+            </th>
+            <td class="forminp">
+                <select id="<?php echo esc_attr( $option_key ); ?>"
+                        name="<?php echo esc_attr( $option_key ); ?>[]"
+                        multiple="multiple"
+                        style="min-width: 350px; min-height: 100px;">
+                    <?php foreach ( $gateways as $gateway_id => $gateway ) : ?>
+                        <option value="<?php echo esc_attr( $gateway_id ); ?>" <?php echo in_array( $gateway_id, $saved, true ) ? 'selected="selected"' : ''; ?>>
+                            <?php echo esc_html( $gateway->get_title() ); ?>
+                            <?php if ( 'yes' !== $gateway->enabled ) : ?>
+                                <?php esc_html_e( '(inactivo)', 'lpf' ); ?>
+                            <?php endif; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <p class="description"><?php echo esc_html( $description ); ?></p>
+            </td>
+        </tr>
         <?php
     }
 
@@ -226,6 +273,10 @@ class LPF_Settings {
             $values = array_map( 'sanitize_key', (array) ( $_POST[ $field ] ?? [] ) );
             update_option( $field, $values );
         }
+
+        // Métodos de pagamento faseado
+        $gw_values = array_map( 'sanitize_key', (array) ( $_POST['lpf_payment_gateways'] ?? [] ) );
+        update_option( 'lpf_payment_gateways', $gw_values );
     }
 
     // -------------------------------------------------------------------------
@@ -272,5 +323,9 @@ class LPF_Settings {
 
     public static function get_status_mostrar_fases(): string {
         return (string) get_option( 'lpf_status_mostrar_fases', '' );
+    }
+
+    public static function get_payment_gateways(): array {
+        return (array) get_option( 'lpf_payment_gateways', [] );
     }
 }
