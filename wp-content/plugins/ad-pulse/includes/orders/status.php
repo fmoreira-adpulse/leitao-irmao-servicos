@@ -73,6 +73,9 @@ function show_order_status($current_statuses, $order_id = null, $from_change_aja
             $this_order = wc_get_order($order_id);
             if(!$this_order) return $current_statuses;
 
+            // New (auto-draft) orders can be set to any custom status — no conditional restrictions apply yet.
+            if($this_order->get_status() === 'auto-draft') return $current_statuses;
+
             $this_data = get_product_data_from_order($this_order);
 
             $search_pos = array_search($this_order->get_status(), $slugs_array);
