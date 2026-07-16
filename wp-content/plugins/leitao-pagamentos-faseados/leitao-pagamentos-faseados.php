@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Pagamentos Faseados
  * Description: Gestão de pagamentos faseados para encomendas no backoffice
- * Version:     1.0.0
+ * Version:     1.2.0
  * Author:      Leitão & Irmão
  * Text Domain: lpf
  * Requires at least: 5.8
@@ -13,7 +13,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'LPF_VERSION', '1.0.0' );
+define( 'LPF_VERSION', '1.2.0' );
 define( 'LPF_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'LPF_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 

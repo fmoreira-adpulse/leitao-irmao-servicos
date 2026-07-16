@@ -11,6 +11,20 @@ class LPF_Payment_Link {
         add_action( 'woocommerce_payment_complete',           [ __CLASS__, 'on_payment_complete' ] );
         add_action( 'woocommerce_order_status_changed',       [ __CLASS__, 'on_status_changed' ], 10, 4 );
         add_filter( 'woocommerce_available_payment_gateways', [ __CLASS__, 'filter_gateways_for_mini_orders' ] );
+        add_filter( 'woocommerce_order_email_verification_required', [ __CLASS__, 'skip_email_verification_for_mini_orders' ], 10, 2 );
+    }
+
+    /**
+     * Dispensa a verificação de email do WooCommerce na página de pagamento
+     * das mini-encomendas de fases. O cliente chega autenticado no E-commerce
+     * mas anónimo aqui; o link (com a chave da encomenda) só circula no email
+     * do próprio cliente e na área de cliente autenticada do E-commerce.
+     */
+    public static function skip_email_verification_for_mini_orders( $required, $order ) {
+        if ( $required && $order instanceof WC_Order && $order->get_meta( '_lpf_mini_order' ) ) {
+            return false;
+        }
+        return $required;
     }
 
     public static function filter_gateways_for_mini_orders( array $gateways ): array {
@@ -85,6 +99,8 @@ class LPF_Payment_Link {
 
         $order->update_meta_data( '_lpf_payment_phases', $phases );
         $order->save();
+
+        do_action( 'lpf_phases_updated', $order_id );
 
         wp_send_json_success( [ 'sent_at' => current_time( 'd/m/Y H:i' ) ] );
     }
@@ -278,6 +294,8 @@ class LPF_Payment_Link {
         $order->update_meta_data( '_lpf_payment_phases', $phases );
         $order->save();
 
+        do_action( 'lpf_phases_updated', $order_id );
+
         wp_send_json_success( [
             'attachment_id' => $attachment_id,
             'file_url'      => wp_get_attachment_url( $attachment_id ),
@@ -333,6 +351,8 @@ class LPF_Payment_Link {
         $phase_ref['invoice_sent_at'] = $sent_at;
         $order->update_meta_data( '_lpf_payment_phases', $phases );
         $order->save();
+
+        do_action( 'lpf_phases_updated', $order_id );
 
         $order->add_order_note(
             sprintf(
@@ -444,6 +464,8 @@ class LPF_Payment_Link {
 
         $parent->update_meta_data( '_lpf_payment_phases', $phases );
         $parent->save();
+
+        do_action( 'lpf_phases_updated', $parent_id );
 
         $label = '';
         foreach ( $phases as $p ) {

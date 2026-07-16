@@ -42,7 +42,7 @@ function get_order_seller_name($order_id) {
 }
 
 function convert_to_pdf_by_remote_url($file_path) {
-    $url = "https://doc2pdf.ad-pulse.com/convert.php";
+    $url = "https://custom-services.leitao-irmao.com/doc2pdf/convert.php";
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

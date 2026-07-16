@@ -97,14 +97,30 @@ function create_stores_and_category(): void
 function get_product_data_from_order(WC_Order $order, bool $get_sku = false) {
     $products = $order->get_items();
     $sku = "";
+    $this_data = [];
+
+    // Produtos VAP/PEQREP (Pagamentos Faseados) são depósitos de abertura de processo,
+    // não o serviço da encomenda — não devem condicionar os estados
+    $excluded_products = array_filter([
+        (int) get_option('lpf_vap_product_id', 0),
+        (int) get_option('lpf_peqrep_product_id', 0),
+    ]);
 
     foreach($products as $product) {
-        $this_data = $product->get_data();
-        error_log(json_encode($this_data));
-        if (is_array($this_data) && !empty($this_data) && isset($this_data['product_id']) && $this_data['product_id'] > 0) {
-            $sku = wc_get_product($this_data['product_id'])->get_sku();
+        $item_data = $product->get_data();
+        if (!is_array($item_data) || empty($item_data)) {
+            continue;
         }
-        
+        if (isset($item_data['product_id']) && in_array((int) $item_data['product_id'], $excluded_products, true)) {
+            continue;
+        }
+
+        $this_data = $item_data;
+        if (isset($this_data['product_id']) && $this_data['product_id'] > 0) {
+            $wc_product = wc_get_product($this_data['product_id']);
+            $sku = $wc_product? $wc_product->get_sku() : "";
+        }
+
         if(!empty($sku)) {
             break;
         }

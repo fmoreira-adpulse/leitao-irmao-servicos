@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO &#8211; Advanced SEO with real-time guidance and built-in AI - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-04-15 07:55:45+0000\n"
+"PO-Revision-Date: 2026-06-02 15:45:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,18 +11,101 @@ msgstr ""
 "Language: pt\n"
 "Project-Id-Version: Plugins - Yoast SEO &#8211; Advanced SEO with real-time guidance and built-in AI - Stable (latest release)\n"
 
+#: src/abilities/user-interface/abilities-integration.php:121
+msgid "The focus keyphrase for the post, or null if not set."
+msgstr "A frase-chave principal do artigo, ou nula se não estiver definida."
+
+#: src/abilities/user-interface/abilities-integration.php:129
+msgid "Get the SEO scores for the most recently modified posts."
+msgstr "Obtenha as classificações de SEO dos artigos modificados mais recentemente."
+
+#: src/abilities/user-interface/abilities-integration.php:167
+msgid "Get the inclusive language scores for the most recently modified posts."
+msgstr "Obtenha as classificações de linguagem inclusiva dos artigos modificados mais recentemente."
+
+#: src/abilities/user-interface/abilities-integration.php:148
+msgid "Get the readability scores for the most recently modified posts."
+msgstr "Obtenha as classificações de legibilidade dos artigos modificados mais recentemente."
+
+#: src/abilities/user-interface/abilities-integration.php:243
+msgid "The post title."
+msgstr "Título do artigo."
+
+#: src/abilities/user-interface/abilities-integration.php:248
+msgid "The score slug."
+msgstr "Slug de classificação"
+
+#: src/abilities/user-interface/abilities-integration.php:252
+msgid "A human-readable label for the score."
+msgstr "Etiqueta legível para a classificação."
+
+#: src/abilities/user-interface/ability-categories-integration.php:44
+msgid "SEO analysis capabilities provided by Yoast SEO."
+msgstr "Capacidades de análise de SEO fornecidas pelo Yoast SEO."
+
+#: src/abilities/user-interface/abilities-integration.php:128
+msgid "Get SEO Scores"
+msgstr "Obter classificações de SEO"
+
+#: src/abilities/user-interface/abilities-integration.php:147
+msgid "Get Readability Scores"
+msgstr "Obter classificações de legibilidade"
+
+#: src/abilities/user-interface/abilities-integration.php:166
+msgid "Get Inclusive Language Scores"
+msgstr "Obter classificações de linguagem inclusiva"
+
+#: src/abilities/user-interface/abilities-integration.php:194
+msgid "The number of recently modified posts to retrieve scores for. Defaults to 10."
+msgstr "O número de artigos modificados recentemente para os quais se pretende obter classificações. O valor por omissão é 10."
+
+#. translators: %1$s expands to <p>, %2$s expands to </p>, %3$s expands to <p>,
+#. %4$s expands to </p>, %5$s expands to <strong>, %6$s expands to </strong>,
+#. %7$s expands to <strong> and %8$s expands to </strong>.
+#: src/task-list/application/tasks/improve-default-meta-descriptions.php:111
+msgid "%1$sDefault meta descriptions don't always highlight what makes your page unique. Write your own to improve clarity and drive more clicks.%2$s%3$sShort on time? In %5$sYoast SEO Premium%6$s, use %7$sAI Generate%8$s to create tailored meta descriptions in seconds.%4$s"
+msgstr "%1$sAs descrições por omissão nem sempre destacam o que torna a sua página única. Escreva as suas próprias descrições para aumentar a clareza e atrair mais cliques.%2$s%3$sEstá com pouco tempo? No %5$sYoast SEO Premium%6$s, utilize a funcionalidade %7$sGerar com IA%8$s para criar descrições personalizadas em segundos.%4$s"
+
+#: src/task-list/domain/exceptions/complete-sample-page-task-exception.php:17
+msgid "Failed to delete the Sample Page."
+msgstr "Não foi possível eliminar \"Exemplo de página\"."
+
+#. translators: %1$s expands to the post type label this task is about
+#: src/task-list/application/tasks/improve-default-meta-descriptions.php:108
+msgid "Improve default meta descriptions of your recent content: %1$s"
+msgstr "Melhore as descrições por omissão do seu conteúdo recente: %1$s"
+
+#: src/task-list/application/tasks/delete-sample-page.php:124
+msgid "Remove the \"Sample Page\""
+msgstr "Remova a \"Exemplo de página\""
+
+#: src/task-list/application/tasks/child-tasks/improve-content-seo-child.php:37
+msgid "Improve SEO"
+msgstr "Melhorar o SEO"
+
+#: src/task-list/application/tasks/child-tasks/improve-content-readability-child.php:37
+msgid "Improve readability"
+msgstr "Melhorar a legibilidade"
+
+#: src/plugins-tab/application/plugins-list-handler.php:71
+msgctxt "plugin status"
+msgid "Yoast"
+msgid_plural "Yoast"
+msgstr[0] "Yoast"
+msgstr[1] "Yoast"
+
+#. translators: %s expands to the post type name this task is about
+#: src/task-list/application/tasks/set-search-appearance-templates.php:134
+msgid "Generic titles and descriptions make your results unclear in search. Templates ensure every %s has a clear, click-worthy snippet automatically. Go to Search appearance, choose your post type, and set default title and meta description patterns."
+msgstr "Títulos e descrições genéricos tornam os seus resultados pouco claros nas pesquisas. Os modelos garantem que cada %s tenha automaticamente um excerto claro e apelativo. Aceda à secção Apresentação da pesquisa, selecione o seu tipo de conteúdo e defina os padrões por omissão para o título e a descrição."
+
 #. translators: %1$s expands to an opening p tag, %2$s and %4$s expand to a
 #. closing p tag, %3$s expands to an opening p tag and opening strong tag, %5$s
 #. expands to a closing strong tag, %6$s expands to an opening strong tag, %7$s
 #. expands to a closing strong tag and closing p tag
 #: src/task-list/application/tasks/improve-content-seo.php:113
 msgid "%1$sBy aligning your content with search intent and focus keyphrases, you make it easier for people and AI systems to find your website, improving your organic visibility. Use the recommendations in the SEO analysis to strengthen your technical performance and ranking potential.%2$s%3$sPro tip%5$s: Use %6$sAI Generate%7$s to quickly generate high quality meta descriptions and keyphrase-rich headers that rank well.%4$s"
-msgstr "%1$sAo alinhar o seu conteúdo com a intenção de pesquisa e as palavras-chave principais, facilita a localização do seu site tanto por pessoas como por sistemas de IA, melhorando a sua visibilidade orgânica. Use as recomendações da análise de SEO para reforçar o seu desempenho técnico e potencial de classificação.%2$s%3$sDica profissional%5$s: Use o %6$sAI Generate%7$s para gerar rapidamente meta descrições de alta qualidade e cabeçalhos ricos em palavras-chave que tenham um bom posicionamento.%4$s"
-
-#. translators: %s expands to the post type name this task is about
-#: src/task-list/application/tasks/set-search-appearance-templates.php:134
-msgid "Generic titles and descriptions make your results unclear in search. Templates ensure every %s has a clear, click-worthy snippet automatically. Go to Search appearance, choose your post type, and set default title and meta description patterns."
-msgstr "Títulos e descrições genéricos tornam os seus resultados pouco claros nas pesquisas. Os modelos garantem que cada %s tenha automaticamente um excerto claro e apelativo. Aceda à secção Apresentação da pesquisa, selecione o seu tipo de conteúdo e defina os padrões por omissão para o título e a descrição."
+msgstr "%1$sAo alinhar o seu conteúdo com a intenção de pesquisa e as palavras-chave principais, facilita a localização do seu site tanto por pessoas como por sistemas de IA, melhorando a sua visibilidade orgânica. Use as recomendações da análise de SEO para reforçar o seu desempenho técnico e potencial de classificação.%2$s%3$sDica profissional%5$s: Use o %6$sAI Generate%7$s para gerar rapidamente descrições de alta qualidade e cabeçalhos ricos em palavras-chave que tenham um bom posicionamento.%4$s"
 
 #. translators: %1$s expands to an opening p tag, %2$s and %4$s expand to a
 #. closing p tag, %3$s expands to an opening p tag and opening strong tag, %5$s
@@ -190,15 +273,6 @@ msgstr "Gira os redireccionamentos sem dificuldade e sem plugins adicionais"
 msgid "Apply AI suggestions to improve content in 1 click"
 msgstr "Aplique sugestões de IA para melhorar o conteúdo com um clique"
 
-#: src/presenters/admin/sidebar-presenter.php:89 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:190 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:254 js/dist/classic-editor.js:2
-#: js/dist/editor-modules.js:116 js/dist/externals-components.js:127
-#: js/dist/general-page.js:5 js/dist/integrations-page.js:28
-#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
-msgid "Create optimized SEO titles & meta descriptions in seconds"
-msgstr "Crie títulos e meta descrições optimizados para SEO em segundos"
-
 #: src/presenters/admin/sidebar-presenter.php:86 js/dist/ai-consent.js:2
 #: js/dist/ai-content-planner.js:190 js/dist/ai-generator.js:2
 #: js/dist/block-editor.js:254 js/dist/classic-editor.js:2
@@ -207,15 +281,6 @@ msgstr "Crie títulos e meta descrições optimizados para SEO em segundos"
 #: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
 msgid "Receive clear SEO and readability guidance to optimize your products"
 msgstr "Receba orientações claras sobre SEO e legibilidade para optimizar os seus produtos"
-
-#: src/presenters/admin/sidebar-presenter.php:85 js/dist/ai-consent.js:2
-#: js/dist/ai-content-planner.js:190 js/dist/ai-generator.js:2
-#: js/dist/block-editor.js:254 js/dist/classic-editor.js:2
-#: js/dist/editor-modules.js:116 js/dist/externals-components.js:127
-#: js/dist/general-page.js:5 js/dist/integrations-page.js:28
-#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
-msgid "Create optimized SEO titles & meta descriptions with AI"
-msgstr "Crie títulos e meta descrições com IA optimizados para SEO"
 
 #: src/presenters/admin/sidebar-presenter.php:84 js/dist/ai-consent.js:2
 #: js/dist/ai-content-planner.js:190 js/dist/ai-generator.js:2
@@ -260,6 +325,29 @@ msgstr "Apague por mim"
 #: src/task-list/application/tasks/complete-ftc.php:91
 msgid "Complete the first time configuration"
 msgstr "Conclua a configuração inicial"
+
+#: src/presenters/admin/sidebar-presenter.php:89 js/dist/ai-consent.js:2
+#: js/dist/ai-content-planner.js:190 js/dist/ai-generator.js:2
+#: js/dist/block-editor.js:254 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:116 js/dist/externals-components.js:127
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:28
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
+msgid "Create optimized SEO titles & meta descriptions in seconds"
+msgstr "Crie títulos e descrições optimizados para SEO em segundos"
+
+#: src/presenters/admin/sidebar-presenter.php:85 js/dist/ai-consent.js:2
+#: js/dist/ai-content-planner.js:190 js/dist/ai-generator.js:2
+#: js/dist/block-editor.js:254 js/dist/classic-editor.js:2
+#: js/dist/editor-modules.js:116 js/dist/externals-components.js:127
+#: js/dist/general-page.js:5 js/dist/integrations-page.js:28
+#: js/dist/new-settings.js:5 js/dist/redirects.js:2 js/dist/support.js:5
+msgid "Create optimized SEO titles & meta descriptions with AI"
+msgstr "Crie títulos e descrições com IA optimizados para SEO"
+
+#. translators: %s expands to Yoast SEO
+#: src/task-list/application/tasks/complete-ftc.php:94
+msgid "Skipping setup limits how much %s can help you. Completing it makes sure the core settings are working in your favor."
+msgstr "Ignorar a configuração limita a ajuda do %s. Concluí-la garante que as configurações principais funcionem a seu favor."
 
 #. translators: %1$s expands to "Yoast SEO".
 #: src/alerts/application/ping-other-admins/ping-other-admins-alert.php:175

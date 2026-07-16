@@ -87,6 +87,7 @@ function show_order_status($current_statuses, $order_id = null, $from_change_aja
 
             if (is_array($this_next_status) && in_array(-1, $this_next_status)) {
                 $next_status_index = $next_status_prefix . '0';
+                $this_next_status = maybe_unserialize($all_status_meta[$search_pos][$next_status_index][0] ?? null);
                 if($search_pos === false) return $current_statuses;
             }
 

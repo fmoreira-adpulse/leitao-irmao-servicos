@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 7.0.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-05-17 13:12:12+0000\n"
+"PO-Revision-Date: 2026-06-08 15:28:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -284,6 +284,12 @@ msgstr "Janeiro"
 #, gp-priority: high
 msgid "Uncategorized"
 msgstr "Sem categoria"
+
+#. translators: 1: 'module_dependencies', 2: Script handle, 3: 'in_footer', 4:
+#. 'strategy', 5: 'defer'.
+#: wp-includes/functions.wp-scripts.php:138
+msgid "When the %1$s arg is provided, the \"%2$s\" script must either be printed in the footer (%3$s set to true) or use a deferred loading %4$s (%5$s) so that the import map is printed before the script is evaluated."
+msgstr "Quando o argumento %1$s é fornecido, o script \"%2$s\" deve ser impresso no rodapé (%3$s definido como true) ou utilizar um carregamento diferido %4$s (%5$s), para que o mapa de importação seja impresso antes de o script ser avaliado."
 
 #: wp-includes/class-wp-customize-manager.php:4336
 #: wp-includes/class-wp-editor.php:1255

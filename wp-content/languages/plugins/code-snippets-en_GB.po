@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Code Snippets - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-05-13 19:00:21+0000\n"
+"PO-Revision-Date: 2026-07-12 20:25:19+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1794,11 +1794,6 @@ msgstr "Edit Snippet"
 msgid "You are not authorized to access this page."
 msgstr "You are not authorised to access this page."
 
-#. Description of the plugin
-#: code-snippets.php
-msgid "An easy, clean and simple way to run code snippets on your site. No need to edit to your theme's functions.php file again!"
-msgstr "An easy, clean and simple way to run code snippets on your site. No need to edit to your theme's functions.php file again!"
-
 #. translators: %s: URL to Manage Snippets admin menu
 #: php/class-contextual-help.php:201
 msgid "You can save your snippets to a code snippets export file using the <a href=\"%s\">Manage Snippets</a> page."
@@ -1840,3 +1835,8 @@ msgstr "Selected snippets <strong>restored</strong>."
 #: php/views/partials/list-table-notices.php:57
 msgid "Snippet <strong>restored</strong>."
 msgstr "Snippet <strong>restored</strong>."
+
+#. Description of the plugin
+#: code-snippets.php
+msgid "An easy, clean, and simple way to run code snippets on your site. No need to edit your theme's functions.php file again!"
+msgstr "An easy, clean, and simple way to run code snippets on your site. No need to edit your theme's functions.php file again!"

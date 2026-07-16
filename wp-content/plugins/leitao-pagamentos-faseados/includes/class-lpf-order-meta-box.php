@@ -437,6 +437,8 @@ class LPF_Order_Meta_Box {
 
         $order->update_meta_data( '_lpf_payment_phases', $phases );
         $order->save();
+
+        do_action( 'lpf_phases_updated', $order->get_id() );
     }
 
     private static function inject_vap_peqrep_phases( WC_Order $order, array &$phases ): void {
@@ -500,6 +502,8 @@ class LPF_Order_Meta_Box {
         if ( count( $phases ) !== $count ) {
             $order->update_meta_data( '_lpf_payment_phases', $phases );
             $order->save();
+
+            do_action( 'lpf_phases_updated', $order_id );
         }
     }
 
@@ -537,6 +541,8 @@ class LPF_Order_Meta_Box {
 
         $order->update_meta_data( '_lpf_payment_phases', $phases );
         $order->save();
+
+        do_action( 'lpf_phases_updated', $order_id );
 
         $label = $updated['description'] ?: $phase_id;
         $order->add_order_note(
@@ -631,6 +637,8 @@ class LPF_Order_Meta_Box {
 
         $order->update_meta_data( '_lpf_payment_phases', $phases );
         $order->save();
+
+        do_action( 'lpf_phases_updated', $order_id );
 
         ob_start();
         self::render_summary( $phases, $order_total );
