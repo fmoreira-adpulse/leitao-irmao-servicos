@@ -188,13 +188,23 @@ class EnergyPlus {
     }
 
     // WooCommerce Legacy REST API (removed in WC 9.0) is now a separate plugin.
-    // Check that the required class and method exist before calling them.
-    if ( ! method_exists( WC()->api, 'includes' ) || ! class_exists( 'WC_API_Server' ) ) {
+    // Nota 1: WC()->api é uma propriedade mágica no WC 10 — empty(WC()->api)
+    // devolve true mesmo com o objeto presente, por isso captura-se primeiro.
+    // Nota 2: WC_API_Server só é definida por includes(), logo a classe só
+    // pode ser verificada depois de includes() correr.
+    $api = WC()->api;
+
+    if ( ! is_object( $api ) || ! method_exists( $api, 'includes' ) ) {
       return false;
     }
 
-    WC()->api->includes();
-    WC()->api->register_resources( new WC_API_Server( '/' ) );
+    $api->includes();
+
+    if ( ! class_exists( 'WC_API_Server' ) ) {
+      return false;
+    }
+
+    $api->register_resources( new WC_API_Server( '/' ) );
     return true;
   }
 
