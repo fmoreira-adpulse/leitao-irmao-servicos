@@ -250,6 +250,7 @@ jQuery(document).ready(function($) {
 
         // if user id is present and greater than 0 then the user info is auto-fill
         if(userId > 0) {
+            jQuery('body').append('<span class="wc-admin-loader" id="user-autofill-loader"></span>');
             autoFillFromUserId(userId);
 
             // remove 'required' tag from the password input
@@ -543,9 +544,10 @@ function getUserIDFromUrl() {
 }
 
 function autoFillFromUserId(userId) {
-    sendWpAjax('get_user_info', {user_id: userId}).then(response => {
+    sendWpAjax('get_user_info', {user_id: userId}).always(function() {
+        jQuery('#user-autofill-loader').remove();
+    }).then(response => {
         if (response.success && response.data.ID == userId) {
-            debugger;
             jQuery(`[name="form_fields[user_id]"]`).val(userId);
             jQuery(`[name="form_fields[user_login]"]`).val(response.data.username);
             jQuery(`[name="form_fields[user_email]"]`).val(response.data.email);

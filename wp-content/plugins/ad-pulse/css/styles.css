@@ -177,6 +177,9 @@ thead:has(~tbody .type-wcsts_ticket) #cb input, .type-wcsts_ticket input {
     left: 50%;
 }
 
+/* no wp-admin o "spin" vem do CSS do WooCommerce; no front-end tem de existir aqui */
+@keyframes spin {to{transform: rotate(1turn)}}
+
 /* ===================================
    Caixa do Número de Ordem
    =================================== */
