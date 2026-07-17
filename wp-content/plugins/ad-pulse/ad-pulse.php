@@ -190,7 +190,7 @@ include_php_scripts($scripts_to_include, $base_path);
 
 function ad_pulse_assets() {
     $plugin_main_dir = plugin_dir_url(__FILE__);
-    wp_register_style('ad-pulse-style', $plugin_main_dir . 'css/styles.css', array(), '1.1', 'all');
+    wp_register_style('ad-pulse-style', $plugin_main_dir . 'css/styles.css', array(), '1.2', 'all');
     wp_enqueue_style('ad-pulse-style');
 
     wp_register_style('font-file-uploader', $plugin_main_dir . 'fileuploader/dist/font/font-fileuploader.css', array(), '1.0','all');
@@ -202,8 +202,22 @@ function ad_pulse_assets() {
     wp_register_script('jquery-file-uploader', $plugin_main_dir . 'fileuploader/dist/jquery.fileuploader.min.js', array('jquery'), '1.0', true);
     wp_enqueue_script('jquery-file-uploader');
     
-    wp_register_script('ad-pulse-script', $plugin_main_dir . 'js/scripts.js', array('jquery'), '1.4', true);
+    wp_register_script('ad-pulse-script', $plugin_main_dir . 'js/scripts.js', array('jquery'), '1.5', true);
     wp_enqueue_script('ad-pulse-script');
+}
+
+// O formulário de criação/edição de utilizadores (Elementor) vive numa página
+// front-end, onde o admin_enqueue_scripts não corre — sem este enqueue o
+// auto-preenchimento em scripts.js nunca chega ao browser
+function ad_pulse_frontend_assets() {
+    if (is_page('formulario-de-user')) {
+        $plugin_main_dir = plugin_dir_url(__FILE__);
+        wp_register_style('ad-pulse-style', $plugin_main_dir . 'css/styles.css', array(), '1.2', 'all');
+        wp_enqueue_style('ad-pulse-style');
+
+        wp_register_script('ad-pulse-script', $plugin_main_dir . 'js/scripts.js', array('jquery'), '1.5', true);
+        wp_enqueue_script('ad-pulse-script');
+    }
 }
 
 // region Esconder notificações de plugins exceto para admins
@@ -277,6 +291,7 @@ add_action('in_admin_header', 'my_hide_notices', 99);
 add_filter('acf/settings/remove_wp_meta_box', '__return_false');
 
 add_action('admin_enqueue_scripts', 'ad_pulse_assets');
+add_action('wp_enqueue_scripts', 'ad_pulse_frontend_assets');
 add_action('plugins_loaded', 'check_dependencies');
 
 register_activation_hook(__FILE__, 'activation_function');
