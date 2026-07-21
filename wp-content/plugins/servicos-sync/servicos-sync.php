@@ -24,12 +24,15 @@ require_once SERVICOS_SYNC_PATH . 'includes/class-servicos-sync-log.php';
 require_once SERVICOS_SYNC_PATH . 'includes/class-servicos-sync-sender.php';
 require_once SERVICOS_SYNC_PATH . 'includes/class-servicos-sync-cron.php';
 require_once SERVICOS_SYNC_PATH . 'includes/class-servicos-sync-admin.php';
+require_once SERVICOS_SYNC_PATH . 'includes/class-servicos-sync-api.php';
+require_once SERVICOS_SYNC_PATH . 'includes/class-servicos-sync-tickets.php';
 
 /**
- * Ativação: cria a tabela de log e agenda os crons.
+ * Ativação: cria a tabela de log, a capability do recetor e agenda os crons.
  */
 function servicos_sync_activate() {
 	Servicos_Sync_Log::criar_tabela();
+	Servicos_Sync_Api::garantir_capability();
 	Servicos_Sync_Cron::agendar_eventos();
 }
 register_activation_hook( __FILE__, 'servicos_sync_activate' );
@@ -59,5 +62,7 @@ function servicos_sync_init() {
 	new Servicos_Sync_Sender();
 	new Servicos_Sync_Cron();
 	new Servicos_Sync_Admin();
+	new Servicos_Sync_Api();
+	new Servicos_Sync_Tickets();
 }
 add_action( 'plugins_loaded', 'servicos_sync_init' );

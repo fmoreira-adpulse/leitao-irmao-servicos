@@ -9,13 +9,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Servicos_Sync_Cron {
 
-	const HOOK_RETRY         = 'servicos_sync_retry_event';
-	const HOOK_RECONCILIACAO = 'servicos_sync_reconciliacao_event';
-	const MAX_TENTATIVAS     = 5;
+	const HOOK_RETRY                  = 'servicos_sync_retry_event';
+	const HOOK_RECONCILIACAO          = 'servicos_sync_reconciliacao_event';
+	const HOOK_RECONCILIACAO_TICKETS  = 'servicos_sync_reconciliacao_tickets_event';
+	const MAX_TENTATIVAS              = 5;
 
 	public function __construct() {
 		add_action( self::HOOK_RETRY, array( $this, 'processar_retries' ) );
 		add_action( self::HOOK_RECONCILIACAO, array( $this, 'processar_reconciliacao' ) );
+		add_action( self::HOOK_RECONCILIACAO_TICKETS, array( $this, 'processar_reconciliacao_tickets' ) );
 		add_filter( 'cron_schedules', array( $this, 'adicionar_intervalo_10min' ) );
 	}
 
@@ -34,11 +36,17 @@ class Servicos_Sync_Cron {
 		if ( ! wp_next_scheduled( self::HOOK_RECONCILIACAO ) ) {
 			wp_schedule_event( strtotime( 'tomorrow 03:00' ), 'daily', self::HOOK_RECONCILIACAO );
 		}
+		// Horário diferente do das encomendas, para não sobrecarregar o E-commerce
+		// com dois pedidos de reconciliação ao mesmo tempo.
+		if ( ! wp_next_scheduled( self::HOOK_RECONCILIACAO_TICKETS ) ) {
+			wp_schedule_event( strtotime( 'tomorrow 03:15' ), 'daily', self::HOOK_RECONCILIACAO_TICKETS );
+		}
 	}
 
 	public static function limpar_eventos() {
 		wp_clear_scheduled_hook( self::HOOK_RETRY );
 		wp_clear_scheduled_hook( self::HOOK_RECONCILIACAO );
+		wp_clear_scheduled_hook( self::HOOK_RECONCILIACAO_TICKETS );
 	}
 
 	/**
@@ -141,6 +149,65 @@ class Servicos_Sync_Cron {
 					wp_json_encode( $payload )
 				);
 				Servicos_Sync_Sender::enviar( $log_id, $payload );
+			}
+		}
+	}
+
+	/**
+	 * Compara os tickets de encomenda locais com os confirmados no E-commerce
+	 * e reenvia tudo o que estiver em falta ou desatualizado — mesmo princípio
+	 * da reconciliação de encomendas, mas contra o endpoint /ticket-list.
+	 */
+	public function processar_reconciliacao_tickets() {
+		$opcoes = get_option( 'servicos_sync_opcoes', array() );
+
+		$url      = isset( $opcoes['ecommerce_url'] ) ? trailingslashit( $opcoes['ecommerce_url'] ) . 'wp-json/servicos-sync/v1/ticket-list' : '';
+		$user     = isset( $opcoes['ecommerce_user'] ) ? $opcoes['ecommerce_user'] : '';
+		$app_pass = isset( $opcoes['ecommerce_app_password'] ) ? $opcoes['ecommerce_app_password'] : '';
+
+		if ( empty( $url ) || empty( $user ) || empty( $app_pass ) ) {
+			return;
+		}
+
+		$resposta = wp_remote_get(
+			$url,
+			array(
+				'timeout' => 20,
+				'headers' => array(
+					'Authorization' => 'Basic ' . base64_encode( $user . ':' . $app_pass ),
+				),
+			)
+		);
+
+		if ( is_wp_error( $resposta ) || 200 !== wp_remote_retrieve_response_code( $resposta ) ) {
+			$this->alertar_admin( '-', 'Falha ao contactar o E-commerce durante a reconciliação diária de tickets. Verifique a ligação.' );
+			return;
+		}
+
+		$remoto = json_decode( wp_remote_retrieve_body( $resposta ), true );
+		if ( ! is_array( $remoto ) ) {
+			return;
+		}
+
+		// Mapa ticket_id => hash confirmado no E-commerce.
+		$remoto_hashes = array();
+		foreach ( $remoto as $item ) {
+			if ( isset( $item['ticket_id'], $item['hash'] ) ) {
+				$remoto_hashes[ (string) $item['ticket_id'] ] = $item['hash'];
+			}
+		}
+
+		foreach ( Servicos_Sync_Tickets::listar_todos_com_hash() as $ticket_id => $payload ) {
+			$hash_remoto = isset( $remoto_hashes[ $payload['ticket_id'] ] ) ? $remoto_hashes[ $payload['ticket_id'] ] : null;
+
+			if ( $hash_remoto !== $payload['hash'] ) {
+				$log_id = Servicos_Sync_Log::registar_tentativa(
+					'ticket:' . $ticket_id,
+					$payload['customer_email'],
+					$payload['hash'],
+					wp_json_encode( $payload )
+				);
+				Servicos_Sync_Tickets::enviar( $log_id, $payload );
 			}
 		}
 	}
