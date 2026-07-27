@@ -264,7 +264,6 @@ jQuery(document).ready(function($) {
             lastSubmitButtonText.text('Atualizar utilizador');
         }
 
-        checkAdminForUserRoleDropdown();
         addAutoFillButton();
 
         $('button.auto-fill-button').click(function(event) {
@@ -519,19 +518,6 @@ function copyFormData(prefixesFromTo) {
             jQuery(toInput).val(matchingInput.val());
         }
     }
-}
-
-function checkAdminForUserRoleDropdown() {
-    sendWpAjax('is_user_admin').then(response => {
-        if (response !== "true") {
-            let dropdown = jQuery('#form-field-role'),
-                defaultOption = jQuery(dropdown.find('option')[0]);
-            
-            dropdown.attr('disabled', true);
-            dropdown.val(defaultOption.val());
-            defaultOption.attr('selected', true);
-        }
-    })
 }
 
 function elementorMessageSuccess(message) {

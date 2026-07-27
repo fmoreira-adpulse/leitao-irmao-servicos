@@ -67,9 +67,35 @@ function add_user_via_form($form_data) {
     return $user_result;
 }
 
-function check_if_is_admin() {
-    echo json_encode(current_user_can('administrator'));
-    wp_die();
+// Mesmo critério de acesso usado em includes/orders/permissions.php para
+// trancar campos de encomendas por role.
+function user_can_choose_role() {
+    $allowed_roles = [ 'administrator', 'admin-plataforma', 'superadminli' ];
+    $user = wp_get_current_user();
+    return ! empty( array_intersect( $allowed_roles, (array) $user->roles ) );
+}
+
+// Para quem não tem um dos roles acima, o campo "Função" fica visível e
+// preenchido com o valor por omissão, mas trancado (mesmo tratamento visual
+// de includes/orders/permissions.php: pointer-events + opacity, sem
+// "disabled" — um select disabled não é incluído no FormData do submit do
+// Elementor, e o role nunca chegaria ao servidor).
+// Feito no render (servidor) em vez de via JS/AJAX para evitar a corrida
+// entre o pedido assíncrono e a validação de passo do Elementor.
+function lock_role_field_for_non_privileged_users($item, $item_index, $form) {
+    // is_page() para limitar o alcance a este formulário — o filtro
+    // elementor_pro/forms/render/item corre para TODOS os formulários do
+    // Elementor Pro no site, e "role" podia teoricamente ser o custom_id
+    // de um campo de outro formulário completamente diferente.
+    if (is_page('formulario-de-user') && ($item['custom_id'] ?? null) === 'role' && !user_can_choose_role()) {
+        $options = preg_split("/\r\n|\r|\n/", $item['field_options']);
+        $first_option = $options[0] ?? '';
+        $item['field_value'] = false !== strpos($first_option, '|')
+            ? explode('|', $first_option)[1]
+            : $first_option;
+        $item['css_classes'] = trim(($item['css_classes'] ?? '') . ' adpulse-locked-field');
+    }
+    return $item;
 }
 
 function http_request_timeout($http_args, $url) {
@@ -117,5 +143,5 @@ add_action('load-user-edit.php', 'redirect_update_user_form');
 add_action( 'elementor_pro/forms/webhooks/response', 'handle_form_response', 10, 2);
 add_filter( 'http_request_args', 'http_request_timeout', 10, 2);
 add_action('rest_api_init', 'add_user_form_endpoint');
-add_action('wp_ajax_is_user_admin', 'check_if_is_admin');
+add_filter('elementor_pro/forms/render/item', 'lock_role_field_for_non_privileged_users', 10, 3);
 add_filter('woocommerce_ajax_get_customer_details', 'autofill_custom_billing_data', 10, 3);
