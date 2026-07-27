@@ -189,3 +189,12 @@ div.__A__Order_No {
     min-width: 20% !important;
     padding: 4px 10px;
 }
+
+/* ===================================
+   Campo "Função" trancado no formulário de utilizador
+   =================================== */
+
+.adpulse-locked-field select {
+    pointer-events: none !important;
+    opacity: 0.6 !important;
+}
