@@ -149,7 +149,9 @@ function generate_report_handler() {
 
     // Placeholders in header
     $template_processor->setValue('order_number', $order_meta_data['_order_number']);
+    $template_processor->setValue('order_date', $order->get_date_created() ? $order->get_date_created()->date_i18n('d/m/Y') : '');
     $template_processor->setValue('client_name', $user->display_name);
+    $template_processor->setValue('client_phone', $user ? get_user_meta($user->ID, 'billing_phone', true) : '');
     $template_processor->setValue('seller_name', is_object($order_seller) ? $order_seller->display_name : '');
     $template_processor->setValue('store_name', $store_name);
     error_log('[REPORT] Cabeçalho preenchido.');
@@ -256,17 +258,25 @@ function generate_report_handler() {
     $pdf_content = convert_to_pdf_by_remote_url($full_report_path_docx);
     error_log('[REPORT] Resposta da conversão: ' . ($pdf_content === false ? 'FALSE (curl falhou)' : 'recebida (' . strlen($pdf_content) . ' bytes)'));
 
-    $file_pointer = fopen($full_report_pdf_path, 'wb');
-    if ($file_pointer) {
-        fwrite($file_pointer, $pdf_content);
-        fclose($file_pointer);
-
-        $response['message'] = 'Success';
-        $response['status-code'] = 200;
-        $response['file'] = $full_report_folder_url . $report_pdf_name;
-        error_log('[REPORT] PDF guardado com sucesso em: ' . $full_report_pdf_path);
+    if ($pdf_content === false || substr($pdf_content, 0, 4) !== '%PDF') {
+        error_log('[REPORT] ERRO: o serviço de conversão não devolveu um PDF válido. Resposta: ' . substr((string) $pdf_content, 0, 500));
+        $response['message'] = 'O serviço de conversão para PDF não devolveu um documento válido.';
+        $response['status-code'] = 502;
     } else {
-        error_log('[REPORT] ERRO: fopen falhou para o caminho: ' . $full_report_pdf_path . ' — pasta existe: ' . (file_exists($full_report_folder_path) ? 'sim' : 'não') . ' — permissões: ' . decoct(fileperms($full_report_folder_path) & 0777));
+        $file_pointer = fopen($full_report_pdf_path, 'wb');
+        if ($file_pointer) {
+            fwrite($file_pointer, $pdf_content);
+            fclose($file_pointer);
+
+            $response['message'] = 'Success';
+            $response['status-code'] = 200;
+            // Parâmetro de versão para o browser/CDN não servir uma cópia antiga do PDF
+            // — o URL do ficheiro é sempre o mesmo entre gerações.
+            $response['file'] = $full_report_folder_url . $report_pdf_name . '?v=' . filemtime($full_report_pdf_path);
+            error_log('[REPORT] PDF guardado com sucesso em: ' . $full_report_pdf_path);
+        } else {
+            error_log('[REPORT] ERRO: fopen falhou para o caminho: ' . $full_report_pdf_path . ' — pasta existe: ' . (file_exists($full_report_folder_path) ? 'sim' : 'não') . ' — permissões: ' . decoct(fileperms($full_report_folder_path) & 0777));
+        }
     }
     #endregion
 
