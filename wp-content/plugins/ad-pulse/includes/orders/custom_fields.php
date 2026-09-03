@@ -138,6 +138,24 @@ function save_custom_fields($order_id, $order): void
 
     foreach($fields as $field) {
         $meta_key = '_order_custom_' . $field['name'];
+
+        if ($field['type'] == 'checkbox') {
+            // Checkboxes desmarcadas não são enviadas no POST. Sem tratamento próprio,
+            // o valor "ligado" ficava preso na meta. Só limpamos quando o campo está
+            // realmente visível e editável neste ecrã, para não apagar valores de
+            // campos condicionais (por SKU/estado) que aparecem escondidos ou desativados.
+            if (!custom_field_is_editable($field, $real_order))
+                continue;
+
+            $on_value = array_values($field['choices'])[0];
+            if (isset($_POST[$meta_key]) && (string) $_POST[$meta_key] === (string) $on_value) {
+                $real_order->update_meta_data($meta_key, $on_value);
+            } else {
+                $real_order->delete_meta_data($meta_key);
+            }
+            continue;
+        }
+
         if (isset($_POST[$meta_key])) {
             $real_order->update_meta_data($meta_key, sanitize_text_field($_POST[$meta_key]));
         }
@@ -146,6 +164,29 @@ function save_custom_fields($order_id, $order): void
     remove_action('woocommerce_process_shop_order_meta', 'save_custom_fields', 45);
     $real_order->save();
     add_action('woocommerce_process_shop_order_meta', 'save_custom_fields', 45, 2);
+}
+
+/**
+ * Verifica se um campo adicional é renderizado como editável no ecrã da encomenda,
+ * aplicando as mesmas condições de SKU/estado usadas em add_custom_fields().
+ * Usado ao gravar para saber se uma ausência no POST significa "desmarcado" (limpar)
+ * ou apenas "não estava no ecrã" (não mexer).
+ *
+ * @param array    $field
+ * @param WC_Order $order
+ * @return bool
+ */
+function custom_field_is_editable(array $field, WC_Order $order): bool
+{
+    // condicionado por SKU: #sku=XXXX#
+    if (preg_match('#\#sku=(.*?)\##', $field['name'], $match) && $match[1] != get_product_data_from_order($order, true))
+        return false;
+
+    // condicionado por estado: #status=slug# — fora do estado aparece desativado ou nem aparece
+    if (preg_match('#\#status=(.*?)\##', $field['name'], $match) && $match[1] != $order->get_status())
+        return false;
+
+    return true;
 }
 
 /**
