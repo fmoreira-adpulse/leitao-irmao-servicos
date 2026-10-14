@@ -13,7 +13,11 @@ use PhpOffice\PhpWord\Settings;
  * @throws ReflectionException
  */
 function word_line_breaks($text) {
-    return str_replace("\n", '</w:t><w:br/><w:t xml:space="preserve">', str_replace("\r\n", "\n", $text));
+    // Os valores dos blocos são inseridos directamente no XML pelo cloneBlock().
+    // Escapar o texto antes de acrescentar as tags das quebras de linha.
+    $text = htmlspecialchars((string) $text, ENT_XML1 | ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $text = str_replace(["\r\n", "\r"], "\n", $text);
+    return str_replace("\n", '</w:t><w:br/><w:t xml:space="preserve">', $text);
 }
 
 function pdf_box($screen, $order = null) {
@@ -181,7 +185,7 @@ function generate_report_handler() {
 
         if (!is_null($meta_value) && !empty($meta_value)) {
             $report_fields_in_template[] = [
-                'order_meta_field_title' => $all_custom_fields_names[$report_field],
+                'order_meta_field_title' => word_line_breaks($all_custom_fields_names[$report_field]),
                 'order_meta_field_value' => word_line_breaks($meta_value)
             ];
         }
@@ -202,7 +206,7 @@ function generate_report_handler() {
             $meta = $meta_data_class->get_data();
             if (!empty($meta['value']) && is_string($meta['value'])) {
                 $meta_data_in_template[] = [
-                    'product_meta_title' => $meta['key'],
+                    'product_meta_title' => word_line_breaks($meta['key']),
                     'product_meta_value' => word_line_breaks($meta['value'])
                 ];
             }
