@@ -57,7 +57,7 @@ function add_custom_fields(WC_Order $order) {
                 $add_to_array = false;
                 break;
             case 'textarea':
-                $input_tag = '<textarea id="' . $custom_field_id . '" name="' . $custom_meta_key . '" ' . $required_label . $editable_string . '>' . $input_value . '</textarea>';
+                $input_tag = '<textarea id="' . $custom_field_id . '" name="' . $custom_meta_key . '" ' . $required_label . $editable_string . '>' . esc_textarea($input_value) . '</textarea>';
                 break;
             case 'select':
                 $select_options = '<option value="" disabled selected>Select an option</option>';
@@ -157,7 +157,13 @@ function save_custom_fields($order_id, $order): void
         }
 
         if (isset($_POST[$meta_key])) {
-            $real_order->update_meta_data($meta_key, sanitize_text_field($_POST[$meta_key]));
+            if ($field['type'] === 'textarea') {
+                // Preservar as quebras de linha e remover as barras adicionadas pelo WordPress.
+                $value = sanitize_textarea_field(wp_unslash($_POST[$meta_key]));
+            } else {
+                $value = sanitize_text_field($_POST[$meta_key]);
+            }
+            $real_order->update_meta_data($meta_key, $value);
         }
     }
 
