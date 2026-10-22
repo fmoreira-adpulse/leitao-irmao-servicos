@@ -294,3 +294,9 @@ div.__A__Order_No {
 .adpulse-preview-date-updated .energyplus-orders--seller { color: #222; }
 .adpulse-preview-date-created { padding-left: 12px; }
 .adpulse-preview-date-created .energyplus-orders--seller:not(.font-weight-bold) { color: #777; }
+
+/* Highlight the services block in the order editor. */
+#woocommerce-order-items {
+    border-color: #ffd400;
+    box-shadow: 0 0 15px 0 #ffd400 !important;
+}
