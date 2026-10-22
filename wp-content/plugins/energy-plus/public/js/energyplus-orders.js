@@ -85,7 +85,12 @@ jQuery(document).ready(function() {
         do:  'search',
         q:  '',
         status:  getUrlParam('status', ''),
-        extra:  getUrlParam('status', ''),
+        extra: {
+          post_status: getUrlParam('status', ''),
+          product: getUrlParam('product', ''),
+          priority: getUrlParam('priority', ''),
+          store: getUrlParam('store', '')
+        },
         order_refresh: true
       }, function(r) {
         jQuery('.__A__Search_Input').removeClass('loading');

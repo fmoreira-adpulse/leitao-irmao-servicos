@@ -9,10 +9,13 @@ if (! defined('ABSPATH')) {
     <div class="row energyplus-gp">
       <ul>
 
-        <li><a  class="__A__Button1 filter_tab_opener" data-tab="status" href=""><?php esc_html_e('Status', 'energyplus'); ?></a></li>
-        <li><a class="__A__Button1 filter_tab_opener" data-tab="product" href=""><?php esc_html_e('Services', 'energyplus'); ?></a></li>
-        <li><a class="__A__Button1 filter_tab_opener" data-tab="priority" href=""><?php esc_html_e('Priority', 'energyplus'); ?></a></li>
-        
+        <?php foreach (array('status' => 'Status', 'product' => 'Services', 'priority' => 'Priority', 'store' => 'Lojas') as $tab => $label) {
+          $value = $_GET[$tab] ?? null;
+          $has_filter = is_scalar($value) && false !== $value && '' !== (string) $value;
+        ?>
+          <li><a class="__A__Button1 filter_tab_opener<?php echo $has_filter ? ' adpulse-filter-applied' : ''; ?>" data-tab="<?php echo esc_attr($tab); ?>" href=""<?php if ($has_filter) { ?> aria-label="<?php echo esc_attr(__($label, 'energyplus') . ': filtro ativo'); ?>"<?php } ?>><?php echo esc_html(__($label, 'energyplus')); ?><?php if ($has_filter) { ?> <span class="adpulse-filter-dot" aria-hidden="true">●</span><?php } ?></a></li>
+        <?php } ?>
+
         <?php do_action('energyplus_submenu', 'orders'); ?>
 
         <li class="__A__Li_Search">

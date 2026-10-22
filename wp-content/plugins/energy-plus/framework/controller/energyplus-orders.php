@@ -23,7 +23,7 @@ class EnergyPlus_Orders extends EnergyPlus
 	public static function run()
 	{
 		EnergyPlus::wc_engine();
-		wp_enqueue_script("energyplus-orders",  EnergyPlus_Public . "js/energyplus-orders.js", array(), EnergyPlus_Version);
+		wp_enqueue_script("energyplus-orders",  EnergyPlus_Public . "js/energyplus-orders.js", array(), filemtime(dirname(__DIR__, 2) . "/public/js/energyplus-orders.js"));
 		self::route();
 	}
 
@@ -44,8 +44,12 @@ class EnergyPlus_Orders extends EnergyPlus
 			$filter['post_status'] = array_keys(wc_get_order_statuses());
 		}
 
-		$filter['product']  = EnergyPlus_Helpers::get('product', null);
-		$filter['priority'] = EnergyPlus_Helpers::get('priority', null);
+		$filter['product']  = EnergyPlus_Helpers::get('product', $filter['product'] ?? null);
+		$filter['priority'] = EnergyPlus_Helpers::get('priority', $filter['priority'] ?? null);
+		$filter['store'] = sanitize_text_field(EnergyPlus_Helpers::get('store', $filter['store'] ?? ''));
+		foreach (array('product', 'priority') as $key) {
+			if ('' === $filter[$key]) $filter[$key] = null;
+		}
 
 		if ($status = EnergyPlus_Helpers::get('status', null)) {
 			if ('trash' === $status) {
@@ -116,6 +120,16 @@ class EnergyPlus_Orders extends EnergyPlus
 			if (!empty($data['sku']))
 				return ['sku' => $data['sku'], 'name' => $data['name']];
 		}, wc_get_products([]));
+
+		$list['stores'] = array();
+		if (function_exists('get_order_custom_fields')) {
+			foreach (get_order_custom_fields() as $field) {
+				if ('store' === $field['name']) {
+					$list['stores'] = $field['choices'] ?? array();
+					break;
+				}
+			}
+		}
 
 		$list['products']  = array_column($prods, 'name', 'sku');
 		$orders['orders']  = self::get_orders($filter['post_status'], $filter, $filter['page'])['result'];
@@ -320,8 +334,10 @@ class EnergyPlus_Orders extends EnergyPlus
 					if ($order->get_parent_id() > 0) continue;
 					if ($order->get_meta('_lpf_mini_order')) continue;
 
+					if ('' !== ($filter['store'] ?? '') && (string) $order->get_meta('_order_custom_store') !== $filter['store']) continue;
+
 					// Status filter
-					if (!empty($filter['post_status']) && ('wc-' . $order->get_status() !== $filter['post_status'])) continue;
+					if (!empty($filter['post_status']) && !in_array('wc-' . $order->get_status(), (array) $filter['post_status'], true)) continue;
 
 					// Product filter
 					if (!is_null($filter['product']) && function_exists('get_product_data_from_order')) {
@@ -384,6 +400,14 @@ class EnergyPlus_Orders extends EnergyPlus
 				'key'     => '_lpf_mini_order',
 				'compare' => 'NOT EXISTS',
 			];
+
+			if ('' !== ($filter['store'] ?? '')) {
+				$query_args['meta_query'][] = array(
+					'key' => '_order_custom_store',
+					'value' => $filter['store'],
+					'compare' => '=',
+				);
+			}
 
 			$query     = new WC_Order_Query($query_args);
 			$allorders = $query->get_orders();

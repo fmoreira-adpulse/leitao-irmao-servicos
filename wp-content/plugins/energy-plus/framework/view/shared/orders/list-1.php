@@ -16,33 +16,69 @@ if (! defined('ABSPATH')) {
 
   <div id="energyplus-orders-1">
 
+    <?php
+    $active_filters = array();
+    foreach (array('status', 'product', 'priority', 'store', 's') as $key) {
+      $value = $_GET[$key] ?? null;
+      if (is_scalar($value) && false !== $value && '' !== (string) $value) {
+        $active_filters[$key] = sanitize_text_field($value);
+      }
+    }
+    $filter_url = static function ($changes) use ($active_filters) {
+      $changes['filter_tab'] = key($changes);
+      return esc_url(add_query_arg(array_merge($active_filters, $changes), EnergyPlus_Helpers::admin_page('orders')));
+    };
+    $filter_labels = array();
+    if (isset($active_filters['status'])) {
+      $status = $active_filters['status'];
+      $status_key = 0 === strpos($status, 'wc-') ? $status : 'wc-' . $status;
+      $filter_labels['status'] = ('trash' === $status ? 'Lixo' : ($list['statuses'][$status_key] ?? $status));
+    }
+    if (isset($active_filters['product'])) {
+      $filter_labels['product'] = ($list['products'][$active_filters['product']] ?? $active_filters['product']);
+    }
+    if (isset($active_filters['priority'])) {
+      $filter_labels['priority'] = ('1' === $active_filters['priority'] ? 'Prioritário' : 'Sem prioridade');
+    }
+    if (isset($active_filters['store'])) {
+      $filter_labels['store'] = ($list['stores'][$active_filters['store']] ?? $active_filters['store']);
+    }
+    ?>
+
     <!-- Status Filter options -->
     <ul class="adpulse-search-filters" data-tab="status">
-      <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('status')?>" href="<?php echo EnergyPlus_Helpers::admin_page('orders', array());  ?>"><?php esc_html_e('All Orders', 'energyplus'); ?> <?php echo esc_html($list['statuses_count']['any']) ?></a></li>
+      <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('status')?>" href="<?php echo $filter_url(array('status' => null));  ?>"><?php esc_html_e('All Orders', 'energyplus'); ?> <?php echo esc_html($list['statuses_count']['any']) ?></a></li>
         <?php  foreach ( $list['statuses'] AS $status_k => $status) {
           if ($list['statuses_count'][$status_k] > 0) { ?>
-            <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('status', $status_k)?>" href="<?php echo EnergyPlus_Helpers::admin_page('orders', array('status' => $status_k));  ?>"><?php echo esc_attr($status) ?> <span class="__A__Count"><?php echo esc_html($list['statuses_count'][$status_k]) ?></span></a></li>
+            <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('status', $status_k)?>" href="<?php echo $filter_url(array('status' => $status_k));  ?>"><?php echo esc_attr($status) ?> <span class="__A__Count"><?php echo esc_html($list['statuses_count'][$status_k]) ?></span></a></li>
           <?php }
         }  ?>
       <?php if (0<$list['statuses_count']['trash']) { ?>
-          <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('status', 'trash')?>" href="<?php echo EnergyPlus_Helpers::admin_page('orders', array('status' => 'trash'));  ?>"><?php esc_html_e('Trash', 'energyplus'); ?>  <span class="__A__Count"><?php echo esc_html($list['statuses_count']['trash']) ?></span></a></li>
+          <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('status', 'trash')?>" href="<?php echo $filter_url(array('status' => 'trash'));  ?>"><?php esc_html_e('Trash', 'energyplus'); ?>  <span class="__A__Count"><?php echo esc_html($list['statuses_count']['trash']) ?></span></a></li>
         <?php }  ?>
     </ul>
 
     <!-- Product filter options -->
     <ul class="adpulse-search-filters" data-tab="product">
-    <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('product')?>" href="<?php echo EnergyPlus_Helpers::admin_page('orders', array());  ?>"><?php esc_html_e('All Services', 'energyplus'); ?> <?php echo esc_html($list['statuses_count']['any']) ?></a></li>
+    <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('product')?>" href="<?php echo $filter_url(array('product' => null));  ?>"><?php esc_html_e('All Services', 'energyplus'); ?> <?php echo esc_html($list['statuses_count']['any']) ?></a></li>
     <?php foreach ($list['products'] as $product_key => $product) { ?>
-          <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('product', strval($product_key))?>" href="<?php echo EnergyPlus_Helpers::admin_page('orders', array('product' => $product_key)); ?>"><?php echo esc_attr($product) ?></a></li>
+          <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('product', strval($product_key))?>" href="<?php echo $filter_url(array('product' => $product_key)); ?>"><?php echo esc_attr($product) ?></a></li>
           <?php
         } ?>
     </ul>
 
     <!-- Priority filter options -->
     <ul class="adpulse-search-filters" data-tab="priority">
-    <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('priority')?>" href="<?php echo EnergyPlus_Helpers::admin_page('orders', array());  ?>"><?php esc_html_e('All Priorities', 'energyplus'); ?> <?php echo esc_html($list['statuses_count']['any']) ?></a></li>
-      <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('priority', '1')?>" href="<?php echo EnergyPlus_Helpers::admin_page('orders', array('priority' => "1")); ?>"><?php echo esc_attr("Prioritário") ?></a></li>
-      <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('priority', '0')?>" href="<?php echo EnergyPlus_Helpers::admin_page('orders', array('priority' => "0")); ?>"><?php echo esc_attr("Sem Prioridade") ?></a></li>
+    <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('priority')?>" href="<?php echo $filter_url(array('priority' => null));  ?>"><?php esc_html_e('All Priorities', 'energyplus'); ?> <?php echo esc_html($list['statuses_count']['any']) ?></a></li>
+      <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('priority', '1')?>" href="<?php echo $filter_url(array('priority' => "1")); ?>"><?php echo esc_attr("Prioritário") ?></a></li>
+      <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('priority', '0')?>" href="<?php echo $filter_url(array('priority' => "0")); ?>"><?php echo esc_attr("Sem Prioridade") ?></a></li>
+    </ul>
+
+    <ul class="adpulse-search-filters" data-tab="store">
+      <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('store')?>" href="<?php echo $filter_url(array('store' => null)); ?>"><?php esc_html_e('Todas as lojas', 'energyplus'); ?></a></li>
+      <?php foreach ($list['stores'] as $store_value => $store_label) { ?>
+        <li><a class="__A__Button1<?php EnergyPlus_Helpers::selected('store', (string) $store_value)?>" href="<?php echo $filter_url(array('store' => $store_value)); ?>"><?php echo esc_html($store_label); ?></a></li>
+      <?php } ?>
     </ul>
 
     <div class="__A__Searching<?php if ('' === EnergyPlus_Helpers::get('s', '')) echo" closed"; ?>">
@@ -50,6 +86,20 @@ if (! defined('ABSPATH')) {
         <input type="text" class="form-control __A__Search_Input" placeholder="<?php esc_html_e('Search in orders..', 'energyplus'); ?>" value="<?php echo esc_attr(EnergyPlus_Helpers::get('s'));  ?>"></span>
       </div>
     </div>
+
+    <?php if ($filter_labels) { ?>
+      <div class="__A__GP">
+      <div class="adpulse-active-filters" role="region" aria-label="Filtros ativos">
+        <span class="adpulse-active-filters-label">Filtros ativos:</span>
+        <?php foreach ($filter_labels as $key => $label) { ?>
+          <a class="adpulse-filter-chip" href="<?php echo $filter_url(array($key => null)); ?>" aria-label="<?php echo esc_attr('Remover filtro ' . $label); ?>">
+            <?php echo esc_html($label); ?> <span aria-hidden="true">×</span>
+          </a>
+        <?php } ?>
+        <a class="adpulse-clear-filters" href="<?php echo $filter_url(array('status' => null, 'product' => null, 'priority' => null, 'store' => null)); ?>">Limpar filtros</a>
+      </div>
+      </div>
+    <?php } ?>
 
     <?php do_action('energyplus_need'); ?>
 

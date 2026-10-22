@@ -590,7 +590,7 @@ class EnergyPlus_Admin {
             wp_enqueue_script("energyplus-bootstrap", EnergyPlus_Public . "3rd/bootstrap/4.3.1/js/bootstrap.bundle.min.js", array("jquery",'jquery-ui-sortable'), EnergyPlus_Version, TRUE);
           }
 
-          wp_enqueue_script("energyplus-admin",     EnergyPlus_Public . "js/energyplus-admin.js", array(), EnergyPlus_Version, TRUE);
+          wp_enqueue_script("energyplus-admin",     EnergyPlus_Public . "js/energyplus-admin.js", array(), filemtime(dirname(__DIR__, 2) . "/public/js/energyplus-admin.js"), TRUE);
 
           // Enqueue WP Media scripts for file uploads
           if ('settings' === EnergyPlus_Helpers::get('segment')) {

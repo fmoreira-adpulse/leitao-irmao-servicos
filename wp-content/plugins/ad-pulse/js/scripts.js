@@ -56,9 +56,12 @@ jQuery(document).ready(function($) {
     });
 
     let urlParams = new URLSearchParams(window.location.search);
-    checkSearchAndOpenTab(urlParams, 'product');
-    checkSearchAndOpenTab(urlParams, 'status');
-    checkSearchAndOpenTab(urlParams, 'priority');
+    const filterTabs = ['product', 'status', 'priority', 'store'];
+    const requestedTab = urlParams.get('filter_tab');
+    const activeTab = filterTabs.includes(requestedTab)
+        ? requestedTab
+        : ['store', 'priority', 'status', 'product'].find(key => urlParams.has(key));
+    if (activeTab) checkSearchAndOpenTab(urlParams, activeTab);
 
     // #endregion
 

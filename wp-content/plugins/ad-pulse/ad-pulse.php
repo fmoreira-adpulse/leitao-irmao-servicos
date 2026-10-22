@@ -190,7 +190,7 @@ include_php_scripts($scripts_to_include, $base_path);
 
 function ad_pulse_assets() {
     $plugin_main_dir = plugin_dir_url(__FILE__);
-    wp_register_style('ad-pulse-style', $plugin_main_dir . 'css/styles.css', array(), '1.2', 'all');
+    wp_register_style('ad-pulse-style', $plugin_main_dir . 'css/styles.css', array(), filemtime(__DIR__ . '/css/styles.css'), 'all');
     wp_enqueue_style('ad-pulse-style');
 
     wp_register_style('font-file-uploader', $plugin_main_dir . 'fileuploader/dist/font/font-fileuploader.css', array(), '1.0','all');
@@ -202,7 +202,7 @@ function ad_pulse_assets() {
     wp_register_script('jquery-file-uploader', $plugin_main_dir . 'fileuploader/dist/jquery.fileuploader.min.js', array('jquery'), '1.0', true);
     wp_enqueue_script('jquery-file-uploader');
     
-    wp_register_script('ad-pulse-script', $plugin_main_dir . 'js/scripts.js', array('jquery'), '1.5', true);
+    wp_register_script('ad-pulse-script', $plugin_main_dir . 'js/scripts.js', array('jquery'), filemtime(__DIR__ . '/js/scripts.js'), true);
     wp_enqueue_script('ad-pulse-script');
 }
 
@@ -212,10 +212,10 @@ function ad_pulse_assets() {
 function ad_pulse_frontend_assets() {
     if (is_page('formulario-de-user')) {
         $plugin_main_dir = plugin_dir_url(__FILE__);
-        wp_register_style('ad-pulse-style', $plugin_main_dir . 'css/styles.css', array(), '1.2', 'all');
+        wp_register_style('ad-pulse-style', $plugin_main_dir . 'css/styles.css', array(), filemtime(__DIR__ . '/css/styles.css'), 'all');
         wp_enqueue_style('ad-pulse-style');
 
-        wp_register_script('ad-pulse-script', $plugin_main_dir . 'js/scripts.js', array('jquery'), '1.5', true);
+        wp_register_script('ad-pulse-script', $plugin_main_dir . 'js/scripts.js', array('jquery'), filemtime(__DIR__ . '/js/scripts.js'), true);
         wp_enqueue_script('ad-pulse-script');
     }
 }
