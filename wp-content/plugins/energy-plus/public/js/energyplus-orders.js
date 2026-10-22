@@ -89,7 +89,8 @@ jQuery(document).ready(function() {
           post_status: getUrlParam('status', ''),
           product: getUrlParam('product', ''),
           priority: getUrlParam('priority', ''),
-          store: getUrlParam('store', '')
+          store: getUrlParam('store', ''),
+          sort: getUrlParam('sort', 'created_desc')
         },
         order_refresh: true
       }, function(r) {

@@ -96,8 +96,24 @@ class EnergyPlus_Orders extends EnergyPlus
 			$filter['order'] = 'ASC' === EnergyPlus_Helpers::get('order', 'ASC') ? 'ASC' : 'DESC';
 		}
 
+        $sorts = self::sort_options();
+        $sort = EnergyPlus_Helpers::get('sort', $filter['sort'] ?? 'created_desc');
+        $filter['sort'] = isset($sorts[$sort]) ? $sort : 'created_desc';
+        $filter['orderby'] = $sorts[$filter['sort']]['orderby'];
+        $filter['order'] = $sorts[$filter['sort']]['order'];
+
 		return $filter;
 	}
+
+    public static function sort_options()
+    {
+        return array(
+            'created_desc' => array('label' => 'Criação mais recente', 'orderby' => 'date', 'order' => 'DESC', 'date_key' => 'date_created'),
+            'created_asc' => array('label' => 'Criação mais antiga', 'orderby' => 'date', 'order' => 'ASC', 'date_key' => 'date_created'),
+            'modified_desc' => array('label' => 'Atualização mais recente', 'orderby' => 'modified', 'order' => 'DESC', 'date_key' => 'date_modified'),
+            'modified_asc' => array('label' => 'Atualização mais antiga', 'orderby' => 'modified', 'order' => 'ASC', 'date_key' => 'date_modified'),
+        );
+    }
 
 	public static function index($filter = array())
 	{
@@ -105,6 +121,9 @@ class EnergyPlus_Orders extends EnergyPlus
 
 		$list = array();
 		$list['statuses'] = wc_get_order_statuses();
+        $list['sort_options'] = self::sort_options();
+        $list['sort'] = $filter['sort'];
+        $list['date_key'] = $list['sort_options'][$filter['sort']]['date_key'];
 
 		$total = 0;
 		foreach ($list['statuses'] as $list_status_k => $list_status_k) {
@@ -137,7 +156,7 @@ class EnergyPlus_Orders extends EnergyPlus
 		switch ($mode = (!empty($filter['mode']) ? absint($filter['mode']) : EnergyPlus::option('mode-energyplus-orders', 1))) {
 			case 1:
 			case 98:
-				$orders['orders'] = self::_group_by($orders['orders'], 'created_at');
+				$orders['orders'] = self::_group_by($orders['orders'], $list['date_key']);
 				echo EnergyPlus_View::run('orders/list-' . $mode, array('orders' => $orders['orders'], 'list' => $list, 'ajax' => EnergyPlus_Helpers::is_ajax()));
 				break;
 			case 2:
@@ -163,7 +182,7 @@ class EnergyPlus_Orders extends EnergyPlus
 	{
 		$return = array();
 		foreach ($array as $val) {
-			$time = EnergyPlus_Helpers::grouped_time($val['date_created']);
+			$time = EnergyPlus_Helpers::grouped_time($val[$key] ?? $val['date_created']);
 			$return[$time['key']]['title']    = $time['title'];
 			$return[$time['key']]['orders'][] = $val;
 		}
@@ -324,7 +343,18 @@ class EnergyPlus_Orders extends EnergyPlus
 			);
 
 			if (0 < count($results)) {
-				$results = array_reverse($results);
+				$results = array_filter(array_map(static function ($result) {
+                    return $result instanceof WC_Order ? $result : wc_get_order($result);
+                }, $results));
+                $sort_option = self::sort_options()[$filter['sort']];
+                usort($results, static function ($a, $b) use ($sort_option) {
+                    $getter = 'date_modified' === $sort_option['date_key'] ? 'get_date_modified' : 'get_date_created';
+                    $a_date = $a->$getter() ?: $a->get_date_created();
+                    $b_date = $b->$getter() ?: $b->get_date_created();
+                    $comparison = ($a_date ? $a_date->getTimestamp() : 0) <=> ($b_date ? $b_date->getTimestamp() : 0);
+                    $comparison = $comparison ?: ($a->get_id() <=> $b->get_id());
+                    return 'ASC' === $sort_option['order'] ? $comparison : -$comparison;
+                });
 				$results = array_slice($results, 0, 100);
 
 				foreach ($results as $order_id) {
@@ -361,9 +391,9 @@ class EnergyPlus_Orders extends EnergyPlus
 					$data['has_priority']   = isset($meta['_order_custom_priority']) && $meta['_order_custom_priority'] == "1";
 					$data['next_statuses']  = self::get_next_statuses($data['status'], $is_admin);
 
-					$orders[strtotime($data['date_created'])] = $data;
+					$orders[] = $data;
 				}
-				krsort($orders);
+
 			}
 
 			$count = count($results);

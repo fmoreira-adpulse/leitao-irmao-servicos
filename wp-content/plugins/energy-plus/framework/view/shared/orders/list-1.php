@@ -18,7 +18,7 @@ if (! defined('ABSPATH')) {
 
     <?php
     $active_filters = array();
-    foreach (array('status', 'product', 'priority', 'store', 's') as $key) {
+    foreach (array('status', 'product', 'priority', 'store', 's', 'sort') as $key) {
       $value = $_GET[$key] ?? null;
       if (is_scalar($value) && false !== $value && '' !== (string) $value) {
         $active_filters[$key] = sanitize_text_field($value);
@@ -87,8 +87,9 @@ if (! defined('ABSPATH')) {
       </div>
     </div>
 
+    <div class="__A__GP">
+    <div class="adpulse-order-toolbar">
     <?php if ($filter_labels) { ?>
-      <div class="__A__GP">
       <div class="adpulse-active-filters" role="region" aria-label="Filtros ativos">
         <span class="adpulse-active-filters-label">Filtros ativos:</span>
         <?php foreach ($filter_labels as $key => $label) { ?>
@@ -98,8 +99,25 @@ if (! defined('ABSPATH')) {
         <?php } ?>
         <a class="adpulse-clear-filters" href="<?php echo $filter_url(array('status' => null, 'product' => null, 'priority' => null, 'store' => null)); ?>">Limpar filtros</a>
       </div>
-      </div>
     <?php } ?>
+
+      <form class="adpulse-order-sort" method="get" action="<?php echo esc_url(admin_url('admin.php')); ?>">
+        <input type="hidden" name="page" value="energyplus">
+        <input type="hidden" name="segment" value="orders">
+        <?php foreach (array('status', 'product', 'priority', 'store', 's', 'filter_tab') as $key) {
+          $value = $_GET[$key] ?? null;
+          if (is_scalar($value) && false !== $value && '' !== (string) $value) { ?>
+            <input type="hidden" name="<?php echo esc_attr($key); ?>" value="<?php echo esc_attr($value); ?>">
+        <?php } } ?>
+        <label for="adpulse-order-sort">Ordenar por</label>
+        <select id="adpulse-order-sort" name="sort">
+          <?php foreach (($list['sort_options'] ?? EnergyPlus_Orders::sort_options()) as $value => $option) { ?>
+            <option value="<?php echo esc_attr($value); ?>" <?php selected($list['sort'] ?? 'created_desc', $value); ?>><?php echo esc_html($option['label']); ?></option>
+          <?php } ?>
+        </select>
+      </form>
+    </div>
+    </div>
 
     <?php do_action('energyplus_need'); ?>
 
@@ -174,8 +192,21 @@ if (! defined('ABSPATH')) {
                     </div>
                   <div class="col col-sm-2 __A__Col_3"  data-colname='<?php esc_html_e('Details', 'energyplus'); ?>'>
                     <span class="__A__Order_No  d-inline d-lg-none"><?php esc_html_e('Order No', 'energyplus'); ?>: <?php echo esc_attr($order['std']->get_order_number())?><br /><br /></span>
-                    <span><?php echo wc_format_datetime($order['date_created'], 'd M,');; ?></span>
-                    <span><?php echo wc_format_datetime($order['date_created'], 'H:i'); ?><br /></span>
+                    <?php
+                    $preview_dates = array(
+                      'Última actualização' => $order['date_modified'] ?? $order['date_created'],
+                      'Data de criação' => $order['date_created'],
+                    );
+                    foreach ($preview_dates as $date_label => $date_value) { ?>
+                      <div class="adpulse-preview-date <?php echo 'Última actualização' === $date_label ? 'adpulse-preview-date-updated' : 'adpulse-preview-date-created'; ?>">
+                        <p class="energyplus-orders--seller font-weight-bold"><?php echo esc_html($date_label); ?></p>
+                        <?php if ($date_value) { ?>
+                          <p class="energyplus-orders--seller"><?php echo esc_html(wc_format_datetime($date_value, 'd M Y, H:i')); ?></p>
+                        <?php } else { ?>
+                          <p class="energyplus-orders--seller">—</p>
+                        <?php } ?>
+                      </div>
+                    <?php } ?>
                     <?php echo esc_html($order['payment_method_title']) ?>
                   </div>
                   <div class="col col-sm-4 d-md-none d-lg-block __A__Order_Products __A__Col_3" data-colname='<?php esc_html_e('Products', 'energyplus'); ?>'>

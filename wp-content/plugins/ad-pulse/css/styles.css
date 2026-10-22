@@ -230,3 +230,67 @@ div.__A__Order_No {
     box-shadow: inset 0 -2px #ffd400;
 }
 .adpulse-filter-dot { color: #8a7000; font-size: 9px; margin-left: 4px; }
+
+.adpulse-order-sort {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 12px 0 16px;
+    font-size: 12px;
+}
+.adpulse-order-sort label {
+    margin: 0;
+    color: #777;
+    font-weight: 400;
+}
+.adpulse-order-sort select {
+    box-sizing: border-box;
+    width: auto;
+    max-width: 100%;
+    min-height: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 4px 30px 4px 10px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: normal;
+    color: #555;
+}
+
+.adpulse-order-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin: 16px 0;
+}
+.adpulse-order-toolbar .adpulse-active-filters {
+    flex: 1 1 320px;
+    min-width: 0;
+    margin: 0;
+}
+.adpulse-order-toolbar .adpulse-order-sort {
+    flex: 0 0 auto;
+    max-width: 100%;
+    margin: 0 0 0 auto;
+    justify-content: flex-end;
+}
+
+.adpulse-preview-date { display: flow-root; }
+.adpulse-preview-date + .adpulse-preview-date { margin-top: 0; }
+.adpulse-preview-date:first-of-type .energyplus-orders--seller:last-child {
+    margin-bottom: 1rem;
+}
+
+.adpulse-preview-date-updated {
+    border-left: 2px solid #ffd400;
+    padding-left: 10px;
+}
+.adpulse-preview-date-updated .energyplus-orders--seller { color: #222; }
+.adpulse-preview-date-created { padding-left: 12px; }
+.adpulse-preview-date-created .energyplus-orders--seller:not(.font-weight-bold) { color: #777; }

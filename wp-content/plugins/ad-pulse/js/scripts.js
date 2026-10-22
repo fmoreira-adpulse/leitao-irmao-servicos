@@ -1,6 +1,9 @@
 jQuery(document).ready(function($) {
 
     // #region Order List Page
+    $('#adpulse-order-sort').on('change', function () {
+        this.form.requestSubmit();
+    });
     let tabOpeners = $('.filter_tab_opener');
     if (tabOpeners.length > 0) {
         tabOpeners.on("click", function (e) {

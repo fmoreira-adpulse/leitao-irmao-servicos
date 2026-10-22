@@ -309,7 +309,8 @@ jQuery(document).ready(function() {
       post_status: searchParams.get('status'),
       product: searchParams.get('product'),
       priority: searchParams.get('priority'),
-      store: searchParams.get('store')
+      store: searchParams.get('store'),
+      sort: searchParams.get('sort')
     };
 
     window.searchMe(extra);
